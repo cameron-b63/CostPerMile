@@ -29,12 +29,56 @@ class Calculator extends React.Component{
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
+            carType: "Small Sedan",
+            depreciationValue: "",
+            fullcharge: "",
+            fullchargeCost: "",
+            zipcode: "",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         
     }
-    
+    /*
+     <option name="carType">Small Sedan</option>
+                                    <option name="carType">Medium Sedan</option>
+                                    <option name="carType">Large Sedan</option>
+                                    <option name="carType">Small SUV (FWD)</option>
+                                    <option name="carType">Medium SUV (4WD)</option>
+                                    <option name="carType">Minivan</option>
+                                    <option name="carType">Hybrid Vehicle</option>
+                                    <option name="carType">Electric Vehicle</option>
+    */
+    depreciate(cartype){
+        let depreciation
+        if(cartype === "Small Sedan"){
+            depreciation = 2240 * (this.statemiles/15000)
+        }
+        else if(cartype ==="Medium Sedan"){
+            depreciation = 3169 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Large Sedan"){
+            depreciation = 4061 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Small SUV (FWD)"){
+            depreciation = 3132 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Medium SUV (4WD)"){
+            depreciation = 3794 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Minivan"){
+            depreciation = 4036 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Hybrid Vehicle"){
+            depreciation = 3087 * (this.state.miles/15000)
+        }
+        else if(cartype ==="Electric Vehicle"){
+            depreciation = 5250 * (this.state.miles/15000)
+        }
+        this.setState({
+            depreciationValue: depreciation,
+        })
+    }
     handleChange(event) {
         const {name,value} = event.target
         this.setState({
@@ -48,21 +92,75 @@ class Calculator extends React.Component{
     
     handleSubmit(e) {
         e.preventDefault();
-        this.getData(this.state.statecode);
-        let final = ((parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) + 
-        parseInt(this.state.iPaid) + 
-        (((this.state.miles * 52)/ this.state.mpg) * this.state.gallon) + 
-        parseInt(this.state.mait) + 
-        (parseInt(this.state.tolls) * 12) + 
-        parseInt(this.state.subscriptions))
-        /(parseInt(this.state.miles) * 52);
+        this.depreciate(this.state.carType);
+        //this.getData(this.state.statecode);
+        //this.getZIP(this.state.zipcode);
+        let final;
+         
+        if(this.state.mpg.length()> 0){
+            final = (parseInt(this.state.depreciationValue) + 
+            parseInt(this.state.iPaid) + 
+            (((this.state.miles * 52)/ this.state.mpg) * this.state.gallon) + 
+            parseInt(this.state.mait) + 
+            (parseInt(this.state.tolls) * 12) + 
+            parseInt(this.state.subscriptions))
+            /(parseInt(this.state.miles) * 52);
+        }else{
+            final = (parseInt(this.state.depreciationValue) + 
+                parseInt(this.state.iPaid) + 
+                ((parseInt(this.state.miles)/parseInt(this.state.fullcharge)) * this.state.fullChargeCost) + 
+                parseInt(this.state.mait) + 
+                (parseInt(this.state.tolls) * 12) + 
+                parseInt(this.state.subscriptions))/
+                (parseInt(this.state.miles) * 52);
+
+        }
 
         this.setState(
             {costpermile: final
         })
     }
+    getZIP(zip){
+        const http = require("https");
+
+        const options = {
+            "method": "GET",
+            "hostname": "redline-redline-zipcode.p.rapidapi.com",
+            "port": null,
+            "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
+            "headers": {
+                "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
+                "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
+                "useQueryString": true
+            }
+        };
+        var self = this;
+        const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+                chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                
+                var bodyJSON = JSON.parse(body.toString());
+                console.log(bodyJSON);
+                self.setState({
+                    statecode: bodyJSON.state,
+                    city: bodyJSON.city,
+                })
+            });
+        });
+
+        req.end();
+    }
+
     getData(state){
-       /* var http = require("https");
+
+        
+        var http = require("https");
 
         var options = {
           "method": "GET",
@@ -99,7 +197,7 @@ class Calculator extends React.Component{
         
         req.end();
         
-*/
+
     }
     render(){
         
@@ -134,8 +232,10 @@ class Calculator extends React.Component{
                                     value = {this.state.miles}  
                                     />
                                     <Form.Text className="text-muted">
-                                        Enter the miles you usually driver per week
+                                        Enter the miles you usually drive per week
                                     </Form.Text>
+
+
                                 </Form.Group>
 
 
@@ -178,40 +278,6 @@ class Calculator extends React.Component{
                               
                                 </Form.Group>
 
-                                <Form.Group> 
-                                  
-                                        <Form.Label>
-                                            Original Price of car at beginning of year:
-                                        </Form.Label>
-                                                                 
-                                  
-                                    <Form.Control
-                                        placeholder = "price of car"
-                                        onChange={this.handleChange}                                    
-                                        id = "oPrice"
-                                        type = "number" 
-                                        name = "originalPrice"
-                                        value = {this.state.originalPrice}
-                                    />
-                               
-                                </Form.Group>
-
-
-                                <Form.Group> 
-                                
-                                        <Form.Label>
-                                            Final price of car at end of year:
-                                        </Form.Label>                
-                                    <Form.Control
-                                        placeholder = "final price of car"
-                                        onChange={this.handleChange}                                    
-                                        id = "fPrice"
-                                        type = "number" 
-                                        name = "finalPrice"
-                                        value = {this.state.finalPrice}
-                                    />
-                                  
-                                </Form.Group>
 
                                 <Form.Group> 
                                         <Form.Label>
@@ -231,7 +297,7 @@ class Calculator extends React.Component{
 
 
 
-                                <Form.Group> 
+                        {   /*     <Form.Group> 
                                   
                                         <Form.Label>
                                             What is your state code?
@@ -299,64 +365,7 @@ class Calculator extends React.Component{
                                     
                                 </Form.Group>
 
-                                <Form.Group> 
-                                    
-                                        <Form.Label>
-                                            What gas do you use?
-                                        </Form.Label>
-                                                                
-                                    
-                                    <Form.Control as= "select"
-                                     className = "mpg"
-                                        
-                                        onChange={this.handleChange}                                    
-                                        id = "typeOfGas"
-                                        type = "text" 
-                                        name = "typeOfGas"
-                                        value = {this.state.typeOfGas}
-                                    >
-                                         <option name="typeOfGas"> gasoline</option>
-                                        <option name="typeOfGas">midGrade</option>
-                                        <option name="typeOfGas"> premium</option>
-                                        <option name="typeOfGas"> diesel</option>
-                                    </Form.Control>
-                                   
-                                 </Form.Group>
-
-
-                              <Form.Group>
-                                        <Form.Label>
-                                            What is your MPG?
-                                        </Form.Label>
-                                  
-                                    <Form.Control
-                                        placeholder = "mpg"
-                                        onChange={this.handleChange}                                    
-                                        id = "mpg"
-                                        type = "number" 
-                                        name = "mpg"
-                                        value = {this.state.mpg}
-                                    />
-                            </Form.Group>
-
-                                <Form.Group>
-                                        <Form.Label>
-                                            How much do you pay for subscriptions?
-                                        </Form.Label>
-                                    <Form.Control
-                                        placeholder = "subscriptions"
-                                        onChange={this.handleChange}                                    
-                                        id = "subscriptions"
-                                        type = "number" 
-                                        name = "subscriptions"
-                                        value = {this.state.subscriptions}
-                                    />
-                                    
-                                    </Form.Group>
-
-                               
-
-                                <Form.Group> 
+                                  <Form.Group> 
                                     
                                         <Form.Label>
                                             City you live in?
@@ -373,11 +382,157 @@ class Calculator extends React.Component{
                                     />
                                     
                                 </Form.Group>
+   */ }
+
+                                <Form.Group> 
+                                    
+                                        <Form.Label>
+                                            What gas do you use?
+                                        </Form.Label>
+                                                                
+                                    
+                                    <Form.Control as= "select"
+                                        
+                                        onChange={this.handleChange}                                    
+                                        id = "typeOfGas"
+                                        type = "text" 
+                                        name = "typeOfGas"
+                                        value = {this.state.typeOfGas}
+                                    >
+                                         <option name="typeOfGas"> gasoline</option>
+                                        <option name="typeOfGas">midGrade</option>
+                                        <option name="typeOfGas"> premium</option>
+                                        <option name="typeOfGas"> diesel</option>
+                                    </Form.Control>
+                                    <Form.Text>
+                                        You do not have to answer this question if you are an electric car user
+                                    </Form.Text>
+                                 </Form.Group>
 
 
-                                <Button variant= "success">
-                                    calculate!
-                                </Button>
+                              <Form.Group>
+                                        <Form.Label>
+                                            What is your MPG(Miles Per Gallon)?
+                                        </Form.Label>
+                                    
+                                    <Form.Control
+                                        placeholder = "mpg"
+                                        onChange={this.handleChange}                                    
+                                        id = "mpg"
+                                        type = "number" 
+                                        name = "mpg"
+                                        value = {this.state.mpg}
+                                    />
+                                    <Form.Text>
+                                        You do not have to answer this question if you are an electric car user
+                                    </Form.Text>
+                            </Form.Group>
+
+
+                            <Form.Group>
+                                        <Form.Label>
+                                            If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                                        </Form.Label>
+                                    
+                                    <Form.Control
+                                        placeholder = "fullcharge"
+                                        onChange={this.handleChange}                                    
+                                        id = "fullcharge"
+                                        type = "number" 
+                                        name = "fullcharge"
+                                        value = {this.state.fullcharge}
+                                    />
+                                    <Form.Text>
+                                        You do not have to answer this question if you are a gas car user
+                                    </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                                        <Form.Label>
+                                            If you drive an electric vehicle, how much does it cost for a full charge?
+                                        </Form.Label>
+                                    
+                                    <Form.Control
+                                        placeholder = "fullchargeCost"
+                                        onChange={this.handleChange}                                    
+                                        id = "fullchargeCost"
+                                        type = "number" 
+                                        name = "fullchargeCost"
+                                        value = {this.state.fullchargeCost}
+                                    />
+                                    <Form.Text>
+                                        You do not have to answer this question if you are a gas car user
+                                    </Form.Text>
+                            </Form.Group>
+
+
+                            <Form.Group>
+                                        <Form.Label>
+                                            What is your zip code?
+                                        </Form.Label>
+                                    
+                                    <Form.Control
+                                        placeholder = "zip code"
+                                        onChange={this.handleChange}                                    
+                                        id = "zipcode"
+                                        type = "number" 
+                                        name = "zipcode"
+                                        value = {this.state.zipcode}
+                                    />
+                                   
+                            </Form.Group>
+
+                                <Form.Group>
+                                        <Form.Label>
+                                            How much do you pay for subscriptions?
+                                        </Form.Label>
+                                    <Form.Control
+                                        placeholder = "subscriptions"
+                                        onChange={this.handleChange}                                    
+                                        id = "subscriptions"
+                                        type = "number" 
+                                        name = "subscriptions"
+                                        value = {this.state.subscriptions}
+                                    />
+                                    
+                            
+                            </Form.Group>
+
+
+                            <Form.Group> 
+                                    
+                                    <Form.Label>
+                                        What type of car do you use
+                                    </Form.Label>
+                                                            
+                                
+                                <Form.Control as= "select"
+                                    onChange={this.handleChange}                                    
+                                    id = "carType"
+                                    type = "text" 
+                                    name = "carType"
+                                    value = {this.state.carType}
+                                >
+                                     <option name="carType">Small Sedan</option>
+                                    <option name="carType">Medium Sedan</option>
+                                    <option name="carType">Large Sedan</option>
+                                    <option name="carType">Small SUV (FWD)</option>
+                                    <option name="carType">Medium SUV (4WD)</option>
+                                    <option name="carType">Minivan</option>
+                                    <option name="carType">Hybrid Vehicle</option>
+                                    <option name="carType">Electric Vehicle</option>
+                                </Form.Control>
+                                <Form.Text>
+                                    This calculates your depreciation value
+                                </Form.Text>
+                             </Form.Group>
+
+                               
+
+                                
+
+
+                                <input type = "submit" />
                             </Form>
                         
                     <br/>
@@ -385,15 +540,7 @@ class Calculator extends React.Component{
                     <h2>
                         Cost per mile: $ { this.state.costpermile.toFixed(2) }
                     </h2>
-                    <h2>
-                        Current CPM: {parseInt(this.state.miles) !==0? ((parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) + 
-        parseInt(this.state.iPaid) + 
-        (((this.state.miles * 52)/ this.state.mpg) * this.state.gallon) + 
-        parseInt(this.state.mait) + 
-        (parseInt(this.state.tolls) * 12) + 
-        parseInt(this.state.subscriptions))
-        /(parseInt(this.state.miles) * 52): "Error due to division by 0"}
-                    </h2>
+                    
                 </Jumbotron>
             </Container>
         );
