@@ -85,19 +85,20 @@ class Calculator extends React.Component{
             [name]: value,
         });
         console.log(this.state);
-        
-        
-        
     }
     
     handleSubmit(e) {
         e.preventDefault();
         this.depreciate(this.state.carType);
-        //this.getData(this.state.statecode);
-        //this.getZIP(this.state.zipcode);
+        this.getZIP(this.state.zipcode);
+
+        //wait
+        
+        setTimeout(this.getData(this.state.statecode),2000);
+        
         let final;
          
-        if(this.state.mpg.length()> 0){
+        if(this.state.mpg.length> 0){
             final = (parseInt(this.state.depreciationValue) + 
             parseInt(this.state.iPaid) + 
             (((this.state.miles * 52)/ this.state.mpg) * this.state.gallon) + 
@@ -183,15 +184,16 @@ class Calculator extends React.Component{
           res.on("end", function () {
             var body = Buffer.concat(chunks);
             var bodyJSON = JSON.parse(body.toString());
-            
+            console.log(bodyJSON);
             console.log(self.state.typeOfGas);
             var city = bodyJSON.result.cities.filter((x) =>x.name.toLowerCase() === self.state.city.toLowerCase());
-            if(city.length > 0){
+            if(city.length>0){
                 console.log(city[0][self.state.typeOfGas]);
                 self.setState({
                     gallon: city[0][self.state.typeOfGas]
                 })
             }
+            
           });
         });
         
