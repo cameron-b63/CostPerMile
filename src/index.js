@@ -21,11 +21,10 @@ class Calculator extends React.Component{
             originalPrice:"",
             finalPrice:"",
             tolls: "",
-            statecode: "AL",
+            statecode: "",
             mpg:"",
             subscriptions: "",
             gallon: "",
-            api: "",
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
@@ -37,6 +36,7 @@ class Calculator extends React.Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         
     }
     /*
@@ -86,15 +86,18 @@ class Calculator extends React.Component{
         });
         console.log(this.state);
     }
-    
+    handleClick(e){
+        this.getZIP(this.state.zipcode);
+        console.log(this.state);
+    }
     handleSubmit(e) {
         e.preventDefault();
         this.depreciate(this.state.carType);
-        this.getZIP(this.state.zipcode);
+        //this.getZIP(this.state.zipcode);
 
         //wait
         
-        setTimeout(this.getData(this.state.statecode),2000);
+        this.getData(this.state.statecode);
         
         let final;
          
@@ -250,14 +253,16 @@ class Calculator extends React.Component{
                                                                   
                                    
                                         <Form.Control
-                                        placeholder = "$insurance this year"
+                                        placeholder = "insurance per year"
                                         onChange={this.handleChange}                                    
                                         id = "insurance"
                                         type = "number" 
                                         name = "iPaid"
                                         value = {this.state.iPaid}
                                         />
-                                  
+                                <Form.Text >
+                                    Enter how much insurace you pay each year
+                                </Form.Text>
                                 </Form.Group>
                                
                                 
@@ -269,15 +274,17 @@ class Calculator extends React.Component{
                                         </Form.Label>
                                                                   
                                     
-                                    <Form.Control
-                                        placeholder = "$maitenance this year"
-                                        onChange={this.handleChange}                                    
-                                        id = "maitenance"
-                                        type = "number" 
-                                        name = "mait"
-                                        value = {this.state.mait}
-                                    />
-                              
+                                        <Form.Control
+                                            placeholder = "maitenance a year"
+                                            onChange={this.handleChange}                                    
+                                            id = "maitenance"
+                                            type = "number" 
+                                            name = "mait"
+                                            value = {this.state.mait}
+                                        />
+                                        <Form.Text className="text-muted">
+                                            Enter how much you usually pay for maitenance in a year
+                                        </Form.Text>
                                 </Form.Group>
 
 
@@ -295,6 +302,9 @@ class Calculator extends React.Component{
                                         name = "tolls"
                                         value = {this.state.tolls}
                                     />
+                                    <Form.Text className="text-muted">
+                                        Enter how much you usually pay for tolls every month
+                                    </Form.Text>
                                 </Form.Group>
 
 
@@ -386,7 +396,7 @@ class Calculator extends React.Component{
                                 </Form.Group>
    */ }
 
-                                <Form.Group> 
+                                    <Form.Group> 
                                     
                                         <Form.Label>
                                             What gas do you use?
@@ -483,6 +493,22 @@ class Calculator extends React.Component{
                                     />
                                    
                             </Form.Group>
+
+                            <Button
+                            variant = "primary"
+                            onClick = {this.handleClick}
+                            >
+                                submit your zipcode!
+                            </Button>
+                            <br/>
+
+                            
+                            <label>
+                                {this.state.city.length>0? "Your city, state is " + this.state.city + ", " + this.state.statecode :"Enter the question above and submit your zip code to move on"}
+                            </label>
+                           
+                            <br/>
+                            <br/>
 
                                 <Form.Group>
                                         <Form.Label>
