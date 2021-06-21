@@ -37,6 +37,7 @@ class Calculator extends React.Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleCarMake = this.handleCarMake.bind(this);
         
     }
     /*
@@ -89,6 +90,16 @@ class Calculator extends React.Component{
     handleClick(e){
         this.getZIP(this.state.zipcode);
         console.log(this.state);
+    }
+    handleCarMake(){
+        fetch('https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/' + this.state.carMake + '?format=json')
+			.then(response => response.json())
+			.then(data => {
+        this.setState({api: data["Results"] })
+        
+        console.log(this.state.api);
+		})
+		
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -260,7 +271,7 @@ class Calculator extends React.Component{
                                         name = "iPaid"
                                         value = {this.state.iPaid}
                                         />
-                                <Form.Text >
+                                <Form.Text className = "text-muted">
                                     Enter how much insurace you pay each year
                                 </Form.Text>
                                 </Form.Group>
@@ -417,7 +428,7 @@ class Calculator extends React.Component{
                                         <option name="typeOfGas"> diesel</option>
                                     </Form.Control>
                                     <Form.Text>
-                                        You do not have to answer this question if you are an electric car user
+                                        Do not answer this question if you are an electric vehicle user
                                     </Form.Text>
                                  </Form.Group>
 
@@ -436,7 +447,7 @@ class Calculator extends React.Component{
                                         value = {this.state.mpg}
                                     />
                                     <Form.Text>
-                                        You do not have to answer this question if you are an electric car user
+                                        Do not answer this question if you are an electric vehicle user
                                     </Form.Text>
                             </Form.Group>
 
@@ -455,7 +466,7 @@ class Calculator extends React.Component{
                                         value = {this.state.fullcharge}
                                     />
                                     <Form.Text>
-                                        You do not have to answer this question if you are a gas car user
+                                        Do not answer this question if you are a gas vehicle user
                                     </Form.Text>
                             </Form.Group>
 
@@ -473,7 +484,7 @@ class Calculator extends React.Component{
                                         value = {this.state.fullchargeCost}
                                     />
                                     <Form.Text>
-                                        You do not have to answer this question if you are a gas car user
+                                        Do not answer this question if you are a gas vehicle user
                                     </Form.Text>
                             </Form.Group>
 
@@ -512,10 +523,10 @@ class Calculator extends React.Component{
 
                                 <Form.Group>
                                         <Form.Label>
-                                            How much do you pay for subscriptions?
+                                            How much do you pay for other related car costs per year?
                                         </Form.Label>
                                     <Form.Control
-                                        placeholder = "subscriptions"
+                                        placeholder = "Other car costs"
                                         onChange={this.handleChange}                                    
                                         id = "subscriptions"
                                         type = "number" 
@@ -555,12 +566,45 @@ class Calculator extends React.Component{
                                 </Form.Text>
                              </Form.Group>
 
+
+
+                           {/*  <Form.Group> 
+                                    
+                                    <Form.Label>
+                                        What is your car make
+                                    </Form.Label>
+                                                            
+                                
+                                <Form.Control
+                                    onChange={this.handleChange}                                    
+                                    id = "carMake"
+                                    placeholder = "carMake"
+                                    type = "text" 
+                                    name = "carMake"
+                                    value = {this.state.carMake}
+                                />
+                                     
+                                <Form.Text>
+                                    This calculates your depreciation value
+                                </Form.Text>
+                                <Button
+                                type = "primary"
+                                onClick = {this.handleCarMake}   
+                                >
+                                    Enter your car make
+                                </Button>
+                             </Form.Group>
+                            <br/>
+           
+                            <br/>
+                           */}
                                
 
                                 
 
 
-                                <input type = "submit" />
+                                <input type = "submit" 
+                                                                />
                             </Form>
                         
                     <br/>
