@@ -43,11 +43,7 @@ body{
     height: 175px;
 
 }
-.container {
-    border-radius: 10px;
-    background-color: #cacaca;
-    padding: 20px;
-}
+
 
 .col-35 {
     float: left;

@@ -33,6 +33,7 @@ class Calculator extends React.Component{
             fullcharge: "",
             fullchargeCost: "",
             zipcode: "",
+            isElectric: "",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -85,6 +86,7 @@ class Calculator extends React.Component{
         this.setState({
             [name]: value,
         });
+        
         console.log(this.state);
     }
     handleClick(e){
@@ -172,6 +174,94 @@ class Calculator extends React.Component{
         req.end();
     }
 
+    renderIsElectric() {
+        if(this.state.isElectric.length===0){
+            return <div></div>;
+        }
+        else if(this.state.isElectric === "gasoline"){
+        return  <div><Form.Group> 
+                    <Form.Label>
+                        What gas do you use?
+                    </Form.Label>
+                                    
+        
+                    <Form.Control as= "select"
+                    onChange={this.handleChange}                                    
+                    id = "typeOfGas"
+                    type = "text" 
+                    name = "typeOfGas"
+                    value = {this.state.typeOfGas}
+                    >
+                    <option name="typeOfGas"> gasoline</option>
+                    <option name="typeOfGas">midGrade</option>
+                    <option name="typeOfGas"> premium</option>
+                    <option name="typeOfGas"> diesel</option>
+                </Form.Control>
+                <Form.Text>
+                    Do not answer this question if you are an electric vehicle user
+                </Form.Text>
+            </Form.Group>
+    
+    
+            <Form.Group>
+                <Form.Label>
+                    What is your MPG(Miles Per Gallon)?
+                </Form.Label>
+        
+                <Form.Control
+                placeholder = "mpg"
+                onChange={this.handleChange}                                    
+                id = "mpg"
+                type = "number" 
+                name = "mpg"
+                value = {this.state.mpg}
+                />
+                <Form.Text>
+                    Do not answer this question if you are an electric vehicle user
+                 </Form.Text>
+            </Form.Group>
+            </div>
+        }else{
+            <div>
+                <Form.Group>
+                            <Form.Label>
+                                If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                            </Form.Label>
+                                        
+                        <Form.Control
+                        placeholder = "fullcharge"
+                        onChange={this.handleChange}                                    
+                        id = "fullcharge"
+                        type = "number" 
+                        name = "fullcharge"
+                        value = {this.state.fullcharge}
+                        />
+                        <Form.Text>
+                            Do not answer this question if you are a gas vehicle user
+                        </Form.Text>
+                </Form.Group>
+    
+                <Form.Group>
+                    <Form.Label>
+                        If you drive an electric vehicle, how much does it cost for a full charge?
+                    </Form.Label>
+                                        
+                    <Form.Control
+                    placeholder = "fullchargeCost"
+                    onChange={this.handleChange}                                    
+                    id = "fullchargeCost"
+                    type = "number" 
+                    name = "fullchargeCost"
+                    value = {this.state.fullchargeCost}
+                    />
+                   <Form.Text>
+                        Do not answer this question if you are a gas vehicle user
+                    </Form.Text>
+                </Form.Group>
+            </div>
+        }
+    }
+
     getData(state){
 
         
@@ -216,7 +306,7 @@ class Calculator extends React.Component{
 
     }
     render(){
-        
+       
         return(
             <Container>
                 
@@ -405,90 +495,44 @@ class Calculator extends React.Component{
                                     />
                                     
                                 </Form.Group>
-   */ }
+   */ } 
 
-                                    <Form.Group> 
+
+                                <Form.Group> 
                                     
-                                        <Form.Label>
-                                            What gas do you use?
-                                        </Form.Label>
-                                                                
+                                    <Form.Label>
+                                        Are you an electric vehicle user or gas car user?
+                                    </Form.Label>
+                                                            
+                                
+                                <Form.Control as= "select"
                                     
-                                    <Form.Control as= "select"
-                                        
-                                        onChange={this.handleChange}                                    
-                                        id = "typeOfGas"
-                                        type = "text" 
-                                        name = "typeOfGas"
-                                        value = {this.state.typeOfGas}
-                                    >
-                                         <option name="typeOfGas"> gasoline</option>
-                                        <option name="typeOfGas">midGrade</option>
-                                        <option name="typeOfGas"> premium</option>
-                                        <option name="typeOfGas"> diesel</option>
-                                    </Form.Control>
-                                    <Form.Text>
-                                        Do not answer this question if you are an electric vehicle user
-                                    </Form.Text>
-                                 </Form.Group>
-
-
-                              <Form.Group>
-                                        <Form.Label>
-                                            What is your MPG(Miles Per Gallon)?
-                                        </Form.Label>
+                                    onChange={this.handleChange}                                    
+                                    id = "isElectric"
+                                    type = "text" 
+                                    name = "isElectric"
+                                    value = {this.state.isElectric}
+                                >   
+                                    <option name = "isElectric"></option>
+                                    <option name="isElectric">gas</option>
+                                    <option name="isElectric">electric</option>
                                     
-                                    <Form.Control
-                                        placeholder = "mpg"
-                                        onChange={this.handleChange}                                    
-                                        id = "mpg"
-                                        type = "number" 
-                                        name = "mpg"
-                                        value = {this.state.mpg}
-                                    />
-                                    <Form.Text>
-                                        Do not answer this question if you are an electric vehicle user
-                                    </Form.Text>
-                            </Form.Group>
+                                </Form.Control>
+                                
 
 
-                            <Form.Group>
-                                        <Form.Label>
-                                            If you drive an electric vehicle, how far can you drive on a full charge in miles?
-                                        </Form.Label>
-                                    
-                                    <Form.Control
-                                        placeholder = "fullcharge"
-                                        onChange={this.handleChange}                                    
-                                        id = "fullcharge"
-                                        type = "number" 
-                                        name = "fullcharge"
-                                        value = {this.state.fullcharge}
-                                    />
-                                    <Form.Text>
-                                        Do not answer this question if you are a gas vehicle user
-                                    </Form.Text>
-                            </Form.Group>
+                                </Form.Group>
 
-                            <Form.Group>
-                                        <Form.Label>
-                                            If you drive an electric vehicle, how much does it cost for a full charge?
-                                        </Form.Label>
-                                    
-                                    <Form.Control
-                                        placeholder = "fullchargeCost"
-                                        onChange={this.handleChange}                                    
-                                        id = "fullchargeCost"
-                                        type = "number" 
-                                        name = "fullchargeCost"
-                                        value = {this.state.fullchargeCost}
-                                    />
-                                    <Form.Text>
-                                        Do not answer this question if you are a gas vehicle user
-                                    </Form.Text>
-                            </Form.Group>
+                    
+                                <Button
+                                onClick = {this.renderIsElectric}
+                                >
+                                    Submit if you are an electric user
+                                </Button>
 
-
+                            
+                             
+                            
                             <Form.Group>
                                         <Form.Label>
                                             What is your zip code?
