@@ -39,6 +39,7 @@ class Calculator extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleCarMake = this.handleCarMake.bind(this);
+       
         
     }
     /*
@@ -174,94 +175,7 @@ class Calculator extends React.Component{
         req.end();
     }
 
-    renderIsElectric() {
-        if(this.state.isElectric.length===0){
-            return <div></div>;
-        }
-        else if(this.state.isElectric === "gasoline"){
-        return  <div><Form.Group> 
-                    <Form.Label>
-                        What gas do you use?
-                    </Form.Label>
-                                    
-        
-                    <Form.Control as= "select"
-                    onChange={this.handleChange}                                    
-                    id = "typeOfGas"
-                    type = "text" 
-                    name = "typeOfGas"
-                    value = {this.state.typeOfGas}
-                    >
-                    <option name="typeOfGas"> gasoline</option>
-                    <option name="typeOfGas">midGrade</option>
-                    <option name="typeOfGas"> premium</option>
-                    <option name="typeOfGas"> diesel</option>
-                </Form.Control>
-                <Form.Text>
-                    Do not answer this question if you are an electric vehicle user
-                </Form.Text>
-            </Form.Group>
     
-    
-            <Form.Group>
-                <Form.Label>
-                    What is your MPG(Miles Per Gallon)?
-                </Form.Label>
-        
-                <Form.Control
-                placeholder = "mpg"
-                onChange={this.handleChange}                                    
-                id = "mpg"
-                type = "number" 
-                name = "mpg"
-                value = {this.state.mpg}
-                />
-                <Form.Text>
-                    Do not answer this question if you are an electric vehicle user
-                 </Form.Text>
-            </Form.Group>
-            </div>
-        }else{
-            <div>
-                <Form.Group>
-                            <Form.Label>
-                                If you drive an electric vehicle, how far can you drive on a full charge in miles?
-                            </Form.Label>
-                                        
-                        <Form.Control
-                        placeholder = "fullcharge"
-                        onChange={this.handleChange}                                    
-                        id = "fullcharge"
-                        type = "number" 
-                        name = "fullcharge"
-                        value = {this.state.fullcharge}
-                        />
-                        <Form.Text>
-                            Do not answer this question if you are a gas vehicle user
-                        </Form.Text>
-                </Form.Group>
-    
-                <Form.Group>
-                    <Form.Label>
-                        If you drive an electric vehicle, how much does it cost for a full charge?
-                    </Form.Label>
-                                        
-                    <Form.Control
-                    placeholder = "fullchargeCost"
-                    onChange={this.handleChange}                                    
-                    id = "fullchargeCost"
-                    type = "number" 
-                    name = "fullchargeCost"
-                    value = {this.state.fullchargeCost}
-                    />
-                   <Form.Text>
-                        Do not answer this question if you are a gas vehicle user
-                    </Form.Text>
-                </Form.Group>
-            </div>
-        }
-    }
-
     getData(state){
 
         
@@ -306,7 +220,92 @@ class Calculator extends React.Component{
 
     }
     render(){
-       
+       let renderThis;
+       if(this.state.isElectric.length===0){
+        renderThis =  (<div></div>);
+    }
+        else if(this.state.isElectric === "gas"){
+            renderThis =   (<div><Form.Group> 
+                <Form.Label>
+                    What gas do you use?
+                </Form.Label>
+                                
+    
+                <Form.Control as= "select"
+                onChange={this.handleChange}                                    
+                id = "typeOfGas"
+                type = "text" 
+                name = "typeOfGas"
+                value = {this.state.typeOfGas}
+                >
+                <option name="typeOfGas"> gasoline</option>
+                <option name="typeOfGas">midGrade</option>
+                <option name="typeOfGas"> premium</option>
+                <option name="typeOfGas"> diesel</option>
+            </Form.Control>
+            <Form.Text>
+                Do not answer this question if you are an electric vehicle user
+            </Form.Text>
+        </Form.Group>
+
+
+        <Form.Group>
+            <Form.Label>
+                What is your MPG(Miles Per Gallon)?
+            </Form.Label>
+    
+            <Form.Control
+            placeholder = "mpg"
+            onChange={this.handleChange}                                    
+            id = "mpg"
+            type = "number" 
+            name = "mpg"
+            value = {this.state.mpg}
+            />
+            <Form.Text>
+                Do not answer this question if you are an electric vehicle user
+             </Form.Text>
+        </Form.Group>
+        </div>);
+    }else{
+        renderThis = (<div>
+            <Form.Group>
+                        <Form.Label>
+                            If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                        </Form.Label>
+                                    
+                    <Form.Control
+                    placeholder = "fullcharge"
+                    onChange={this.handleChange}                                    
+                    id = "fullcharge"
+                    type = "number" 
+                    name = "fullcharge"
+                    value = {this.state.fullcharge}
+                    />
+                    <Form.Text>
+                        Do not answer this question if you are a gas vehicle user
+                    </Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Label>
+                    If you drive an electric vehicle, how much does it cost for a full charge?
+                </Form.Label>
+                                    
+                <Form.Control
+                placeholder = "fullchargeCost"
+                onChange={this.handleChange}                                    
+                id = "fullchargeCost"
+                type = "number" 
+                name = "fullchargeCost"
+                value = {this.state.fullchargeCost}
+                />
+               <Form.Text>
+                    Do not answer this question if you are a gas vehicle user
+                </Form.Text>
+            </Form.Group>
+        </div>);
+    }
         return(
             <Container>
                 
@@ -410,93 +409,7 @@ class Calculator extends React.Component{
 
 
 
-                        {   /*     <Form.Group> 
-                                  
-                                        <Form.Label>
-                                            What is your state code?
-                                        </Form.Label>
-                                    
-                                    <Form.Control as = "select"
-                                        
-                                        onChange={this.handleChange}                                    
-                                        id = "statecode"
-                                        type = "text" 
-                                        name = "statecode"
-                                        value = {this.state.statecode}
-                                    >
-                                        <option name = "statecode">AL</option>
-                                        <option name = "statecode">AK</option>
-                                        <option name = "statecode">AZ</option>
-                                        <option name = "statecode">AR</option>
-                                        <option name = "statecode">CA</option>
-                                        <option name = "statecode">CO</option>
-                                        <option name = "statecode">CT</option>
-                                        <option name = "statecode">DE</option>
-                                        <option name = "statecode">DC</option>
-                                        <option name = "statecode">FL</option>
-                                        <option name = "statecode">GA</option>
-                                        <option name = "statecode">HI</option>
-                                        <option name = "statecode">ID</option>
-                                        <option name = "statecode">IN</option>
-                                        <option name = "statecode">IA</option>
-                                        <option name = "statecode">KS</option>
-                                        <option name = "statecode">KY</option>
-                                        <option name = "statecode">LA</option>
-                                        <option name = "statecode">ME</option>
-                                        <option name = "statecode">MD</option>
-                                        <option name = "statecode">MA</option>
-                                        <option name = "statecode">MI</option>
-                                        <option name = "statecode">MN</option>
-                                        <option name = "statecode">MS</option>
-                                        <option name = "statecode">MO</option>
-                                        <option name = "statecode">MT</option>
-                                        <option name = "statecode">NE</option>
-                                        <option name = "statecode">NV</option>
-                                        <option name = "statecode">NH</option>
-                                        <option name = "statecode">NJ</option>
-                                        <option name = "statecode">NM</option>
-                                        <option name = "statecode">NY</option>
-                                        <option name = "statecode">NC</option>
-                                        <option name = "statecode">ND</option>
-                                        <option name = "statecode">OH</option>
-                                        <option name = "statecode">OK</option>
-                                        <option name = "statecode">OR</option>
-                                        <option name = "statecode">PA</option>
-                                        <option name = "statecode">RI</option>
-                                        <option name = "statecode">SC</option>
-                                        <option name = "statecode">SD</option>
-                                        <option name = "statecode">TN</option>
-                                        <option name = "statecode">TX</option>
-                                        <option name = "statecode">UT</option>
-                                        <option name = "statecode">VT</option>
-                                        <option name = "statecode">VA</option>
-                                        <option name = "statecode">WA</option>
-                                        <option name = "statecode">WV</option>
-                                        <option name = "statecode">WI</option>
-                                        <option name = "statecode">WY</option>
-                                    </Form.Control>
-                                    
-                                </Form.Group>
-
-                                  <Form.Group> 
-                                    
-                                        <Form.Label>
-                                            City you live in?
-                                        </Form.Label>
-                                                         
-                              
-                                    <Form.Control
-                                        placeholder = "city"
-                                        onChange={this.handleChange}                                    
-                                        id = "city"
-                                        type = "text" 
-                                        name = "city"
-                                        value = {this.state.city}
-                                    />
-                                    
-                                </Form.Group>
-   */ } 
-
+                    
 
                                 <Form.Group> 
                                     
@@ -519,17 +432,13 @@ class Calculator extends React.Component{
                                     
                                 </Form.Control>
                                 
-
+                                 <div>
+                                     {renderThis}
+                                 </div>
 
                                 </Form.Group>
 
                     
-                                <Button
-                                onClick = {this.renderIsElectric}
-                                >
-                                    Submit if you are an electric user
-                                </Button>
-
                             
                              
                             
