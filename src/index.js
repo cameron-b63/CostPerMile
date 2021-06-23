@@ -48,7 +48,7 @@ class Calculator extends React.Component {
 
     }
 
-    depreciate(cartype) {
+    depreciate() {
 
         let depreciation = (this.state.originalPrice - this.state.finalPrice) / (2021 - this.state.carYear);
         this.setState({ depreciationValue: depreciation });
@@ -80,9 +80,10 @@ class Calculator extends React.Component {
         this.depreciate();
         //this.getZIP(this.state.zipcode);
 
-        //wait
-
-        this.getData(this.state.statecode);
+      /*  if(this.state.mpg.length>0){
+            this.getData(this.state.statecode);
+        }
+        */
 
         let final;
 
@@ -141,6 +142,10 @@ class Calculator extends React.Component {
                     statecode: bodyJSON.state,
                     city: bodyJSON.city,
                 })
+
+
+                self.getData(self.state.statecode);
+
             });
         });
 
@@ -305,12 +310,7 @@ class Calculator extends React.Component {
                         value={this.state.zipcode}
                     />
                 </Form.Group>
-                <Button
-                    variant="primary"
-                    onClick={this.handleClick}
-                >
-                    submit your zipcode!
-                </Button>
+                
                 <br />
                 <label>
                     {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : "Enter the question above and submit your zip code to move on"}
