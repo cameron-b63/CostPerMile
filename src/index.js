@@ -15,7 +15,6 @@ class Calculator extends React.Component {
         this.state = {
             costpermile: 0,
             iPaid: "",
-            gPaid: "",
             miles: "",
             mait: "",
             api: [],
@@ -30,13 +29,15 @@ class Calculator extends React.Component {
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
-            carType: "Small Sedan",
+        
             depreciationValue: "",
             fullcharge: "",
             fullchargeCost: "",
             zipcode: "",
             carMake: "",
+            carModel: "",
             isElectric: "",
+            carYear: "",
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -46,45 +47,11 @@ class Calculator extends React.Component {
 
 
     }
-    /*
-     <option name="carType">Small Sedan</option>
-                                    <option name="carType">Medium Sedan</option>
-                                    <option name="carType">Large Sedan</option>
-                                    <option name="carType">Small SUV (FWD)</option>
-                                    <option name="carType">Medium SUV (4WD)</option>
-                                    <option name="carType">Minivan</option>
-                                    <option name="carType">Hybrid Vehicle</option>
-                                    <option name="carType">Electric Vehicle</option>
-    */
+    
     depreciate(cartype) {
-        let depreciation
-        if (cartype === "Small Sedan") {
-            depreciation = 2240 * (this.statemiles / 15000)
-        }
-        else if (cartype === "Medium Sedan") {
-            depreciation = 3169 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Large Sedan") {
-            depreciation = 4061 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Small SUV (FWD)") {
-            depreciation = 3132 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Medium SUV (4WD)") {
-            depreciation = 3794 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Minivan") {
-            depreciation = 4036 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Hybrid Vehicle") {
-            depreciation = 3087 * (this.state.miles / 15000)
-        }
-        else if (cartype === "Electric Vehicle") {
-            depreciation = 5250 * (this.state.miles / 15000)
-        }
-        this.setState({
-            depreciationValue: depreciation,
-        })
+        
+        let depreciation = (this.state.originalPrice - this.state.finalPrice)/ (2021 - this.state.carYear);
+        this.setState({depreciationValue: depreciation});
     }
     handleChange(event) {
         const { name, value } = event.target
@@ -110,7 +77,7 @@ class Calculator extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        this.depreciate(this.state.carType);
+        this.depreciate();
         //this.getZIP(this.state.zipcode);
 
         //wait
@@ -237,6 +204,8 @@ class Calculator extends React.Component {
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarModel;
+        
+
         if (this.state.carMake.length > 0) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
                 .then(response => response.json())
@@ -246,6 +215,11 @@ class Calculator extends React.Component {
                 })
 
         }
+        var years = [];
+        for (var i = 0; i < 100; i++) {
+            years.push(2021 - i);
+        }
+        const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
         if (this.state.carMake.length === 0) {
             renderCarModel = (<div></div>);
@@ -257,12 +231,20 @@ class Calculator extends React.Component {
                         <Form.Label>
                             what is your model?
                         </Form.Label>
-                        <Form.Control as="select">
+                        <Form.Control
+                            as="select"
+
+                            onChange={this.handleChange}
+                            id="carModel"
+                            name="carModel"
+                            value={this.state.carModel}
+                        >
                             {allOptions2}
                         </Form.Control>
                     </Form.Group>
                 </div>
             );
+
         }
 
         let renderThis;
@@ -545,35 +527,46 @@ class Calculator extends React.Component {
                             <div>
                                 {renderCarModel}
                             </div>
+
                         </Form.Group>
-
-
                         <Form.Group>
-
                             <Form.Label>
-                                What type of car do you use
+                                What is your car year?
                             </Form.Label>
-
-
-                            <Form.Control as="select"
-                                onChange={this.handleChange}
-                                id="carType"
-                                type="text"
-                                name="carType"
-                                value={this.state.carType}
-                            >
-                                <option name="carType">Small Sedan</option>
-                                <option name="carType">Medium Sedan</option>
-                                <option name="carType">Large Sedan</option>
-                                <option name="carType">Small SUV (FWD)</option>
-                                <option name="carType">Medium SUV (4WD)</option>
-                                <option name="carType">Minivan</option>
-                                <option name="carType">Hybrid Vehicle</option>
-                                <option name="carType">Electric Vehicle</option>
+                            <Form.Control
+                                onChange = {this.handleChange}
+                                id = "carYear"
+                                name = "carYear"
+                                value = {this.state.carYear}
+                                as="select">
+                                {carYears}
                             </Form.Control>
-                            <Form.Text>
-                                This calculates your depreciation value
-                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                How much was this car when it was brand new?
+                            </Form.Label>
+                            <Form.Control
+                            placeholder="original price"
+                            onChange={this.handleChange}
+                            id="originalPrice"
+                            type="number"
+                            name="originalPrice"
+                            value={this.state.originalPrice}
+                            />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                How much is your car worth now?
+                            </Form.Label>
+                            <Form.Control
+                            placeholder="current price"
+                            onChange={this.handleChange}
+                            id="finalPrice"
+                            type="number"
+                            name="finalPrice"
+                            value={this.state.finalPrice}
+                            />
                         </Form.Group>
 
 
