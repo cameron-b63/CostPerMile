@@ -29,7 +29,7 @@ class Calculator extends React.Component {
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
-        
+
             depreciationValue: "",
             fullcharge: "",
             fullchargeCost: "",
@@ -47,11 +47,11 @@ class Calculator extends React.Component {
 
 
     }
-    
+
     depreciate(cartype) {
-        
-        let depreciation = (this.state.originalPrice - this.state.finalPrice)/ (2021 - this.state.carYear);
-        this.setState({depreciationValue: depreciation});
+
+        let depreciation = (this.state.originalPrice - this.state.finalPrice) / (2021 - this.state.carYear);
+        this.setState({ depreciationValue: depreciation });
     }
     handleChange(event) {
         const { name, value } = event.target
@@ -149,8 +149,6 @@ class Calculator extends React.Component {
 
 
     getData(state) {
-
-
         var http = require("https");
 
         var options = {
@@ -204,7 +202,7 @@ class Calculator extends React.Component {
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarModel;
-        
+
 
         if (this.state.carMake.length > 0) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
@@ -534,10 +532,10 @@ class Calculator extends React.Component {
                                 What is your car year?
                             </Form.Label>
                             <Form.Control
-                                onChange = {this.handleChange}
-                                id = "carYear"
-                                name = "carYear"
-                                value = {this.state.carYear}
+                                onChange={this.handleChange}
+                                id="carYear"
+                                name="carYear"
+                                value={this.state.carYear}
                                 as="select">
                                 {carYears}
                             </Form.Control>
@@ -547,12 +545,12 @@ class Calculator extends React.Component {
                                 How much was this car when it was brand new?
                             </Form.Label>
                             <Form.Control
-                            placeholder="original price"
-                            onChange={this.handleChange}
-                            id="originalPrice"
-                            type="number"
-                            name="originalPrice"
-                            value={this.state.originalPrice}
+                                placeholder="original price"
+                                onChange={this.handleChange}
+                                id="originalPrice"
+                                type="number"
+                                name="originalPrice"
+                                value={this.state.originalPrice}
                             />
                         </Form.Group>
                         <Form.Group>
@@ -560,12 +558,12 @@ class Calculator extends React.Component {
                                 How much is your car worth now?
                             </Form.Label>
                             <Form.Control
-                            placeholder="current price"
-                            onChange={this.handleChange}
-                            id="finalPrice"
-                            type="number"
-                            name="finalPrice"
-                            value={this.state.finalPrice}
+                                placeholder="current price"
+                                onChange={this.handleChange}
+                                id="finalPrice"
+                                type="number"
+                                name="finalPrice"
+                                value={this.state.finalPrice}
                             />
                         </Form.Group>
 
