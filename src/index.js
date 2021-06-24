@@ -25,7 +25,7 @@ class Calculator extends React.Component {
             statecode: "",
             mpg: "",
             subscriptions: "",
-            gallon: "2.778",
+            gallon: "",
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
@@ -50,7 +50,7 @@ class Calculator extends React.Component {
 
     depreciate() {
 
-        let depreciation = (this.state.originalPrice - this.state.finalPrice) / (2021 - this.state.carYear);
+        let depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
         this.setState({ depreciationValue: depreciation });
     }
     handleChange(event) {
@@ -98,7 +98,7 @@ class Calculator extends React.Component {
         } else {
             final = (parseInt(this.state.depreciationValue) +
                 parseInt(this.state.iPaid) +
-                ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * this.state.fullChargeCost) +
+                ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                 parseInt(this.state.mait) +
                 (parseInt(this.state.tolls) * 12) +
                 parseInt(this.state.subscriptions)) /
@@ -112,87 +112,90 @@ class Calculator extends React.Component {
             })
     }
     getZIP(zip) {
-        const http = require("https");
+        if(zip.length> 0){
+            const http = require("https");
 
-        const options = {
-            "method": "GET",
-            "hostname": "redline-redline-zipcode.p.rapidapi.com",
-            "port": null,
-            "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
-            "headers": {
-                "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
-                "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
-                "useQueryString": true
-            }
-        };
-        var self = this;
-        const req = http.request(options, function (res) {
-            const chunks = [];
+            const options = {
+                "method": "GET",
+                "hostname": "redline-redline-zipcode.p.rapidapi.com",
+                "port": null,
+                "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
+                "headers": {
+                    "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
+                    "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
+                    "useQueryString": true
+                }
+            };
+            var self = this;
+            const req = http.request(options, function (res) {
+                const chunks = [];
 
-            res.on("data", function (chunk) {
-                chunks.push(chunk);
+                res.on("data", function (chunk) {
+                    chunks.push(chunk);
+                });
+
+                res.on("end", function () {
+                    const body = Buffer.concat(chunks);
+
+                    var bodyJSON = JSON.parse(body.toString());
+                    console.log(bodyJSON);
+                    self.setState({
+                        statecode: bodyJSON.state,
+                        city: bodyJSON.city,
+                    })
+
+
+                    self.getData(self.state.statecode);
+
+                });
             });
 
-            res.on("end", function () {
-                const body = Buffer.concat(chunks);
-
-                var bodyJSON = JSON.parse(body.toString());
-                console.log(bodyJSON);
-                self.setState({
-                    statecode: bodyJSON.state,
-                    city: bodyJSON.city,
-                })
-
-
-                self.getData(self.state.statecode);
-
-            });
-        });
-
-        req.end();
+            req.end();
+        }
     }
 
 
     getData(state) {
-        var http = require("https");
+        if(state.length >0){
+            var http = require("https");
 
-        var options = {
-            "method": "GET",
-            "hostname": "api.collectapi.com",
-            "port": null,
-            "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
-            "headers": {
-                "content-type": "application/json",
-                "authorization": "apikey 6jwMhjlXWz2rcXdhdpLjz6:4X6MQAYjbRiFWwNAxcc5k1"
-            }
-        };
-        var self = this;
-        var req = http.request(options, function (res) {
-            var chunks = [];
-
-            res.on("data", function (chunk) {
-                chunks.push(chunk);
-            });
-
-            res.on("end", function () {
-                var body = Buffer.concat(chunks);
-                var bodyJSON = JSON.parse(body.toString());
-                console.log(bodyJSON);
-                console.log(self.state.typeOfGas);
-                var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
-                if (city.length > 0) {
-                    console.log(city[0][self.state.typeOfGas]);
-                    self.setState({
-                        gallon: city[0][self.state.typeOfGas]
-                    })
+            var options = {
+                "method": "GET",
+                "hostname": "api.collectapi.com",
+                "port": null,
+                "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
+                "headers": {
+                    "content-type": "application/json",
+                    "authorization": "apikey 6jwMhjlXWz2rcXdhdpLjz6:4X6MQAYjbRiFWwNAxcc5k1"
                 }
+            };
+            var self = this;
+            var req = http.request(options, function (res) {
+                var chunks = [];
 
+                res.on("data", function (chunk) {
+                    chunks.push(chunk);
+                });
+
+                res.on("end", function () {
+                    var body = Buffer.concat(chunks);
+                    var bodyJSON = JSON.parse(body.toString());
+                    console.log(bodyJSON);
+                    console.log(self.state.typeOfGas);
+                    var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
+                    if (city.length > 0) {
+                        console.log(city[0][self.state.typeOfGas]);
+                        self.setState({
+                            gallon: city[0][self.state.typeOfGas]
+                        })
+                    }
+
+                });
             });
-        });
 
-        req.end();
+            req.end();
 
-
+        }
     }
     render() {
         let allOptions;
@@ -578,7 +581,9 @@ class Calculator extends React.Component {
                         Cost per mile: $ {this.state.costpermile.toFixed(2)}
                     </h2>
                     <p>
+                        
                         The average cost per mile is about $0.79 around the United States. The easiest way to improve your cost per mile is to drive more . The type of car that has the lowest average cost per mile is the small Sedan, and the type of car with the highest cost per mile is the pickup truck. The electric car has a good cost per mile; however, its depreciation costs exceed all other car types.
+                        The cost per mile of the average electric vehicle is $0.5546
                     </p>
                     {this.state.costpermile >= 0.79 ? <p>Your data shows that your cost per mile is greater than or equal to the average cost per mile in the United States.</p> : <p>Your data shows that your cost per mile is below the average cost per mile. You are saving a lot of money as these miles add up over time!</p>}
 
