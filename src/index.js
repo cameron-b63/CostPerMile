@@ -80,10 +80,10 @@ class Calculator extends React.Component {
         this.depreciate();
         this.getZIP(this.state.zipcode);
 
-        if(this.state.mpg.length>0){
+        if (this.state.mpg.length > 0) {
             this.getData(this.state.statecode);
         }
-        
+
 
         let final;
 
@@ -112,7 +112,7 @@ class Calculator extends React.Component {
             })
     }
     getZIP(zip) {
-        if(zip.length> 0){
+        if (zip.length > 0) {
             const http = require("https");
 
             const options = {
@@ -156,7 +156,7 @@ class Calculator extends React.Component {
 
 
     getData(state) {
-        if(state.length >0){
+        if (state.length > 0) {
             var http = require("https");
 
             var options = {
@@ -312,11 +312,14 @@ class Calculator extends React.Component {
                         name="zipcode"
                         value={this.state.zipcode}
                     />
+                    <Form.Text >
+                        This question gets the gas prices in your area!
+                    </Form.Text>
                 </Form.Group>
                 
-                <br />
+                
                 <label>
-                    {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : "Enter the question above and submit your zip code to move on"}
+                    {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : ""}
                 </label>
             </div>);
         } else {
@@ -569,19 +572,16 @@ class Calculator extends React.Component {
                                 value={this.state.finalPrice}
                             />
                         </Form.Group>
-
-
                         <input type="submit"
                         />
                     </Form>
-
                     <br />
 
                     <h2>
                         Cost per mile: $ {this.state.costpermile.toFixed(2)}
                     </h2>
                     <p>
-                        
+
                         The average cost per mile is about $0.79 around the United States. The easiest way to improve your cost per mile is to drive more . The type of car that has the lowest average cost per mile is the small Sedan, and the type of car with the highest cost per mile is the pickup truck. The electric car has a good cost per mile; however, its depreciation costs exceed all other car types.
                         The cost per mile of the average electric vehicle is $0.5546
                     </p>
