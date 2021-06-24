@@ -25,7 +25,7 @@ class Calculator extends React.Component {
             statecode: "",
             mpg: "",
             subscriptions: "",
-            gallon: "",
+            gallon: "2.778",
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
@@ -78,12 +78,12 @@ class Calculator extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.depreciate();
-        //this.getZIP(this.state.zipcode);
+        this.getZIP(this.state.zipcode);
 
-      /*  if(this.state.mpg.length>0){
+        if(this.state.mpg.length>0){
             this.getData(this.state.statecode);
         }
-        */
+        
 
         let final;
 
