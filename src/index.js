@@ -29,7 +29,8 @@ class Calculator extends React.Component {
             typeOfGas: "gasoline",
             priceOfGas: "",
             city: "",
-
+            VIN: "",
+            VINAPI: "",
             depreciationValue: "",
             fullcharge: "",
             fullchargeCost: "",
@@ -38,6 +39,7 @@ class Calculator extends React.Component {
             carModel: "",
             isElectric: "",
             carYear: "",
+            carBasePrice: "",
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -62,8 +64,8 @@ class Calculator extends React.Component {
         console.log(this.state);
     }
     handleClick(e) {
-        this.getZIP(this.state.zipcode);
-        console.log(this.state);
+        this.getVIN(this.state.VIN);
+
     }
     handleCarMake() {
         fetch('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json')
@@ -111,6 +113,60 @@ class Calculator extends React.Component {
                 costpermile: final
             })
     }
+    getVIN(vin) {
+        var make;
+        var model;
+        var modelYear;
+        var basePrice;
+        var fuelType;
+        if (vin.length > 0) {
+            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/' + this.state.VIN + '2FMDK3KC6ABB57984?format=json&modelyear=2011')
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({ VINAPI: data["Results"] });
+                })
+            if (this.state.VINAPI.length > 0) {
+                make = this.state.VINAPI.filter((x) => x.Variable === "Make")[0].Value;
+                model = this.state.VINAPI.filter((x) => x.Variable === "Model")[0].Value;
+                modelYear = this.state.VINAPI.filter((x) => x.Variable === "Model Year")[0].Value;
+                basePrice = this.state.VINAPI.filter((x) => x.Variable === "Base Price ($)")[0].Value;
+                fuelType = this.state.VINAPI.filter((x) => x.Variable === "Fuel Type - Primary")[0].Value;
+                if(make === null || make === "Not Applicable"){
+                    console.log("make is null");
+                }
+                if(model === null || make === "Not Applicable"){
+                    console.log("model is null");
+                }
+                if(modelYear === null || make ==="Not Applicable"){
+                    console.log("modelYear is null");
+                }
+                if(basePrice === null || make === "Not Applicable"){
+                    console.log("basePrice is null");
+                }
+                if(fuelType === null || make === "Not Applicable"){
+                    console.log("fuelType is null");
+                }
+                if(fuelType !== null){
+                    if(fuelType.indexOf("as")>0){
+                        fuelType ="gas"
+                    }else{
+                        fuelType = "electric"
+                    }
+                }else{
+                    fuelType = ""
+                }
+                this.setState({
+                    carMake: make,
+                    carModel: model,
+                    carYear: modelYear,
+                    carBasePrice: basePrice,
+                    isElectric: fuelType
+                })
+                console.log(this.state);
+            }
+        }
+    }
+
     getZIP(zip) {
         if (zip.length > 0) {
             const http = require("https");
@@ -204,23 +260,24 @@ class Calculator extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ api: data["Results"] });
-
+    
                 })
         }
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarModel;
-
-
-        if (this.state.carMake.length > 0) {
+    
+        
+        if (this.state.carMake.length>0 ) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ models: data["Results"] });
-
+    
                 })
-
+    
         }
+        
         var years = [];
         for (var i = 0; i < 100; i++) {
             years.push(2021 - i);
@@ -239,7 +296,7 @@ class Calculator extends React.Component {
                         </Form.Label>
                         <Form.Control
                             as="select"
-
+    
                             onChange={this.handleChange}
                             id="carModel"
                             name="carModel"
@@ -250,15 +307,15 @@ class Calculator extends React.Component {
                     </Form.Group>
                 </div>
             );
-
+    
         }
-
+    
         let renderThis;
-
-        if (this.state.isElectric.length === 0) {
+    
+        if (this.state.isElectric === null || this.state.isElectric.length === 0) {
             renderThis = (<div></div>);
         }
-        else if (this.state.isElectric === "gas") {
+        else if (this.state.isElectric.indexOf("as") >0) {
             renderThis = (<div><Form.Group>
                 <Form.Label>
                     What gas do you use?
@@ -279,13 +336,13 @@ class Calculator extends React.Component {
                     Do not answer this question if you are an electric vehicle user
                 </Form.Text>
             </Form.Group>
-
-
+    
+    
                 <Form.Group>
                     <Form.Label>
                         What is your MPG(Miles Per Gallon)?
                     </Form.Label>
-
+    
                     <Form.Control
                         placeholder="mpg"
                         onChange={this.handleChange}
@@ -298,12 +355,12 @@ class Calculator extends React.Component {
                         Do not answer this question if you are an electric vehicle user
                     </Form.Text>
                 </Form.Group>
-
+    
                 <Form.Group>
                     <Form.Label>
                         What is your zip code?
                     </Form.Label>
-
+    
                     <Form.Control
                         placeholder="zip code"
                         onChange={this.handleChange}
@@ -316,8 +373,8 @@ class Calculator extends React.Component {
                         This question gets the gas prices in your area!
                     </Form.Text>
                 </Form.Group>
-                
-                
+    
+    
                 <label>
                     {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : ""}
                 </label>
@@ -328,7 +385,7 @@ class Calculator extends React.Component {
                     <Form.Label>
                         If you drive an electric vehicle, how far can you drive on a full charge in miles?
                     </Form.Label>
-
+    
                     <Form.Control
                         placeholder="fullcharge"
                         onChange={this.handleChange}
@@ -345,7 +402,7 @@ class Calculator extends React.Component {
                     <Form.Label>
                         If you drive an electric vehicle, how much does it cost for a full charge?
                     </Form.Label>
-
+    
                     <Form.Control
                         placeholder="fullchargeCost"
                         onChange={this.handleChange}
@@ -360,6 +417,7 @@ class Calculator extends React.Component {
                 </Form.Group>
             </div>);
         }
+        
         return (
             <Container>
 
@@ -461,9 +519,43 @@ class Calculator extends React.Component {
                             </Form.Text>
                         </Form.Group>
 
+                        <Form.Group>
+                            <Form.Label>
+                                How much do you pay for other related car costs per year?
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="Other car costs"
+                                onChange={this.handleChange}
+                                id="subscriptions"
+                                type="number"
+                                name="subscriptions"
+                                value={this.state.subscriptions}
+                            />
 
 
+                        </Form.Group>
 
+                        <Form.Group>
+                            <Form.Label>
+                                Enter your VIN here
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="VIN"
+                                onChange={this.handleChange}
+                                id="VIN"
+                                type="text"
+                                name="VIN"
+                                value={this.state.VIN}
+                            />
+                            <Button
+                            onClick = {this.handleClick}
+                            >
+                                Submit your VIN(Vehicle Identification Number)
+                            </Button>
+                            <Form.Text>
+                                We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button twice. Some data about your car may still be missing so answer the unaswered questions.
+                            </Form.Text>
+                        </Form.Group>
 
                         <Form.Group>
 
@@ -487,7 +579,8 @@ class Calculator extends React.Component {
                             </Form.Control>
 
                             <div>
-                                {renderThis}
+                                  {renderThis} 
+                                
                             </div>
 
                         </Form.Group>
@@ -496,21 +589,7 @@ class Calculator extends React.Component {
                         <br />
                         <br />
 
-                        <Form.Group>
-                            <Form.Label>
-                                How much do you pay for other related car costs per year?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Other car costs"
-                                onChange={this.handleChange}
-                                id="subscriptions"
-                                type="number"
-                                name="subscriptions"
-                                value={this.state.subscriptions}
-                            />
-
-
-                        </Form.Group>
+                       
                         <Form.Group>
                             <Form.Label>
                                 What is your car make
@@ -524,12 +603,13 @@ class Calculator extends React.Component {
                                 value={this.state.carMake}
                             >
                                 <option></option>
-                                {allOptions}
-
+                                    {allOptions}
+                                
                             </Form.Control>
 
                             <div>
-                                {renderCarModel}
+                                 {renderCarModel}
+                                
                             </div>
 
                         </Form.Group>
