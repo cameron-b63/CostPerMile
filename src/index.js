@@ -537,7 +537,7 @@ class Calculator extends React.Component {
 
                         <Form.Group>
                             <Form.Label>
-                                Enter your VIN here
+                                Enter your VIN(Vehicle Identificatino Number) here
                             </Form.Label>
                             <Form.Control
                                 placeholder="VIN"
@@ -550,7 +550,7 @@ class Calculator extends React.Component {
                             <Button
                             onClick = {this.handleClick}
                             >
-                                Submit your VIN(Vehicle Identification Number)
+                                Submit your VIN to get data from the NHSTA
                             </Button>
                             <Form.Text>
                                 We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button twice. Some data about your car may still be missing so answer the unaswered questions.
