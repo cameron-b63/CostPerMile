@@ -8,12 +8,12 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
-
+import { Table } from 'react-bootstrap';
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 0,
+            costpermile: 2,
             iPaid: "",
             miles: "",
             mait: "",
@@ -370,7 +370,7 @@ class Calculator extends React.Component {
         else if (this.state.isElectric.indexOf("as") > 0) {
             renderThis = (<div><Form.Group>
                 <Form.Label>
-                    What gas do you use?
+                    What fuel type do you use?
                 </Form.Label>
                 <Form.Control as="select"
                     onChange={this.handleChange}
@@ -469,6 +469,8 @@ class Calculator extends React.Component {
                 </Form.Group>
             </div>);
         }
+
+        
 
         return (
             <Container>
@@ -708,9 +710,49 @@ class Calculator extends React.Component {
                     </Form>
                     <br />
 
-                    <h2>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>You</td>
+                                <td>{this.state.costpermile.toFixed(2)}</td>
+                                <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>Average US Driver who drives 10k miles</td>
+                                <td>{0.79}</td>
+                                <td>{this.state.costpermile.toFixed(2) - 0.79>0? "+" + (this.state.costpermile.toFixed(2) - 0.79): this.state.costpermile.toFixed(2) - 0.79}</td>
+                            </tr>
+                            <tr>
+                                <td>Average US Driver who drives 15k miles</td>
+                                <td>{0.61}</td>
+                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.61}</td>
+                            </tr>
+                            <tr>
+                                <td>Average US Driver who drives 20k miles</td>
+                                <td>{0.53}</td>
+                                <td>{this.state.costpermile.toFixed(2) - 0.53>0? "+" + (this.state.costpermile.toFixed(2) - 0.53): this.state.costpermile.toFixed(2) - 0.53}</td>
+                            </tr>
+                            <tr>
+                                <td>Average US Driver who drives a small sedan (10k miles)</td>
+                                <td>{0.61}</td>
+                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.53}</td>
+                            </tr>
+                            <tr>
+                                <td>Average US Driver who drives a small sedan (10k miles)</td>
+                                <td>{0.61}</td>
+                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.53}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                         Cost per mile: $ {this.state.costpermile.toFixed(2)}
-                    </h2>
+                    
                     <p>
 
                         The average cost per mile is about $0.79 around the United States. The easiest way to improve your cost per mile is to drive more . The type of car that has the lowest average cost per mile is the small Sedan, and the type of car with the highest cost per mile is the pickup truck. The electric car has a good cost per mile; however, its depreciation costs exceed all other car types.
