@@ -40,6 +40,7 @@ class Calculator extends React.Component {
             isElectric: "",
             carYear: "",
             carBasePrice: "",
+            seeOtherCPM: "",
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -305,6 +306,15 @@ class Calculator extends React.Component {
 
         }
     }
+    renderListElement(stringDisplay, CPM) {
+        return (
+            <tr>
+                <td>{stringDisplay}</td>
+                <td>{CPM}</td>
+                <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
+            </tr>
+        );
+    }
     render() {
         let allOptions;
         if (this.state.api.length < 5) {
@@ -336,6 +346,8 @@ class Calculator extends React.Component {
         }
         const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
+
+        //CONDITIONAL RENDERING FOR CAR MODEL BASED ON MAKE
         if (this.state.carMake.length === 0) {
             renderCarModel = (<div></div>);
         }
@@ -363,7 +375,7 @@ class Calculator extends React.Component {
         }
 
         let renderThis;
-
+        // CONDITIONAL RENDERING BASED ON USER CHOICE IF ELECTRIC OR NOT
         if (this.state.isElectric === null || this.state.isElectric.length === 0) {
             renderThis = (<div></div>);
         }
@@ -470,8 +482,137 @@ class Calculator extends React.Component {
             </div>);
         }
 
-        
+        let otherCPM;
+        //CONDITIONAL RENDERING FOR DATA SHOWN AT THE BOTTOM
+        if (this.state.seeOtherCPM.indexOf("10k") > 0) {
+            otherCPM = (
 
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>You</td>
+                            <td>{this.state.costpermile.toFixed(2)}</td>
+                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                        </tr>
+
+                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
+                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                        {this.renderListElement("Average US Driver who drives a Small Sedan (10k miles)", 0.61)}
+                        {this.renderListElement("Average US Driver who drives a Medium Sedan (10k miles)", 0.75)}
+                        {this.renderListElement("Average US Driver who drives a Large Sedan (10k miles)", 0.90)}
+                        {this.renderListElement("Average US Driver who drives a Small SUV (10k miles)", 0.71)}
+                        {this.renderListElement("Average US Driver who drives a Medium SUV (10k miles)", 0.87)}
+                        {this.renderListElement("Average US Driver who drives a Minivan (10k miles)", 0.87)}
+                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (10k miles)", 0.68)}
+                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (10k miles", 0.75)}
+                    </tbody>
+                </Table>
+            )
+
+        }
+        else if (this.state.seeOtherCPM.indexOf("15k") > 0) {
+            otherCPM = (
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>You</td>
+                            <td>{this.state.costpermile.toFixed(2)}</td>
+                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                        </tr>
+
+                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
+                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                        {this.renderListElement("Average US Driver who drives a Small Sedan (15k miles)", 0.47)}
+                        {this.renderListElement("Average US Driver who drives a Medium Sedan (15k miles)", 0.58)}
+                        {this.renderListElement("Average US Driver who drives a Large Sedan (15k miles)", 0.69)}
+                        {this.renderListElement("Average US Driver who drives a Small SUV (15k miles)", 0.56)}
+                        {this.renderListElement("Average US Driver who drives a Medium SUV (15k miles)", 0.68)}
+                        {this.renderListElement("Average US Driver who drives a Minivan (15k miles)", 0.67)}
+                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (15k miles)", 0.52)}
+                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (15k miles", 0.55)}
+
+
+
+                    </tbody>
+                </Table>
+
+
+            )
+        }
+        else if (this.state.seeOtherCPM.indexOf("20k") > 0) {
+            otherCPM = (
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>You</td>
+                            <td>{this.state.costpermile.toFixed(2)}</td>
+                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                        </tr>
+
+                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
+                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                        {this.renderListElement("Average US Driver who drives a Small Sedan (20k miles)", 0.41)}
+                        {this.renderListElement("Average US Driver who drives a Medium Sedan (20k miles)", 0.49)}
+                        {this.renderListElement("Average US Driver who drives a Large Sedan (20k miles)", 0.59)}
+                        {this.renderListElement("Average US Driver who drives a Small SUV (20k miles)", 0.48)}
+                        {this.renderListElement("Average US Driver who drives a Medium SUV (20k miles)", 0.59)}
+                        {this.renderListElement("Average US Driver who drives a Minivan (20k miles)", 0.57)}
+                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (20k miles)", 0.43)}
+                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (20k miles", 0.46)}
+                    </tbody>
+                </Table>
+
+
+            )
+        }
+        else {
+            otherCPM = (
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>You</td>
+                            <td>{this.state.costpermile.toFixed(2)}</td>
+                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                        </tr>
+
+                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
+                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                    </tbody>
+                </Table>
+            )
+        }
         return (
             <Container>
 
@@ -709,56 +850,27 @@ class Calculator extends React.Component {
                         />
                     </Form>
                     <br />
+                    <Form.Group>
+                        <Form.Label>
+                            Enter what information you would like to see
+                        </Form.Label>
+                        <Form.Control as="select"
+                            onChange={this.handleChange}
+                            id="seeOtherCPM"
+                            type="text"
+                            name="seeOtherCPM"
+                            value={this.state.seeOtherCPM}
+                        >
+                            <option name="seeOtherCPM">-Choose one of the below-</option>
+                            <option name="seeOtherCPM">Average for 10k miles</option>
+                            <option name="seeOtherCPM">Average for 15k miles</option>
+                            <option name="seeOtherCPM">Average for 20k miles</option>
+                        </Form.Control>
 
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>You</td>
-                                <td>{this.state.costpermile.toFixed(2)}</td>
-                                <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                            </tr>
-                            <tr>
-                                <td>Average US Driver who drives 10k miles</td>
-                                <td>{0.79}</td>
-                                <td>{this.state.costpermile.toFixed(2) - 0.79>0? "+" + (this.state.costpermile.toFixed(2) - 0.79): this.state.costpermile.toFixed(2) - 0.79}</td>
-                            </tr>
-                            <tr>
-                                <td>Average US Driver who drives 15k miles</td>
-                                <td>{0.61}</td>
-                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.61}</td>
-                            </tr>
-                            <tr>
-                                <td>Average US Driver who drives 20k miles</td>
-                                <td>{0.53}</td>
-                                <td>{this.state.costpermile.toFixed(2) - 0.53>0? "+" + (this.state.costpermile.toFixed(2) - 0.53): this.state.costpermile.toFixed(2) - 0.53}</td>
-                            </tr>
-                            <tr>
-                                <td>Average US Driver who drives a small sedan (10k miles)</td>
-                                <td>{0.61}</td>
-                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.53}</td>
-                            </tr>
-                            <tr>
-                                <td>Average US Driver who drives a small sedan (10k miles)</td>
-                                <td>{0.61}</td>
-                                <td>{this.state.costpermile.toFixed(2) - 0.61>0? "+" + (this.state.costpermile.toFixed(2) - 0.61): this.state.costpermile.toFixed(2) - 0.53}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                        Cost per mile: $ {this.state.costpermile.toFixed(2)}
-                    
-                    <p>
+                    </Form.Group>
+                    {otherCPM}
 
-                        The average cost per mile is about $0.79 around the United States. The easiest way to improve your cost per mile is to drive more . The type of car that has the lowest average cost per mile is the small Sedan, and the type of car with the highest cost per mile is the pickup truck. The electric car has a good cost per mile; however, its depreciation costs exceed all other car types.
-                        The cost per mile of the average electric vehicle is $0.5546
-                    </p>
-                    {this.state.costpermile >= 0.79 ? <p>Your data shows that your cost per mile is greater than or equal to the average cost per mile in the United States.</p> : <p>Your data shows that your cost per mile is below the average cost per mile. You are saving a lot of money as these miles add up over time!</p>}
+
 
                 </Jumbotron>
             </Container>
