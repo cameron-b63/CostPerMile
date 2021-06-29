@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './carmakes.json'
 
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,15 +10,27 @@ import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+function compare(a, b) {
+    const nameA = a.Make_Name;
+    const nameB = b.Make_Name;
+    let comparison = 0;
+    if (nameA > nameB) {
+        comparison = 1;
+    } else if (nameA < nameB) {
+        comparison = -1;
+    }
+    return comparison;
+}
+
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 2,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
-            api: [],
+            api: require('./carmakes.json')["Results"].sort(compare),
             models: [],
             originalPrice: "",
             finalPrice: "",
@@ -46,7 +59,6 @@ class Calculator extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.handleCarMake = this.handleCarMake.bind(this);
 
 
     }
@@ -68,16 +80,7 @@ class Calculator extends React.Component {
         this.getVIN(this.state.VIN);
 
     }
-    handleCarMake() {
-        fetch('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ api: data["Results"] })
-                console.log(data["Results"])
-                console.log(this.state.api);
-            })
 
-    }
     handleSubmit(e) {
         e.preventDefault();
         this.depreciate();
@@ -317,14 +320,8 @@ class Calculator extends React.Component {
     }
     render() {
         let allOptions;
-        if (this.state.api.length < 5) {
-            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({ api: data["Results"] });
 
-                })
-        }
+
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarModel;
@@ -481,7 +478,7 @@ class Calculator extends React.Component {
                 </Form.Group>
             </div>);
         }
-
+        
         let otherCPM;
         //CONDITIONAL RENDERING FOR DATA SHOWN AT THE BOTTOM
         if (this.state.seeOtherCPM.indexOf("10k") > 0) {
@@ -497,7 +494,7 @@ class Calculator extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>You</td>
+                            <td>Your Cost Per Mile</td>
                             <td>{this.state.costpermile.toFixed(2)}</td>
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
@@ -530,7 +527,7 @@ class Calculator extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>You</td>
+                            <td>Your Cost Per Mile</td>
                             <td>{this.state.costpermile.toFixed(2)}</td>
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
@@ -567,7 +564,7 @@ class Calculator extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>You</td>
+                            <td>Your Cost Per Mile</td>
                             <td>{this.state.costpermile.toFixed(2)}</td>
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
@@ -601,7 +598,7 @@ class Calculator extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>You</td>
+                            <td>Your Cost Per Mile</td>
                             <td>{this.state.costpermile.toFixed(2)}</td>
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
@@ -612,6 +609,36 @@ class Calculator extends React.Component {
                     </tbody>
                 </Table>
             )
+        }
+        var renderRelationalData;
+        if (Number.isNaN(this.state.costpermile)) {
+            renderRelationalData = <div></div>
+        }
+        else {
+            renderRelationalData =
+                (
+                    <Form.Group>
+                        <h2>See Your CPM in relation to other CPM</h2>
+                        <Form.Label>
+                            Enter what information you would like to see
+                        </Form.Label>
+                        <Form.Control as="select"
+                            onChange={this.handleChange}
+                            id="seeOtherCPM"
+                            type="text"
+                            name="seeOtherCPM"
+                            value={this.state.seeOtherCPM}
+                        >
+                            <option name="seeOtherCPM">-Choose one of the below-</option>
+                            <option name="seeOtherCPM">Average for 10k miles</option>
+                            <option name="seeOtherCPM">Average for 15k miles</option>
+                            <option name="seeOtherCPM">Average for 20k miles</option>
+                        </Form.Control>
+
+
+                        {otherCPM}
+                    </Form.Group>
+                );
         }
         return (
             <Container>
@@ -625,33 +652,15 @@ class Calculator extends React.Component {
                         Fill out these questions to the best of your abilitiy as they are the basis of calculating your cost per mile. You will be asked about information that you may not know about some of these questions so fill them out to the best of your ability.
                     </p>
                 </Jumbotron>
-                <Jumbotron>
-
-
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group>
-
-                            <Form.Label>
-                                How many miles do you usually drive per week?
-                            </Form.Label>
-
-                            <Form.Control type="number"
-                                placeholder="Enter how many miles driven"
-                                onChange={this.handleChange}
-                                id="miles"
-                                type="number"
-                                name="miles"
-                                value={this.state.miles}
-                            />
-                            <Form.Text className="text-muted">
-                                Enter the miles you usually drive per week
-                            </Form.Text>
-
-
-                        </Form.Group>
 
 
 
+                <Form onSubmit={this.handleSubmit}>
+
+
+
+                    <Jumbotron>
+                        <h2>Fixed Costs (Section 1/3)</h2>
                         <Form.Group>
 
                             <Form.Label>
@@ -693,8 +702,11 @@ class Calculator extends React.Component {
                                 Enter how much you usually pay for maitenance in a year
                             </Form.Text>
                         </Form.Group>
+                    </Jumbotron>
 
 
+                    <Jumbotron>
+                        <h2>Variable Costs (Section 2/3)</h2>
                         <Form.Group>
                             <Form.Label>
                                 How much do you pay for tolls every month?
@@ -715,6 +727,27 @@ class Calculator extends React.Component {
                         </Form.Group>
 
                         <Form.Group>
+
+                            <Form.Label>
+                                How many miles do you usually drive per week?
+                            </Form.Label>
+
+                            <Form.Control type="number"
+                                placeholder="Enter how many miles driven"
+                                onChange={this.handleChange}
+                                id="miles"
+                                type="number"
+                                name="miles"
+                                value={this.state.miles}
+                            />
+                            <Form.Text className="text-muted">
+                                Enter the miles you usually drive per week
+                            </Form.Text>
+
+
+                        </Form.Group>
+
+                        <Form.Group>
                             <Form.Label>
                                 How much do you pay for other related car costs per year?
                             </Form.Label>
@@ -729,7 +762,10 @@ class Calculator extends React.Component {
 
 
                         </Form.Group>
+                    </Jumbotron>
 
+                    <Jumbotron>
+                        <h2>Car Specific Costs (Section 3/3)</h2>
                         <Form.Group>
                             <Form.Label>
                                 Enter your VIN(Vehicle Identification Number) here
@@ -848,31 +884,16 @@ class Calculator extends React.Component {
                         </Form.Group>
                         <input type="submit"
                         />
-                    </Form>
-                    <br />
-                    <Form.Group>
-                        <Form.Label>
-                            Enter what information you would like to see
-                        </Form.Label>
-                        <Form.Control as="select"
-                            onChange={this.handleChange}
-                            id="seeOtherCPM"
-                            type="text"
-                            name="seeOtherCPM"
-                            value={this.state.seeOtherCPM}
-                        >
-                            <option name="seeOtherCPM">-Choose one of the below-</option>
-                            <option name="seeOtherCPM">Average for 10k miles</option>
-                            <option name="seeOtherCPM">Average for 15k miles</option>
-                            <option name="seeOtherCPM">Average for 20k miles</option>
-                        </Form.Control>
+                    </Jumbotron>
+                </Form>
+                <br />
 
-                    </Form.Group>
-                    {otherCPM}
+                {//CONDITIONAL RENDERING IF CPM IS NOT NaN
+                }
+
+                {renderRelationalData}
 
 
-
-                </Jumbotron>
             </Container>
         );
     }
