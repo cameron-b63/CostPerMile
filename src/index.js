@@ -176,7 +176,17 @@ class Calculator extends React.Component {
 
     getZIP(zip) {
         if (zip.length > 0) {
-
+            const options = {
+                "method": "GET",
+                "hostname": "redline-redline-zipcode.p.rapidapi.com",
+                "port": null,
+                "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
+                "headers": {
+                    "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
+                    "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
+                    "useQueryString": true
+                }
+            };
             /*var obj = {  
                 method: 'GET',
                 
@@ -189,29 +199,26 @@ class Calculator extends React.Component {
                 },
                 
             };
-            fetch('redline-redline-zipcode.p.rapidapi.com',obj)
+            fetch('redline-redline-zipcode.p.rapidapi.com/rest/info.json/ ${this.state.zipcode}  /degrees')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                this.getData(this.state.statecode)
+                console.log(data.toString());
+                
+                this.setState({
+                    statecode: data.state,
+                    city: data.city,
+                })
+                this.getData(this.state.statecode);
             })
             */
+            
+            
 
 
 
             const http = require("https");
 
-            const options = {
-                "method": "GET",
-                "hostname": "redline-redline-zipcode.p.rapidapi.com",
-                "port": null,
-                "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
-                "headers": {
-                    "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
-                    "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
-                    "useQueryString": true
-                }
-            };
+           
             var self = this;
             const req = http.request(options, function (res) {
                 const chunks = [];
@@ -230,15 +237,14 @@ class Calculator extends React.Component {
                         city: bodyJSON.city,
                     })
 
-
-                    self.getData(self.state.statecode);
+                    self.getData(self.state.statecode)
 
                 });
-            });
+            })
 
             req.end();
-
-
+            
+            
 
         }
     }
@@ -299,6 +305,7 @@ class Calculator extends React.Component {
                         self.setState({
                             gallon: city[0][self.state.typeOfGas]
                         })
+                        console.log(self.state);
                     }
 
                 });
@@ -703,6 +710,19 @@ class Calculator extends React.Component {
                                 Enter how much you usually pay for maitenance in a year
                             </Form.Text>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                How much do you pay for other related car costs per year? (subscriptions, parking, etc.)
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="Enter your other car related costs throughout the year"
+                                onChange={this.handleChange}
+                                id="subscriptions"
+                                type="number"
+                                name="subscriptions"
+                                value={this.state.subscriptions}
+                            />
+                        </Form.Group>
                     </Jumbotron>
 
 
@@ -748,25 +768,11 @@ class Calculator extends React.Component {
 
                         </Form.Group>
 
-                        <Form.Group>
-                            <Form.Label>
-                                How much do you pay for other related car costs per year?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter your other car related costs throughout the year"
-                                onChange={this.handleChange}
-                                id="subscriptions"
-                                type="number"
-                                name="subscriptions"
-                                value={this.state.subscriptions}
-                            />
-
-
-                        </Form.Group>
+                        
                     </Jumbotron>
 
                     <Jumbotron>
-                        <h2>Car Specific Costs (Section 3/3)</h2>
+                        <h2>Vehicle Specific Costs (Section 3/3)</h2>
                         <Form.Group>
                             <Form.Label>
                                 Enter your VIN(Vehicle Identification Number) here
@@ -850,11 +856,6 @@ class Calculator extends React.Component {
                             </div>
 
                         </Form.Group>
-
-
-                        <br />
-                        <br />
-
 
 
                         <Form.Group>
