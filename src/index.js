@@ -48,7 +48,7 @@ class Calculator extends React.Component {
             fullcharge: "",
             fullchargeCost: "",
             zipcode: "",
-            carMake: "",
+            carMake: "-",
             carModel: "",
             isElectric: "",
             carYear: "",
@@ -345,7 +345,7 @@ class Calculator extends React.Component {
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
         //CONDITIONAL RENDERING FOR CAR MODEL BASED ON MAKE
-        if (this.state.carMake.length === 0) {
+        if (this.state.carMake.indexOf("-")=== 0) {
             renderCarModel = (<div></div>);
         }
         else {
@@ -373,10 +373,7 @@ class Calculator extends React.Component {
 
         let renderThis;
         // CONDITIONAL RENDERING BASED ON USER CHOICE IF ELECTRIC OR NOT
-        if (this.state.isElectric === null || this.state.isElectric.length === 0) {
-            renderThis = (<div></div>);
-        }
-        else if (this.state.isElectric.indexOf("as") > 0) {
+        if (this.state.isElectric.indexOf("as") > 0) {
             renderThis = (<div><Form.Group>
                 <Form.Label>
                     What fuel type do you use?
@@ -440,7 +437,7 @@ class Calculator extends React.Component {
                     {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : ""}
                 </label>
             </div>);
-        } else {
+        } else if(this.state.isElectric.indexOf("lectric") >0) {
             renderThis = (<div>
                 <Form.Group>
                     <Form.Label>
@@ -477,6 +474,10 @@ class Calculator extends React.Component {
                     </Form.Text>
                 </Form.Group>
             </div>);
+        }else{
+            renderThis = (
+                <div></div>
+            );
         }
         
         let otherCPM;
@@ -771,7 +772,7 @@ class Calculator extends React.Component {
                                 Enter your VIN(Vehicle Identification Number) here
                             </Form.Label>
                             <Form.Control
-                                placeholder="VIN"
+                                placeholder="VIN (Optional) "
                                 onChange={this.handleChange}
                                 id="VIN"
                                 type="text"
@@ -799,7 +800,7 @@ class Calculator extends React.Component {
                                 name="carMake"
                                 value={this.state.carMake}
                             >
-                                <option></option>
+                                <option>-Choose your car make below-</option>
                                 {allOptions}
 
                             </Form.Control>
@@ -838,7 +839,7 @@ class Calculator extends React.Component {
                                 name="isElectric"
                                 value={this.state.isElectric}
                             >
-                                <option name="isElectric"></option>
+                                <option name="isElectric">-Choose your power type-</option>
                                 <option name="isElectric">gas</option>
                                 <option name="isElectric">electric</option>
 
