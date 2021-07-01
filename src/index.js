@@ -54,6 +54,7 @@ class Calculator extends React.Component {
             carYear: "",
             carBasePrice: "",
             seeOtherCPM: "",
+            otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -360,7 +361,7 @@ class Calculator extends React.Component {
                 <div>
                     <Form.Group>
                         <Form.Label>
-                            What is your car model?
+                            7a. What is your car model?
                         </Form.Label>
                         <Form.Control
                             as="select"
@@ -383,7 +384,7 @@ class Calculator extends React.Component {
         if (this.state.isElectric.indexOf("as") > 0) {
             renderThis = (<div><Form.Group>
                 <Form.Label>
-                    What fuel type do you use?
+                    9a. What fuel type do you use?
                 </Form.Label>
                 <Form.Control as="select"
                     onChange={this.handleChange}
@@ -405,7 +406,7 @@ class Calculator extends React.Component {
 
                 <Form.Group>
                     <Form.Label>
-                        What is your MPG(Miles Per Gallon)?
+                        9b. What is your MPG(Miles Per Gallon)?
                     </Form.Label>
 
                     <Form.Control
@@ -423,7 +424,7 @@ class Calculator extends React.Component {
 
                 <Form.Group>
                     <Form.Label>
-                        What is your zip code?
+                        9c. What is your zip code?
                     </Form.Label>
 
                     <Form.Control
@@ -448,7 +449,7 @@ class Calculator extends React.Component {
             renderThis = (<div>
                 <Form.Group>
                     <Form.Label>
-                        If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                        9a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
                     </Form.Label>
 
                     <Form.Control
@@ -465,7 +466,7 @@ class Calculator extends React.Component {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
-                        If you drive an electric vehicle, how much does it cost for a full charge?
+                        9b. If you drive an electric vehicle, how much does it cost for a full charge?
                     </Form.Label>
 
                     <Form.Control
@@ -591,7 +592,7 @@ class Calculator extends React.Component {
             )
         }
         else if (this.state.seeOtherCPM.indexOf("Other") > 0) {
-
+            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM))
             otherCPM = (
                 <Table striped bordered hover>
 
@@ -608,28 +609,13 @@ class Calculator extends React.Component {
                             <td>{this.state.costpermile.toFixed(2)}</td>
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
-                        {this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
-                        {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
-                        {this.renderListElement("Average US Driver who drives a BMW i3 series", 0.60)}
-                        {this.renderListElement("Average US Driver who drives a Buick Enclave", 0.76)}
-                        {this.renderListElement("Average US Driver who drives a Cadillac Escalade", 1.35)}
-                        {this.renderListElement("Average US Driver who drives a Chevrolet Equinox", 0.61)}
-                        {this.renderListElement("Average US Driver who drives a Dodge Charger", 0.60)}
-                        {this.renderListElement("Average US Driver who drives a Ford F-150", 0.67)}
-                        {this.renderListElement("Average US Driver who drives a Honda CR-V", 0.45)}
-                        {this.renderListElement("Average US Driver who drives a Hyundai Santa Fe", 0.57)}
-                        {this.renderListElement("Average US Driver who drives an Infiniti q50", 0.80)}
-                        {this.renderListElement("Average US Driver who drives a Jeep Wrangler", 0.66)}
-                        {this.renderListElement("Average US Driver who drives a Kia Sportage", 0.48)}
-                        {this.renderListElement("Average US Driver who drives a Lexus RX350 ", 0.81)}
-                        {this.renderListElement("Average US Driver who drives a Mercedes C Class", 0.80)}
-                        {this.renderListElement("Average US Driver who drives a Nissan Rogue", 0.50)}
-                        {this.renderListElement("Average US Driver who drives a Porsche Macan", 1.07)}
-                        {this.renderListElement("Average US Driver who drives a Subaru Outback", 0.50)}
-                        {this.renderListElement("Average US Driver who drives a Tesla Model X", 1.27)}
+                        {renderTable}
+                        
 
                     </tbody>
                 </Table>);
+                        //allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
+
             {/*{this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
                     {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
                     {this.renderListElement("Average US Driver who drives a BMW i3 series", 0.60)}
@@ -686,7 +672,7 @@ class Calculator extends React.Component {
                 (
                     <Form.Group>
                         <h2>See Your CPM in relation to other CPM</h2>
-                        <p>If you choose to see other cars, the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs</p>
+                        <p>If you choose to see other cars, the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
                         <Form.Label>
                             Enter what information you would like to see
                         </Form.Label>
@@ -733,12 +719,12 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                How much have you paid for insurance a year?
+                                1. How much have you paid for insurance a year?
                             </Form.Label>
 
 
                             <Form.Control
-                                placeholder="Enter the amount of insurance paid per year"
+                                placeholder="Enter the amount of insurance paid a year"
                                 onChange={this.handleChange}
                                 id="insurance"
                                 type="number"
@@ -755,7 +741,7 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                How much have you paid for maitenance a year?
+                                2. How much have you paid for maitenance and repairs a year?
                             </Form.Label>
 
 
@@ -773,7 +759,7 @@ class Calculator extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                How much do you pay for other related car costs per year? (subscriptions, parking, etc.)
+                                3. How much do you pay for other related car costs a year? (subscriptions, parking, etc.)
                             </Form.Label>
                             <Form.Control
                                 placeholder="Enter your other car related costs throughout the year"
@@ -791,7 +777,7 @@ class Calculator extends React.Component {
                         <h2>Variable Costs (Section 2/3)</h2>
                         <Form.Group>
                             <Form.Label>
-                                How much do you pay for tolls every month?
+                                4. How much do you pay for tolls every month?
                             </Form.Label>
 
 
@@ -811,7 +797,7 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                How many miles do you usually drive per week?
+                                5. How many miles do you usually drive per week?
                             </Form.Label>
 
                             <Form.Control type="number"
@@ -836,7 +822,7 @@ class Calculator extends React.Component {
                         <h2>Vehicle Specific Costs (Section 3/3)</h2>
                         <Form.Group>
                             <Form.Label>
-                                Enter your VIN(Vehicle Identification Number) here
+                                6. Enter your VIN(Vehicle Identification Number) here
                             </Form.Label>
                             <Form.Control
                                 placeholder="VIN (Optional) "
@@ -857,7 +843,7 @@ class Calculator extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                What is your car make?
+                                7. What is your car make?
                             </Form.Label>
                             <Form.Control as="select"
                                 placeholder="Enter your car make"
@@ -880,7 +866,7 @@ class Calculator extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                What is your car year?
+                                8. What is your car year?
                             </Form.Label>
                             <Form.Control
                                 onChange={this.handleChange}
@@ -894,7 +880,7 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                Are you an electric vehicle user or gas car user?
+                                9. Are you an electric vehicle user or gas car user?
                             </Form.Label>
 
 
@@ -921,7 +907,7 @@ class Calculator extends React.Component {
 
                         <Form.Group>
                             <Form.Label>
-                                How much was this car when it was brand new?
+                                10. How much was this car when it was brand new?
                             </Form.Label>
                             <Form.Control
                                 placeholder="Enter your original price"
@@ -934,7 +920,7 @@ class Calculator extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                How much is your car worth now?
+                                11. How much is your car worth now?
                             </Form.Label>
                             <Form.Control
                                 placeholder="Enter the current price"

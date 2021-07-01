@@ -1,0 +1,82 @@
+{
+   
+    "Results": [
+        {
+            "Name": "Acura RDX",
+            "CPM" : 0.74
+        },
+        {
+            "Name": "Audi Q5",
+            "CPM": 0.89
+        },
+        {
+            "Name": "BMW i3 Series",
+            "CPM" : 0.60
+        },
+        {
+            "Name": "Buick Enclave",
+            "CPM" : 0.76
+        },
+        {
+            "Name": "Cadillac Escalade",
+            "CPM": 0.76
+        },
+        {
+            "Name": "Chevrolet Equinox",
+            "CPM": 0.61
+        },
+        {
+            "Name": "Dodge Charger",
+            "CPM" :0.60
+        },
+        {
+            "Name": "Ford F-150",
+            "CPM": 0.67
+        },
+        {
+            "Name": "Honda CR-V",
+            "CPM": 0.45
+        },
+        {
+            "Name": "Hyundai Santa Fe",
+            "CPM": 0.57 
+        },
+        {
+            "Name": "Infiniti q50",
+            "CPM": 0.80
+        },
+        {
+            "Name": "Jeep Wrangler",
+            "CPM": 0.66
+        },
+        {
+            "Name": "Kia Sportage",
+            "CPM": 0.48
+        },
+        {
+            "Name": "Lexus RX 350",
+            "CPM": 0.81
+        },
+        {
+            "Name": "Mercedes C Class",
+            "CPM": 0.80
+        },
+        {
+            "Name": "Nissan Rogue",
+            "CPM": 0.50
+        },
+        {
+            "Name": "Porsche Macan",
+            "CPM": 1.07
+        },
+        {
+            "Name": "Subaru Outback",
+            "CPM": 0.50
+        },
+        {
+            "Name": "Tesla Model X",
+            "CPM": 1.27
+        }
+
+    ]
+}
