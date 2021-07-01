@@ -26,7 +26,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 0,
             iPaid: "",
             miles: "",
             mait: "",
@@ -211,14 +211,14 @@ class Calculator extends React.Component {
                 this.getData(this.state.statecode);
             })
             */
-            
-            
+
+
 
 
 
             const http = require("https");
 
-           
+
             var self = this;
             const req = http.request(options, function (res) {
                 const chunks = [];
@@ -243,8 +243,8 @@ class Calculator extends React.Component {
             })
 
             req.end();
-            
-            
+
+
 
         }
     }
@@ -352,7 +352,7 @@ class Calculator extends React.Component {
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
         //CONDITIONAL RENDERING FOR CAR MODEL BASED ON MAKE
-        if (this.state.carMake.indexOf("-")=== 0) {
+        if (this.state.carMake.indexOf("-") === 0) {
             renderCarModel = (<div></div>);
         }
         else {
@@ -444,7 +444,7 @@ class Calculator extends React.Component {
                     {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : ""}
                 </label>
             </div>);
-        } else if(this.state.isElectric.indexOf("lectric") >0) {
+        } else if (this.state.isElectric.indexOf("lectric") > 0) {
             renderThis = (<div>
                 <Form.Group>
                     <Form.Label>
@@ -481,17 +481,16 @@ class Calculator extends React.Component {
                     </Form.Text>
                 </Form.Group>
             </div>);
-        }else{
+        } else {
             renderThis = (
                 <div></div>
             );
         }
-        
+
         let otherCPM;
         //CONDITIONAL RENDERING FOR DATA SHOWN AT THE BOTTOM
         if (this.state.seeOtherCPM.indexOf("10k") > 0) {
             otherCPM = (
-
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -508,8 +507,7 @@ class Calculator extends React.Component {
                         </tr>
 
                         {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
-                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+
                         {this.renderListElement("Average US Driver who drives a Small Sedan (10k miles)", 0.61)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (10k miles)", 0.75)}
                         {this.renderListElement("Average US Driver who drives a Large Sedan (10k miles)", 0.90)}
@@ -540,9 +538,8 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
 
-                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
                         {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+         
                         {this.renderListElement("Average US Driver who drives a Small Sedan (15k miles)", 0.47)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (15k miles)", 0.58)}
                         {this.renderListElement("Average US Driver who drives a Large Sedan (15k miles)", 0.69)}
@@ -577,9 +574,8 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
 
-                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
-                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                        
+                        {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
                         {this.renderListElement("Average US Driver who drives a Small Sedan (20k miles)", 0.41)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (20k miles)", 0.49)}
                         {this.renderListElement("Average US Driver who drives a Large Sedan (20k miles)", 0.59)}
@@ -593,6 +589,69 @@ class Calculator extends React.Component {
 
 
             )
+        }
+        else if (this.state.seeOtherCPM.indexOf("Other") > 0) {
+
+            otherCPM = (
+                <Table striped bordered hover>
+
+                    <thead>
+                        <tr>
+                            <th>Cost per mile of</th>
+                            <th>Cost per mile ($)</th>
+                            <th>Cost per mile in relation to You</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Your Cost Per Mile</td>
+                            <td>{this.state.costpermile.toFixed(2)}</td>
+                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
+                        </tr>
+                        {this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
+                        {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
+                        {this.renderListElement("Average US Driver who drives a BMW i3 series", 0.60)}
+                        {this.renderListElement("Average US Driver who drives a Buick Enclave", 0.76)}
+                        {this.renderListElement("Average US Driver who drives a Cadillac Escalade", 1.35)}
+                        {this.renderListElement("Average US Driver who drives a Chevrolet Equinox", 0.61)}
+                        {this.renderListElement("Average US Driver who drives a Dodge Charger", 0.60)}
+                        {this.renderListElement("Average US Driver who drives a Ford F-150", 0.67)}
+                        {this.renderListElement("Average US Driver who drives a Honda CR-V", 0.45)}
+                        {this.renderListElement("Average US Driver who drives a Hyundai Santa Fe", 0.57)}
+                        {this.renderListElement("Average US Driver who drives an Infiniti q50", 0.80)}
+                        {this.renderListElement("Average US Driver who drives a Jeep Wrangler", 0.66)}
+                        {this.renderListElement("Average US Driver who drives a Kia Sportage", 0.48)}
+                        {this.renderListElement("Average US Driver who drives a Lexus RX350 ", 0.81)}
+                        {this.renderListElement("Average US Driver who drives a Mercedes C Class", 0.80)}
+                        {this.renderListElement("Average US Driver who drives a Nissan Rogue", 0.50)}
+                        {this.renderListElement("Average US Driver who drives a Porsche Macan", 1.07)}
+                        {this.renderListElement("Average US Driver who drives a Subaru Outback", 0.50)}
+                        {this.renderListElement("Average US Driver who drives a Tesla Model X", 1.27)}
+
+                    </tbody>
+                </Table>);
+            {/*{this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
+                    {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
+                    {this.renderListElement("Average US Driver who drives a BMW i3 series", 0.60)}
+                    {this.renderListElement("Average US Driver who drives a Buick Enclave" , 0.76)}
+                    {this.renderListElement("Average US Driver who drives a Cadillac Escalade" , 1.35)}
+                    {this.renderListElement("Average US Driver who drives a Chevrolet Equinox" , 0.61)}
+                    {this.renderListElement("Average US Driver who drives a Dodge Charger" , 0.60)}
+                    {this.renderListElement("Average US Driver who drives a Ford F-150" , 0.67)}
+                    {this.renderListElement("Average US Driver who drives a Honda CR-V" , 0.45)}
+                    {this.renderListElement("Average US Driver who drives a Hyundai Santa Fe" , 0.57)}
+                    {this.renderListElement("Average US Driver who drives an Infiniti q50" , 0.80)}
+                    {this.renderListElement("Average US Driver who drives a Jeep Wrangler" , 0.66)}
+                    {this.renderListElement("Average US Driver who drives a Kia Sportage" , 0.48)}
+                    {this.renderListElement("Average US Driver who drives a Lexus RX350 ", 0.81 )}
+                    {this.renderListElement("Average US Driver who drives a Mercedes C Class",0.80 )}
+                    {this.renderListElement("Average US Driver who drives a Nissan Rogue", 0.50 )}
+                    {this.renderListElement("Average US Driver who drives a Porsche Macan",1.07 )}
+                    {this.renderListElement("Average US Driver who drives a Subaru Outback", 0.50 )}
+                    {this.renderListElement("Average US Driver who drives a Tesla Model X", 1.27 )}
+                    */}
+
+
         }
         else {
             otherCPM = (
@@ -613,7 +672,7 @@ class Calculator extends React.Component {
 
                         {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
                         {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-                        {this.renderListElement("Average US Driver who drives 20k mile", 0.53)}
+                        {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
                     </tbody>
                 </Table>
             )
@@ -627,6 +686,7 @@ class Calculator extends React.Component {
                 (
                     <Form.Group>
                         <h2>See Your CPM in relation to other CPM</h2>
+                        <p>If you choose to see other cars, the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs</p>
                         <Form.Label>
                             Enter what information you would like to see
                         </Form.Label>
@@ -638,9 +698,10 @@ class Calculator extends React.Component {
                             value={this.state.seeOtherCPM}
                         >
                             <option name="seeOtherCPM">-Choose one of the below-</option>
-                            <option name="seeOtherCPM">Average for 10k miles</option>
-                            <option name="seeOtherCPM">Average for 15k miles</option>
-                            <option name="seeOtherCPM">Average for 20k miles</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 10k miles</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 15k miles</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 20k miles</option>
+                            <option name="seeOtherCPM">Average CPM For Other Cars</option>
                         </Form.Control>
 
 
@@ -653,7 +714,7 @@ class Calculator extends React.Component {
 
                 <Jumbotron>
                     <h1>
-                        Cost Per Mile Calculator
+                        11 Question Cost Per Mile Calculator
 
                     </h1>
                     <p>
@@ -768,7 +829,7 @@ class Calculator extends React.Component {
 
                         </Form.Group>
 
-                        
+
                     </Jumbotron>
 
                     <Jumbotron>
