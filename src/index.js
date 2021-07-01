@@ -255,8 +255,8 @@ class Calculator extends React.Component {
 
         if (state.length > 0) {
 
-
-            /*const options = {
+            /*
+            const options = {
                 "method": "GET",
                 
                 "port": null,
@@ -672,7 +672,7 @@ class Calculator extends React.Component {
                 (
                     <Form.Group>
                         <h2>See Your CPM in relation to other CPM</h2>
-                        <p>If you choose to see other cars, the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
+                        <p>If you choose to see "Average CPM for other cars", the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
                         <Form.Label>
                             Enter what information you would like to see
                         </Form.Label>
@@ -684,10 +684,10 @@ class Calculator extends React.Component {
                             value={this.state.seeOtherCPM}
                         >
                             <option name="seeOtherCPM">-Choose one of the below-</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 10k miles</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 15k miles</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 20k miles</option>
-                            <option name="seeOtherCPM">Average CPM For Other Cars</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 10k miles per year (192 miles a week)</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 15k miles per year (288 miles a week)</option>
+                            <option name="seeOtherCPM">CPM of Average Car Types for 20k miles per year (384 miles a week)</option>
+                            <option name="seeOtherCPM">Average CPM For Other Cars (15000 miles a year or 288 miles a week)</option>
                         </Form.Control>
 
 
