@@ -26,7 +26,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 0,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -329,15 +329,7 @@ class Calculator extends React.Component {
             </tr>
         );
     }
-    render() {
-        let allOptions;
-
-
-        allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
-        let allOptions2;
-        let renderCarModel;
-
-
+    componentDidMount(){
         if (this.state.carMake.length > 0) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
                 .then(response => response.json())
@@ -348,6 +340,17 @@ class Calculator extends React.Component {
 
         }
 
+    }
+    render() {
+        let allOptions;
+
+
+        allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
+        let allOptions2;
+        let renderCarModel;
+
+
+       
         var years = [];
         for (var i = 0; i < 100; i++) {
             years.push(2021 - i);
