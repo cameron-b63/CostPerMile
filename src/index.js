@@ -92,31 +92,7 @@ class Calculator extends React.Component {
         }
 
 
-        let final;
 
-        if (this.state.mpg.length > 0) {
-            final = (parseInt(this.state.depreciationValue) +
-                parseInt(this.state.iPaid) +
-                (((this.state.miles * 52) / this.state.mpg) * this.state.gallon) +
-                parseInt(this.state.mait) +
-                (parseInt(this.state.tolls) * 12) +
-                parseInt(this.state.subscriptions))
-                / (parseInt(this.state.miles) * 52);
-        } else {
-            final = (parseInt(this.state.depreciationValue) +
-                parseInt(this.state.iPaid) +
-                ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
-                parseInt(this.state.mait) +
-                (parseInt(this.state.tolls) * 12) +
-                parseInt(this.state.subscriptions)) /
-                (parseInt(this.state.miles) * 52);
-
-        }
-
-        this.setState(
-            {
-                costpermile: final
-            })
     }
     getVIN(vin) {
         var make;
@@ -308,6 +284,33 @@ class Calculator extends React.Component {
                         })
                         console.log(self.state);
                     }
+
+                    let final;
+
+                    if (self.state.mpg.length > 0) {
+                        final = (parseInt(self.state.depreciationValue) +
+                            parseInt(self.state.iPaid) +
+                            (((self.state.miles * 52) / self.state.mpg) * self.state.gallon) +
+                            parseInt(self.state.mait) +
+                            (parseInt(self.state.tolls) * 12) +
+                            parseInt(self.state.subscriptions))
+                            / (parseInt(self.state.miles) * 52);
+                    } else {
+                        final = (parseInt(self.state.depreciationValue) +
+                            parseInt(self.state.iPaid) +
+                            ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
+                            parseInt(self.state.mait) +
+                            (parseInt(self.state.tolls) * 12) +
+                            parseInt(self.state.subscriptions)) /
+                            (parseInt(self.state.miles) * 52);
+
+                    }
+
+                    self.setState(
+                        {
+                            costpermile: final
+                        })
+
 
                 });
             });
@@ -540,7 +543,7 @@ class Calculator extends React.Component {
                         </tr>
 
                         {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-         
+
                         {this.renderListElement("Average US Driver who drives a Small Sedan (15k miles)", 0.47)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (15k miles)", 0.58)}
                         {this.renderListElement("Average US Driver who drives a Large Sedan (15k miles)", 0.69)}
@@ -575,7 +578,7 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
 
-                        
+
                         {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
                         {this.renderListElement("Average US Driver who drives a Small Sedan (20k miles)", 0.41)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (20k miles)", 0.49)}
@@ -610,11 +613,11 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
                         {renderTable}
-                        
+
 
                     </tbody>
                 </Table>);
-                        //allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
+            //allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
 
             {/*{this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
                     {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
