@@ -330,15 +330,7 @@ class Calculator extends React.Component {
         );
     }
     componentDidMount(){
-        if (this.state.carMake.length > 0) {
-            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({ models: data["Results"] });
-
-                })
-
-        }
+        
 
     }
     render() {
@@ -349,7 +341,15 @@ class Calculator extends React.Component {
         let allOptions2;
         let renderCarModel;
 
+        if (this.state.carMake.length > 0) {
+            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({ models: data["Results"] });
 
+                })
+
+        }
        
         var years = [];
         for (var i = 0; i < 100; i++) {
