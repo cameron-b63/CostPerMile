@@ -61,7 +61,7 @@ class Calculator extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
-
+        
     }
 
     depreciate() {
@@ -226,7 +226,7 @@ class Calculator extends React.Component {
         }
     }
 
-
+   
     getData(state) {
 
         if (state.length > 0) {
@@ -309,7 +309,8 @@ class Calculator extends React.Component {
                     self.setState(
                         {
                             costpermile: final
-                        })
+                        });
+                    
 
 
                 });
@@ -334,6 +335,7 @@ class Calculator extends React.Component {
 
     }
     render() {
+        
         let allOptions;
 
 
@@ -513,7 +515,7 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
 
-                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 10k miles", 79)}
 
                         {this.renderListElement("Average US Driver who drives a Small Sedan (10k miles)", 0.61)}
                         {this.renderListElement("Average US Driver who drives a Medium Sedan (10k miles)", 0.75)}
@@ -955,6 +957,10 @@ class Calculator extends React.Component {
 }
 
 ReactDOM.render(
-    <Calculator />,
+    <div>
+        <Calculator/>
+        <scrollButton/>
+    </div>,
+
     document.getElementById("root")
 );
