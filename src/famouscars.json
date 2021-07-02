@@ -3,79 +3,100 @@
     "Results": [
         {
             "Name": "Acura RDX",
-            "CPM" : 0.74
+            "CPM" : 0.74,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/07/2019-acura-rdx-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Audi Q5",
-            "CPM": 0.89
+            "CPM": 0.89,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/12/2019-audi-q5-prestige-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "BMW i3 Series",
-            "CPM" : 0.60
+            "CPM" : 0.60,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2016/12/2017-bmw-i3-range-extender-hatchback-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Buick Enclave",
-            "CPM" : 0.76
+            "CPM" : 0.76,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/09/2019-buick-enclave-premium-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Cadillac Escalade",
-            "CPM": 0.76
+            "CPM": 0.76,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2021/02/2021-cadillac-escalade-600-sport-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Chevrolet Equinox",
-            "CPM": 0.61
+            "CPM": 0.61,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-chevrolet-equinox-lt-suv-angular-front.png?fit=around%7C29:481:25"
+
         },
         {
             "Name": "Dodge Charger",
-            "CPM" :0.60
+            "CPM" :0.60,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2020/03/2020-dodge-charger-sxt-sedan-angular-front.png?fit=around%7C29:481:25"
+
         },
         {
             "Name": "Ford F-150",
-            "CPM": 0.67
+            "CPM": 0.67,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/11/2019-ford-f-150-xl-pick-up-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Honda CR-V",
-            "CPM": 0.45
+            "CPM": 0.45,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/11/2019-honda-cr-v-ex-l-2wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Hyundai Santa Fe",
-            "CPM": 0.57 
+            "CPM": 0.57,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-hyundai-santa-fe-se-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Infiniti q50",
-            "CPM": 0.80
+            "CPM": 0.80,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2019/04/2019-infiniti-q50-luxe-sedan-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Jeep Wrangler",
-            "CPM": 0.66
+            "CPM": 0.66,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2019/06/2019-jeep-wrangler-sport-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Kia Sportage",
-            "CPM": 0.48
+            "CPM": 0.48,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-kia-sportage-ex-4wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Lexus RX 350",
-            "CPM": 0.81
+            "CPM": 0.81,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/09/2019-lexus-rx-350-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Mercedes C Class",
-            "CPM": 0.80
+            "CPM": 0.80,
+            "Image" : "https://www.motortrend.com/uploads/sites/10/2018/11/2019-mercedes-benz-c-class-c300-sedan-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Nissan Rogue",
-            "CPM": 0.50
+            "CPM": 0.50,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2019/03/2019-nissan-rogue-sl-hybrid-fwd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Porsche Macan",
-            "CPM": 1.07
+            "CPM": 1.07,
+            "Image" : "https://www.motortrend.com/uploads/sites/10/2019/09/2019-porsche-macan-4wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Subaru Outback",
-            "CPM": 0.50
+            "CPM": 0.50,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-subaru-outback-premium-wagon-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Tesla Model X",
-            "CPM": 1.27
+            "CPM": 1.27,
+            "Image": "https://www.motortrend.com/uploads/sites/10/2018/03/2018-tesla-model-x-75d-suv-angular-front.png?fit=around%7C29:481:25"
         }
 
     ]

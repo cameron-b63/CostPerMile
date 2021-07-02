@@ -10,6 +10,7 @@ import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -26,7 +27,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 0,
             iPaid: "",
             miles: "",
             mait: "",
@@ -321,14 +322,28 @@ class Calculator extends React.Component {
 
         }
     }
-    renderListElement(stringDisplay, CPM) {
-        return (
-            <tr>
-                <td>{stringDisplay}</td>
-                <td>{CPM}</td>
-                <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
-            </tr>
-        );
+
+    renderListElement(stringDisplay, CPM, displayImage) {
+        var awesome = "";
+        if(typeof displayImage !== "undefined"){
+            return (
+                <tr>
+                    <td>{stringDisplay}</td>
+                    <td>{CPM}</td>
+                    <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
+                    <td><Image src = {displayImage} fluid /></td>
+                </tr>
+            );
+        }
+        else{
+            return(
+                <tr>
+                    <td>{stringDisplay}</td>
+                    <td>{CPM}</td>
+                    <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
+                </tr>
+            )
+        }
     }
     componentDidMount(){
         
@@ -600,7 +615,7 @@ class Calculator extends React.Component {
             )
         }
         else if (this.state.seeOtherCPM.indexOf("Other") > 0) {
-            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM))
+            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM,N.Image))
             otherCPM = (
                 <Table striped bordered hover>
 
@@ -664,7 +679,7 @@ class Calculator extends React.Component {
                             <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
                         </tr>
 
-                        {this.renderListElement("Average US Driver who drives 10k miles", 0, 79)}
+                        {this.renderListElement("Average US Driver who drives 10k miles", 0.79)}
                         {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
                         {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
                     </tbody>
