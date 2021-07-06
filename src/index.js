@@ -10,7 +10,9 @@ import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
+
+
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -62,7 +64,7 @@ class Calculator extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
-        
+
     }
 
     depreciate() {
@@ -227,7 +229,7 @@ class Calculator extends React.Component {
         }
     }
 
-   
+
     getData(state) {
 
         if (state.length > 0) {
@@ -311,7 +313,7 @@ class Calculator extends React.Component {
                         {
                             costpermile: final
                         });
-                    
+
 
 
                 });
@@ -325,18 +327,18 @@ class Calculator extends React.Component {
 
     renderListElement(stringDisplay, CPM, displayImage) {
         var awesome = "";
-        if(typeof displayImage !== "undefined"){
+        if (typeof displayImage !== "undefined") {
             return (
                 <tr>
                     <td>{stringDisplay}</td>
                     <td>{CPM}</td>
                     <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
-                    <td><Image src = {displayImage} fluid /></td>
+                    <td><Image src={displayImage} fluid /></td>
                 </tr>
             );
         }
-        else{
-            return(
+        else {
+            return (
                 <tr>
                     <td>{stringDisplay}</td>
                     <td>{CPM}</td>
@@ -345,12 +347,12 @@ class Calculator extends React.Component {
             )
         }
     }
-    componentDidMount(){
-        
+    componentDidMount() {
+
 
     }
     render() {
-        
+
         let allOptions;
 
 
@@ -367,7 +369,7 @@ class Calculator extends React.Component {
                 })
 
         }
-       
+
         var years = [];
         for (var i = 0; i < 100; i++) {
             years.push(2021 - i);
@@ -615,7 +617,7 @@ class Calculator extends React.Component {
             )
         }
         else if (this.state.seeOtherCPM.indexOf("Other") > 0) {
-            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM,N.Image))
+            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM, N.Image))
             otherCPM = (
                 <Table striped bordered hover>
 
@@ -686,6 +688,48 @@ class Calculator extends React.Component {
                 </Table>
             )
         }
+        //STORING THE LAST QUESTION
+
+        var lastQuestion;
+        if (Number.isNaN(this.state.costpermile)) {
+            lastQuestion = (<Form.Group>
+                <Form.Label>
+                    11. How much is your car worth now?
+                </Form.Label>
+                <Form.Control
+                    placeholder="Enter the current price"
+                    onChange={this.handleChange}
+                    id="finalPrice"
+                    type="number"
+                    name="finalPrice"
+                    value={this.state.finalPrice}
+                />
+                <Form.Text className="text-muted">
+                    Enter your car's current worth
+                </Form.Text>
+            </Form.Group>);
+        } else {
+            lastQuestion = (<Form.Group>
+                <Form.Label>
+                    11. How much is your car worth now?
+                </Form.Label>
+                <Form.Control
+                    placeholder="Enter the current price"
+                    onChange={this.handleChange}
+                    id="finalPrice"
+                    type="number"
+                    name="finalPrice"
+                    value={this.state.finalPrice}
+                />
+                <Form.Text className="text-muted">
+                    Enter your car's current worth
+                </Form.Text>
+                <label>Scroll Down for results</label>
+                <br />
+                <Image src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" fluid />
+            </Form.Group>);
+        }
+        //CONDITIONAL RENDERING FOR RELATIONAL DATA
         var renderRelationalData;
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
@@ -712,8 +756,6 @@ class Calculator extends React.Component {
                             <option name="seeOtherCPM">CPM of Average Car Types for 20k miles per year (384 miles a week)</option>
                             <option name="seeOtherCPM">Average CPM For Other Cars (15000 miles a year or 288 miles a week)</option>
                         </Form.Control>
-
-
                         {otherCPM}
                     </Form.Group>
                 );
@@ -793,6 +835,9 @@ class Calculator extends React.Component {
                                 value={this.state.subscriptions}
                             />
                         </Form.Group>
+                        <Form.Text className="text-muted">
+                            Enter how much you pay for other related car costs a year.
+                        </Form.Text>
                     </Jumbotron>
 
 
@@ -860,7 +905,7 @@ class Calculator extends React.Component {
                             >
                                 Submit your VIN to get official data from the NHTSA
                             </Button>
-                            <Form.Text>
+                            <Form.Text className="text-muted">
                                 We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button . Some data about your car may still be missing so answer the unaswered questions.
                             </Form.Text>
                         </Form.Group>
@@ -883,9 +928,10 @@ class Calculator extends React.Component {
 
                             <div>
                                 {renderCarModel}
-
                             </div>
-
+                            <Form.Text className="text-muted">
+                                Enter your car make. Ex. Toyota, Honda
+                            </Form.Text>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
@@ -899,6 +945,9 @@ class Calculator extends React.Component {
                                 as="select">
                                 {carYears}
                             </Form.Control>
+                            <Form.Text className="text-muted">
+                                Enter the year your car was made
+                            </Form.Text>
                         </Form.Group>
                         <Form.Group>
 
@@ -924,6 +973,9 @@ class Calculator extends React.Component {
                             <div>
                                 {renderThis}
                             </div>
+                            <Form.Text className="text-muted">
+                                Enter whether your car is electric or fueled by gas by clicking on the drop down.
+                            </Form.Text>
 
                         </Form.Group>
 
@@ -940,22 +992,14 @@ class Calculator extends React.Component {
                                 name="originalPrice"
                                 value={this.state.originalPrice}
                             />
+                            <Form.Text className="text-muted">
+                                Enter how much money the car costed when it was brand new
+                            </Form.Text>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                11. How much is your car worth now?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter the current price"
-                                onChange={this.handleChange}
-                                id="finalPrice"
-                                type="number"
-                                name="finalPrice"
-                                value={this.state.finalPrice}
-                            />
-                        </Form.Group>
+                        <div>{lastQuestion}</div>
                         <input type="submit"
                         />
+
                     </Jumbotron>
                 </Form>
                 <br />
@@ -973,8 +1017,8 @@ class Calculator extends React.Component {
 
 ReactDOM.render(
     <div>
-        <Calculator/>
-        <scrollButton/>
+        <Calculator />
+        <scrollButton />
     </div>,
 
     document.getElementById("root")
