@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
-
+import Alert from 'react-bootstrap/Alert';
 
 function compare(a, b) {
     const nameA = a.Make_Name;
@@ -58,6 +58,7 @@ class Calculator extends React.Component {
             carBasePrice: "",
             seeOtherCPM: "",
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
+            submitted: false,
 
         }
         this.handleChange = this.handleChange.bind(this);
@@ -89,12 +90,14 @@ class Calculator extends React.Component {
         e.preventDefault();
         this.depreciate();
         this.getZIP(this.state.zipcode);
+        this.setState({
+            submitted: true,
+        })
 
         if (this.state.mpg.length > 0) {
             this.getData(this.state.statecode);
         }
-
-
+       
 
     }
     getVIN(vin) {
@@ -726,7 +729,7 @@ class Calculator extends React.Component {
                 </Form.Text>
                 <label>Scroll Down for results</label>
                 <br />
-                <Image src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" fluid />
+                <img src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" className = "myImage" />
             </Form.Group>);
         }
         //CONDITIONAL RENDERING FOR RELATIONAL DATA
@@ -759,6 +762,16 @@ class Calculator extends React.Component {
                         {otherCPM}
                     </Form.Group>
                 );
+        }
+        var renderAlert;
+        if(Number.isNaN(this.state.costpermile) && this.state.submitted){
+            renderAlert = (
+                <Alert variant = "danger">
+                    <Alert.Heading>You have some questions to fill still</Alert.Heading>
+                </Alert>
+            )
+        }else{
+            renderAlert = (<div></div>)
         }
         return (
             <Container>
@@ -806,12 +819,12 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                2. How much have you paid for maitenance and repairs a year?
+                                2. How much have you paid for maintenance and repairs a year?
                             </Form.Label>
 
 
                             <Form.Control
-                                placeholder="Enter how much you pay for maitenance a year"
+                                placeholder="Enter how much you pay for maintenance a year"
                                 onChange={this.handleChange}
                                 id="maitenance"
                                 type="number"
@@ -999,8 +1012,9 @@ class Calculator extends React.Component {
                         <div>{lastQuestion}</div>
                         <input type="submit"
                         />
-
+                        {renderAlert}
                     </Jumbotron>
+                    
                 </Form>
                 <br />
 
@@ -1008,6 +1022,7 @@ class Calculator extends React.Component {
                 }
 
                 {renderRelationalData}
+                
 
 
             </Container>
