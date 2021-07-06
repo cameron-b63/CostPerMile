@@ -29,7 +29,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 0,
             iPaid: "",
             miles: "",
             mait: "",
@@ -727,7 +727,9 @@ class Calculator extends React.Component {
                 <Form.Text className="text-muted">
                     Enter your car's current worth
                 </Form.Text>
-                <label>Scroll Down for results</label>
+                <Alert variant = "success">
+                    <Alert.Heading>Scroll Down For Your Results</Alert.Heading>
+                </Alert>
                 <br />
                 <img src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" className = "myImage" />
             </Form.Group>);
@@ -767,9 +769,9 @@ class Calculator extends React.Component {
         if(Number.isNaN(this.state.costpermile) && this.state.submitted){
             renderAlert = (
                 <Alert variant = "danger">
-                    <Alert.Heading>You have some questions to fill still</Alert.Heading>
+                    <Alert.Heading>You have some unaswered questions. To see your results, you must fill out all questions</Alert.Heading>
                 </Alert>
-            )
+            );
         }else{
             renderAlert = (<div></div>)
         }
