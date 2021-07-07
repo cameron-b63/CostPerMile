@@ -6,13 +6,12 @@ import './carmakes.json'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Toast from 'react-bootstrap/Toast';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
-
+import OtherCPM from './OtherCPM.js'
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -29,7 +28,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 0,
             iPaid: "",
             miles: "",
             mait: "",
@@ -170,30 +169,7 @@ class Calculator extends React.Component {
                     "useQueryString": true
                 }
             };
-            /*var obj = {  
-                method: 'GET',
-                
-                "port": null,
-                "path": "/rest/info.json/" + this.state.zipcode + "/degrees",
-                headers: {
-                    "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
-                    "x-rapidapi-host": "redline-redline-zipcode.p.rapidapi.com",
-                    "useQueryString": true
-                },
-                
-            };
-            fetch('redline-redline-zipcode.p.rapidapi.com/rest/info.json/ ${this.state.zipcode}  /degrees')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.toString());
-                
-                this.setState({
-                    statecode: data.state,
-                    city: data.city,
-                })
-                this.getData(this.state.statecode);
-            })
-            */
+        
 
 
 
@@ -237,24 +213,8 @@ class Calculator extends React.Component {
 
         if (state.length > 0) {
 
-            /*
-            const options = {
-                "method": "GET",
-                
-                "port": null,
-                "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
-                "headers": {
-                    "content-type": "application/json",
-                    "authorization": "apikey 49S3NpApsO1VH7MBkPuIdl:7czVHVdiBbrpo2bR2gV987"
-                }
-            }
-            fetch("api.collectapi.com",options)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.getData(this.state.statecode)
-            })
-            */
+           
+        
 
 
             var http = require("https");
@@ -328,33 +288,11 @@ class Calculator extends React.Component {
         }
     }
 
-    renderListElement(stringDisplay, CPM, displayImage) {
-        var awesome = "";
-        if (typeof displayImage !== "undefined") {
-            return (
-                <tr>
-                    <td>{stringDisplay}</td>
-                    <td>{CPM}</td>
-                    <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
-                    <td><Image src={displayImage} fluid /></td>
-                </tr>
-            );
-        }
-        else {
-            return (
-                <tr>
-                    <td>{stringDisplay}</td>
-                    <td>{CPM}</td>
-                    <td>{this.state.costpermile.toFixed(2) - CPM > 0 ? "+" + (this.state.costpermile.toFixed(2) - CPM).toFixed(2) : (this.state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
-                </tr>
-            )
-        }
-    }
+    
     componentDidMount() {
 
 
     }
-    //const [validated, setValidated] = useState(false);
     render() {
         let allOptions;
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
@@ -495,181 +433,7 @@ class Calculator extends React.Component {
             );
         }
 
-        let otherCPM;
-        //CONDITIONAL RENDERING FOR DATA SHOWN AT THE BOTTOM
-        if (this.state.seeOtherCPM.indexOf("10k") > 0) {
-            otherCPM = (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Your Cost Per Mile</td>
-                            <td>{this.state.costpermile.toFixed(2)}</td>
-                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                        </tr>
-
-                        {this.renderListElement("Average US Driver who drives 10k miles", 79)}
-
-                        {this.renderListElement("Average US Driver who drives a Small Sedan (10k miles)", 0.61)}
-                        {this.renderListElement("Average US Driver who drives a Medium Sedan (10k miles)", 0.75)}
-                        {this.renderListElement("Average US Driver who drives a Large Sedan (10k miles)", 0.90)}
-                        {this.renderListElement("Average US Driver who drives a Small SUV (10k miles)", 0.71)}
-                        {this.renderListElement("Average US Driver who drives a Medium SUV (10k miles)", 0.87)}
-                        {this.renderListElement("Average US Driver who drives a Minivan (10k miles)", 0.87)}
-                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (10k miles)", 0.68)}
-                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (10k miles", 0.75)}
-                    </tbody>
-                </Table>
-            )
-
-        }
-        else if (this.state.seeOtherCPM.indexOf("15k") > 0) {
-            otherCPM = (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Your Cost Per Mile</td>
-                            <td>{this.state.costpermile.toFixed(2)}</td>
-                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                        </tr>
-
-                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-
-                        {this.renderListElement("Average US Driver who drives a Small Sedan (15k miles)", 0.47)}
-                        {this.renderListElement("Average US Driver who drives a Medium Sedan (15k miles)", 0.58)}
-                        {this.renderListElement("Average US Driver who drives a Large Sedan (15k miles)", 0.69)}
-                        {this.renderListElement("Average US Driver who drives a Small SUV (15k miles)", 0.56)}
-                        {this.renderListElement("Average US Driver who drives a Medium SUV (15k miles)", 0.68)}
-                        {this.renderListElement("Average US Driver who drives a Minivan (15k miles)", 0.67)}
-                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (15k miles)", 0.52)}
-                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (15k miles", 0.55)}
-
-
-
-                    </tbody>
-                </Table>
-
-
-            )
-        }
-        else if (this.state.seeOtherCPM.indexOf("20k") > 0) {
-            otherCPM = (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Your Cost Per Mile</td>
-                            <td>{this.state.costpermile.toFixed(2)}</td>
-                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                        </tr>
-
-
-                        {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
-                        {this.renderListElement("Average US Driver who drives a Small Sedan (20k miles)", 0.41)}
-                        {this.renderListElement("Average US Driver who drives a Medium Sedan (20k miles)", 0.49)}
-                        {this.renderListElement("Average US Driver who drives a Large Sedan (20k miles)", 0.59)}
-                        {this.renderListElement("Average US Driver who drives a Small SUV (20k miles)", 0.48)}
-                        {this.renderListElement("Average US Driver who drives a Medium SUV (20k miles)", 0.59)}
-                        {this.renderListElement("Average US Driver who drives a Minivan (20k miles)", 0.57)}
-                        {this.renderListElement("Average US Driver who drives a Hybrid Vehicle (20k miles)", 0.43)}
-                        {this.renderListElement("Average US Driver who drives an Electric Vehicle (20k miles", 0.46)}
-                    </tbody>
-                </Table>
-
-
-            )
-        }
-        else if (this.state.seeOtherCPM.indexOf("Other") > 0) {
-            var renderTable = this.state.otherFamousCars.map((N) => this.renderListElement("Average US Driver who drives a " + N.Name, N.CPM, N.Image))
-            otherCPM = (
-                <Table striped bordered hover>
-
-                    <thead>
-                        <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Your Cost Per Mile</td>
-                            <td>{this.state.costpermile.toFixed(2)}</td>
-                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                        </tr>
-                        {renderTable}
-
-
-                    </tbody>
-                </Table>);
-            //allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
-
-            {/*{this.renderListElement("Average US Driver who drives an Acura RDX", 0.74)}
-                    {this.renderListElement("Average US Driver who drives an Audi Q5", 0.89)}
-                    {this.renderListElement("Average US Driver who drives a BMW i3 series", 0.60)}
-                    {this.renderListElement("Average US Driver who drives a Buick Enclave" , 0.76)}
-                    {this.renderListElement("Average US Driver who drives a Cadillac Escalade" , 1.35)}
-                    {this.renderListElement("Average US Driver who drives a Chevrolet Equinox" , 0.61)}
-                    {this.renderListElement("Average US Driver who drives a Dodge Charger" , 0.60)}
-                    {this.renderListElement("Average US Driver who drives a Ford F-150" , 0.67)}
-                    {this.renderListElement("Average US Driver who drives a Honda CR-V" , 0.45)}
-                    {this.renderListElement("Average US Driver who drives a Hyundai Santa Fe" , 0.57)}
-                    {this.renderListElement("Average US Driver who drives an Infiniti q50" , 0.80)}
-                    {this.renderListElement("Average US Driver who drives a Jeep Wrangler" , 0.66)}
-                    {this.renderListElement("Average US Driver who drives a Kia Sportage" , 0.48)}
-                    {this.renderListElement("Average US Driver who drives a Lexus RX350 ", 0.81 )}
-                    {this.renderListElement("Average US Driver who drives a Mercedes C Class",0.80 )}
-                    {this.renderListElement("Average US Driver who drives a Nissan Rogue", 0.50 )}
-                    {this.renderListElement("Average US Driver who drives a Porsche Macan",1.07 )}
-                    {this.renderListElement("Average US Driver who drives a Subaru Outback", 0.50 )}
-                    {this.renderListElement("Average US Driver who drives a Tesla Model X", 1.27 )}
-                    */}
-
-
-        }
-        else {
-            otherCPM = (
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Cost per mile of</th>
-                            <th>Cost per mile ($)</th>
-                            <th>Cost per mile in relation to You</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Your Cost Per Mile</td>
-                            <td>{this.state.costpermile.toFixed(2)}</td>
-                            <td>{(this.state.costpermile - this.state.costpermile).toFixed(2)}</td>
-                        </tr>
-
-                        {this.renderListElement("Average US Driver who drives 10k miles", 0.79)}
-                        {this.renderListElement("Average US Driver who drives 15k miles", 0.61)}
-                        {this.renderListElement("Average US Driver who drives 20k miles", 0.53)}
-                    </tbody>
-                </Table>
-            )
-        }
+   
         //STORING THE LAST QUESTION
 
         var lastQuestion;
@@ -743,7 +507,7 @@ class Calculator extends React.Component {
                             <option name="seeOtherCPM">CPM of Average Car Types for 20k miles per year (384 miles a week)</option>
                             <option name="seeOtherCPM">Average CPM For Other Cars (15000 miles a year or 288 miles a week)</option>
                         </Form.Control>
-                        {otherCPM}
+                        {OtherCPM(this.state)}
                     </Form.Group>
                 );
         }
@@ -789,8 +553,6 @@ class Calculator extends React.Component {
                                 value={this.state.iPaid}
 
                             />
-
-
                             <Form.Text className="text-muted">
                                 Enter how much insurace you pay each year
                             </Form.Text>
@@ -798,14 +560,10 @@ class Calculator extends React.Component {
                         </Form.Group>
 
 
-
                         <Form.Group>
-
                             <Form.Label>
                                 2. How much have you paid for maintenance and repairs a year?
                             </Form.Label>
-
-
                             <Form.Control
                                 placeholder="Enter how much you pay for maintenance a year"
                                 onChange={this.handleChange}
@@ -845,8 +603,6 @@ class Calculator extends React.Component {
                             <Form.Label>
                                 4. How much do you pay for tolls every month?
                             </Form.Label>
-
-
                             <Form.Control
                                 placeholder="Enter how much you pay for tolls"
                                 onChange={this.handleChange}
@@ -860,13 +616,11 @@ class Calculator extends React.Component {
                                 Enter how much you usually pay for tolls every month
                             </Form.Text>
                         </Form.Group>
-
                         <Form.Group>
 
                             <Form.Label>
                                 5. How many miles do you usually drive per week?
                             </Form.Label>
-
                             <Form.Control type="number"
                                 placeholder="Enter how many miles driven"
                                 onChange={this.handleChange}
@@ -879,11 +633,7 @@ class Calculator extends React.Component {
                             <Form.Text className="text-muted">
                                 Enter the miles you usually drive per week
                             </Form.Text>
-
-
                         </Form.Group>
-
-
                     </Jumbotron>
 
                     <Jumbotron>
@@ -1032,13 +782,9 @@ class Calculator extends React.Component {
                 </Form>
                 <br />
 
-                {//CONDITIONAL RENDERING IF CPM IS NOT NaN
-                }
-
+                {/*CONDITIONAL RENDERING IF CPM IS NOT NaN */}
+                
                 {renderRelationalData}
-
-
-
             </Container>
         );
     }
