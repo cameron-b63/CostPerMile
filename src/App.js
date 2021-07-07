@@ -12,6 +12,7 @@ import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
+import Header from './Components/Header.js'
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -510,7 +511,6 @@ class Calculator extends React.Component {
                     <p>Scroll down to see your results!</p>
                 </Alert>
                 <br />
-                <img src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" className="myImage" />
             </Form.Group>);
         }
         //CONDITIONAL RENDERING FOR RELATIONAL DATA
@@ -558,16 +558,12 @@ class Calculator extends React.Component {
 
 
         return (
+
+            //
+            
             <Container>
 
-                <Jumbotron>
-                    <h1>
-                        10 Question Cost Per Mile Calculator
-                    </h1>
-                    <p>
-                        Fill out these questions to the best of your abilitiy as they are the basis of calculating your cost per mile. You will be asked about information that you may not know about some of these questions so fill them out to the best of your ability.
-                    </p>
-                </Jumbotron>
+                <Header/>
                 <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
                     <Jumbotron>
                         <h2>Fixed Costs (Section 1/3)</h2>
