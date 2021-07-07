@@ -29,7 +29,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 0,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -59,7 +59,7 @@ class Calculator extends React.Component {
             seeOtherCPM: "",
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
             submitted: false,
-
+            validated: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -97,7 +97,7 @@ class Calculator extends React.Component {
         if (this.state.mpg.length > 0) {
             this.getData(this.state.statecode);
         }
-       
+        this.setState({validated: true});
 
     }
     getVIN(vin) {
@@ -354,11 +354,9 @@ class Calculator extends React.Component {
 
 
     }
+    //const [validated, setValidated] = useState(false);
     render() {
-
         let allOptions;
-
-
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarModel;
@@ -706,6 +704,7 @@ class Calculator extends React.Component {
                     type="number"
                     name="finalPrice"
                     value={this.state.finalPrice}
+                    required
                 />
                 <Form.Text className="text-muted">
                     Enter your car's current worth
@@ -723,15 +722,17 @@ class Calculator extends React.Component {
                     type="number"
                     name="finalPrice"
                     value={this.state.finalPrice}
+                    required
                 />
                 <Form.Text className="text-muted">
                     Enter your car's current worth
                 </Form.Text>
-                <Alert variant = "success">
-                    <Alert.Heading>Scroll Down For Your Results</Alert.Heading>
+                <Alert variant="success">
+                    <Alert.Heading>Success!</Alert.Heading>
+                    <p>Scroll down to see your results!</p>
                 </Alert>
                 <br />
-                <img src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" className = "myImage" />
+                <img src="https://i.pinimg.com/564x/5e/8f/37/5e8f3769652154c09064e81af4ea0f8a.jpg" className="myImage" />
             </Form.Group>);
         }
         //CONDITIONAL RENDERING FOR RELATIONAL DATA
@@ -766,34 +767,30 @@ class Calculator extends React.Component {
                 );
         }
         var renderAlert;
-        if(Number.isNaN(this.state.costpermile) && this.state.submitted){
+        if (Number.isNaN(this.state.costpermile) && this.state.submitted) {
             renderAlert = (
-                <Alert variant = "danger">
-                    <Alert.Heading>You have some unaswered questions. To see your results, you must fill out all questions</Alert.Heading>
+                <Alert variant="danger">
+                    <Alert.Heading>Warning!</Alert.Heading>
+                    <p>You have some unaswered questions. To see your results, you must fill out all questions.</p>
                 </Alert>
             );
-        }else{
+        } else {
             renderAlert = (<div></div>)
         }
+        
+       
         return (
             <Container>
 
                 <Jumbotron>
                     <h1>
                         11 Question Cost Per Mile Calculator
-
                     </h1>
                     <p>
                         Fill out these questions to the best of your abilitiy as they are the basis of calculating your cost per mile. You will be asked about information that you may not know about some of these questions so fill them out to the best of your ability.
                     </p>
                 </Jumbotron>
-
-
-
-                <Form onSubmit={this.handleSubmit}>
-
-
-
+                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
                     <Jumbotron>
                         <h2>Fixed Costs (Section 1/3)</h2>
                         <Form.Group>
@@ -801,19 +798,22 @@ class Calculator extends React.Component {
                             <Form.Label>
                                 1. How much have you paid for insurance a year?
                             </Form.Label>
-
-
                             <Form.Control
+                                required
                                 placeholder="Enter the amount of insurance paid a year"
                                 onChange={this.handleChange}
                                 id="insurance"
                                 type="number"
                                 name="iPaid"
                                 value={this.state.iPaid}
+
                             />
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+
                             <Form.Text className="text-muted">
                                 Enter how much insurace you pay each year
                             </Form.Text>
+
                         </Form.Group>
 
 
@@ -832,6 +832,7 @@ class Calculator extends React.Component {
                                 type="number"
                                 name="mait"
                                 value={this.state.mait}
+                                required
                             />
                             <Form.Text className="text-muted">
                                 Enter how much you usually pay for maitenance in a year
@@ -848,6 +849,7 @@ class Calculator extends React.Component {
                                 type="number"
                                 name="subscriptions"
                                 value={this.state.subscriptions}
+                                required
                             />
                         </Form.Group>
                         <Form.Text className="text-muted">
@@ -871,6 +873,7 @@ class Calculator extends React.Component {
                                 type="number"
                                 name="tolls"
                                 value={this.state.tolls}
+                                required
                             />
                             <Form.Text className="text-muted">
                                 Enter how much you usually pay for tolls every month
@@ -890,6 +893,7 @@ class Calculator extends React.Component {
                                 type="number"
                                 name="miles"
                                 value={this.state.miles}
+                                required
                             />
                             <Form.Text className="text-muted">
                                 Enter the miles you usually drive per week
@@ -914,6 +918,7 @@ class Calculator extends React.Component {
                                 type="text"
                                 name="VIN"
                                 value={this.state.VIN}
+                                required
                             />
                             <Button
                                 onClick={this.handleClick}
@@ -935,8 +940,10 @@ class Calculator extends React.Component {
                                 type="text"
                                 name="carMake"
                                 value={this.state.carMake}
+                                required
                             >
-                                <option>-Choose your car make below-</option>
+                                <option></option>
+                                
                                 {allOptions}
 
                             </Form.Control>
@@ -957,8 +964,12 @@ class Calculator extends React.Component {
                                 id="carYear"
                                 name="carYear"
                                 value={this.state.carYear}
-                                as="select">
+                                required
+                                as="select"
+                            >
+                                <option></option>
                                 {carYears}
+                                
                             </Form.Control>
                             <Form.Text className="text-muted">
                                 Enter the year your car was made
@@ -978,8 +989,9 @@ class Calculator extends React.Component {
                                 type="text"
                                 name="isElectric"
                                 value={this.state.isElectric}
+                                required
                             >
-                                <option name="isElectric">-Choose your power type-</option>
+                                <option name="isElectric"></option>
                                 <option name="isElectric">gas</option>
                                 <option name="isElectric">electric</option>
 
@@ -1006,6 +1018,7 @@ class Calculator extends React.Component {
                                 type="number"
                                 name="originalPrice"
                                 value={this.state.originalPrice}
+                                required
                             />
                             <Form.Text className="text-muted">
                                 Enter how much money the car costed when it was brand new
@@ -1016,7 +1029,7 @@ class Calculator extends React.Component {
                         />
                         {renderAlert}
                     </Jumbotron>
-                    
+
                 </Form>
                 <br />
 
@@ -1024,7 +1037,7 @@ class Calculator extends React.Component {
                 }
 
                 {renderRelationalData}
-                
+
 
 
             </Container>
@@ -1035,7 +1048,7 @@ class Calculator extends React.Component {
 ReactDOM.render(
     <div>
         <Calculator />
-        <scrollButton />
+    
     </div>,
 
     document.getElementById("root")
