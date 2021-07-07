@@ -1,6 +1,5 @@
 import React from 'react';
-import './index.css';
-import './carmakes.json'
+
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'

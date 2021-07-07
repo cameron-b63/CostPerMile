@@ -11,16 +11,17 @@ import Form from 'react-bootstrap/Form'
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
 import Header from './Components/Header.js'
-import Question1 from './Question1.js'
-import Question2 from './Question2.js'
-import Question3 from './Question3.js'
-import Question4 from './Question4.js'
-import Question5 from './Question5.js'
-import Question6 from './Question6.js'
-import Question7 from './Question7.js'
-import Question8 from './Question8.js'
-import Question9 from './Question9.js'
-import Question10 from './Question10.js'
+import Question1 from './Components/Question1.js'
+import Question2 from './Components/Question2.js'
+import Question3 from './Components/Question3.js'
+import Question4 from './Components/Question4.js'
+import Question5 from './Components/Question5.js'
+import Question6 from './Components/Question6.js'
+import Question7 from './Components/Question7.js'
+import Question8 from './Components/Question8.js'
+import Question9 from './Components/Question9.js'
+import Question10 from './Components/Question10.js'
+
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -115,7 +116,7 @@ class Calculator extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        //depreciationValue will not update
+        
 
 
         this.getCityState(this.state.zipcode);
@@ -307,10 +308,6 @@ class Calculator extends React.Component {
                                 })
                             }
                         }
-  
- 
- 
-
                         let final;
 
                         if (self.state.isElectric.indexOf("as")> 0) {
