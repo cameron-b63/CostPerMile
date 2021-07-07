@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
-import Question4 from './Question4.js'
+
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -13,7 +13,12 @@ import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
 import Header from './Components/Header.js'
-
+import Question1 from './Question1.js'
+import Question2 from './Question2.js'
+import Question3 from './Question3.js'
+import Question4 from './Question4.js'
+import Question5 from './Question5.js'
+import Question6 from './Question6.js'
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -603,167 +608,29 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Vehicle Information (Section 1/3)</h2>
-                        <Form.Group>
-                            <Form.Label>
-                                1. Enter your VIN(Vehicle Identification Number) here
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="VIN (Optional) "
-                                onChange={this.handleChange}
-                                id="VIN"
-                                type="text"
-                                name="VIN"
-                                value={this.state.VIN}
-                                required
-                            />
-                            <Form.Text>
-                                Enter your VIN information to automatically answer the
-                                following questions or skip and answer questions manually.
-                            </Form.Text>
-                            {renderCarMakeAlert}
-                            <Button
-                                onClick={this.handleClick}
-                            >
-                                Submit your VIN to get official data from the NHTSA
-                            </Button>
-                            
-                        </Form.Group>
+
+                        <Question1 state = {this.state} onChange = {this.handleChange} carMakeAlert = {renderCarMakeAlert} onClick = {this.handleClick}/>
+                        
                         <Form.Label>
                             2. Enter in your car info below if you do not remember your VIN
                         </Form.Label>
-                        <Form.Row>
-
-                            <Form.Group>
-                                <Form.Label>
-                                    Year
-                                </Form.Label>
-
-                                <Form.Control
-                                    onChange={this.handleChange}
-                                    id="carYear"
-                                    name="carYear"
-                                    value={this.state.carYear}
-                                    required
-                                    as="select"
-                                >
-                                    <option></option>
-                                    {carYears}
-
-                                </Form.Control>
-                                
-                            </Form.Group>
-
-                            <Form.Group>
-                                <Form.Label>
-                                    Make
-                                </Form.Label>
-                                <Form.Control as="select"
-                                    placeholder="Enter your car make"
-                                    onChange={this.handleChange}
-                                    id="carMake"
-                                    type="text"
-                                    name="carMake"
-                                    value={this.state.carMake}
-                                    required
-                                >
-                                    <option></option>
-
-                                    {allOptions}
-
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group>
-                                <Form.Label>
-                                    Model
-                                </Form.Label>
-                                <Form.Control
-                                    as="select"
-                                    required
-                                    onChange={this.handleChange}
-                                    id="carModel"
-                                    name="carModel"
-                                    value={this.state.carModel}
-
-                                >
-                                    <option></option>
-                                    {allOptions2}
-                                </Form.Control>
-                            </Form.Group>
-
-                        </Form.Row>
-                        <Form.Group>
-
-                            <Form.Label>
-                                3. Are you an electric vehicle user or gas car user?
-                            </Form.Label>
-
-
-                            <Form.Control as="select"
-
-                                onChange={this.handleChange}
-                                id="isElectric"
-                                type="text"
-                                name="isElectric"
-                                value={this.state.isElectric}
-                                required
-                            >
-                                <option name="isElectric"></option>
-                                <option name="isElectric">gas</option>
-                                <option name="isElectric">electric</option>
-
-                            </Form.Control>
-
-                            
-                          
-
-                        </Form.Group>
-                        <div>
-                            {renderFuelQuestions}
-                        </div>
-
-
-
-
+                        <Question2 _state = {this.state} _handleChange = {this.handleChange} _carYears = {carYears} _allOptions = {allOptions} _allOptions2 = {allOptions2}/>
                     
+                        <Question3 _state = {this.state} _handleChange = {this.handleChange} _renderFuelQuestions = {renderFuelQuestions}/>                         
+                        {renderFuelQuestions}
+                        
                     </Jumbotron>
 
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
 
                         <Question4 state = {this.state} onChange = {this.handleChange}/>
+
+                        <Question5 _state = {this.state} _handleChange = {this.handleChange}/>
                         
-                        <Form.Group>
-                            <Form.Label>
-                                5. How much is your car worth now?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter the current price"
-                                onChange={this.handleChange}
-                                id="finalPrice"
-                                type="text"
-                                name="finalPrice"
-                                value={this.state.finalPrice}
-                                required
-                            />
-                            
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                6. What is your annual insurance cost?
-                            </Form.Label>
-                            <Form.Control
-                                required
-                                placeholder="Enter the amount of insurance paid a year"
-                                onChange={this.handleChange}
-                                id="insurance"
-                                type="text"
-                                name="iPaid"
-                                value={this.state.iPaid}
+                        <Question6 _state = {this.state} _handleChange = {this.handleChange}/>
 
-                            />
-                            
-
-                        </Form.Group>
+                        
                         <Form.Group>
                             <Form.Label>
                                 7. What is your annual license plate renewal fee?
