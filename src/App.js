@@ -64,9 +64,7 @@ class Calculator extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
-
     depreciate() {
-
         let depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
         this.setState({ depreciationValue: depreciation });
     }
@@ -80,20 +78,44 @@ class Calculator extends React.Component {
     }
     handleClick(e) {
         this.getVIN(this.state.VIN);
-
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        //depreciationValue will not update
         this.depreciate();
+    
         this.getCityState(this.state.zipcode);
         this.setState({
             submitted: true,
         })
 
-        if (this.state.mpg.length > 0) {
-            this.getData(this.state.statecode);
+        if (this.state.isElectric.indexOf("as") > 0) {
+            this.getGasPrice(this.state.statecode);
+        } else {
+            let final;
+            if (this.state.isElectric.indexOf("as") > 0) {
+                final = (parseInt(this.state.depreciationValue) +
+                    parseInt(this.state.iPaid) +
+                    (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
+                    parseInt(this.state.mait) +
+                    (parseInt(this.state.tolls) * 12) +
+                    parseInt(this.state.subscriptions))
+                    / (parseInt(this.state.miles) * 52);
+            } else {
+                final = (parseInt(this.state.depreciationValue) +
+                    parseInt(this.state.iPaid) +
+                    ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
+                    parseInt(this.state.mait) +
+                    (parseInt(this.state.tolls) * 12) +
+                    parseInt(this.state.subscriptions)) /
+                    (parseInt(this.state.miles) * 52);
+            }
+            this.setState({
+                costpermile: final
+            })
         }
+
         this.setState({ validated: true });
 
     }
@@ -144,13 +166,11 @@ class Calculator extends React.Component {
                             carModel: model,
                             carYear: modelYear,
                             carBasePrice: basePrice,
-                            isElectric: fuelType
+
                         })
                         console.log(this.state);
                     }
-
                 })
-
         }
     }
 
@@ -184,12 +204,13 @@ class Calculator extends React.Component {
 
                     var bodyJSON = JSON.parse(body.toString());
                     console.log(bodyJSON);
+                    if (typeof self.state.statecode === 'undefined');
                     self.setState({
                         statecode: bodyJSON.state,
                         city: bodyJSON.city,
                     })
 
-                    self.getData(self.state.statecode)
+                    self.getGasPrice(self.state.statecode)
 
                 });
             })
@@ -200,90 +221,90 @@ class Calculator extends React.Component {
 
         }
     }
+    getGasPrice(state) {
+        if (typeof state !== 'undefined') {
+            if (state.length > 0) {
+                var http = require("https");
 
+                var options = {
+                    "method": "GET",
+                    "hostname": "api.collectapi.com",
+                    "port": null,
+                    "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
+                    "headers": {
+                        "content-type": "application/json",
+                        "authorization": "apikey 1xlYvCDfg8hkQzETYVoiv5:5JGIXWt5xUUG6xw4xv3UNa"
+                    }
+                };
+                var self = this;
+                var req = http.request(options, function (res) {
+                    var chunks = [];
 
-    getData(state) {
+                    res.on("data", function (chunk) {
+                        chunks.push(chunk);
+                    });
 
-        if (state.length > 0) {
+                    res.on("end", function () {
+                        var body = Buffer.concat(chunks);
+                        var bodyJSON = JSON.parse(body.toString());
+                        console.log(bodyJSON);
 
+                        console.log(self.state.typeOfGas);
+                        var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
+                        if (city.length > 0) {
+                            console.log(city[0][self.state.typeOfGas]);
+                            self.setState({
+                                gallon: city[0][self.state.typeOfGas]
+                            })
+                            console.log(self.state);
+                        } else {
+                            //const myTypeOfGas = eval(self.state.typeOfGas)
+                            /*
+                           self.setState({
+                               //This line does not work for some reason
+                               
+                               gallon: bodyJSON.result.state.eval(self.state.typeOfGas)
+                           })
+                           */
+                          self.setState({
+                              gallon:bodyJSON.result.state.gasoline
+                          })
+                            console.log(self.state.gallon);
+                        }
 
-
-
-
-            var http = require("https");
-
-            var options = {
-                "method": "GET",
-                "hostname": "api.collectapi.com",
-                "port": null,
-                "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
-                "headers": {
-                    "content-type": "application/json",
-                    "authorization": "apikey 49S3NpApsO1VH7MBkPuIdl:7czVHVdiBbrpo2bR2gV987"
-                }
-            };
-            var self = this;
-            var req = http.request(options, function (res) {
-                var chunks = [];
-
-                res.on("data", function (chunk) {
-                    chunks.push(chunk);
-                });
-
-                res.on("end", function () {
-                    var body = Buffer.concat(chunks);
-                    var bodyJSON = JSON.parse(body.toString());
-                    console.log(bodyJSON);
-                    console.log(self.state.typeOfGas);
-                    var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
-                    if (city.length > 0) {
-                        console.log(city[0][self.state.typeOfGas]);
+                        let final;
+                        
+                        if (self.state.mpg.length > 0) {
+                            final = (parseInt(self.state.depreciationValue) +
+                                parseInt(self.state.iPaid) +
+                                (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
+                                parseInt(self.state.mait) +
+                                (parseInt(self.state.tolls) * 12) +
+                                parseInt(self.state.subscriptions))
+                                / (parseInt(self.state.miles) * 52);
+                        } else {
+                            final = (parseInt(self.state.depreciationValue) +
+                                parseInt(self.state.iPaid) +
+                                ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
+                                parseInt(self.state.mait) +
+                                (parseInt(self.state.tolls) * 12) +
+                                parseInt(self.state.subscriptions)) /
+                                (parseInt(self.state.miles) * 52);
+                        }
                         self.setState({
-                            gallon: city[0][self.state.typeOfGas]
-                        })
-                        console.log(self.state);
-                    }
-
-                    let final;
-
-                    if (self.state.mpg.length > 0) {
-                        final = (parseInt(self.state.depreciationValue) +
-                            parseInt(self.state.iPaid) +
-                            (((self.state.miles * 52) / self.state.mpg) * self.state.gallon) +
-                            parseInt(self.state.mait) +
-                            (parseInt(self.state.tolls) * 12) +
-                            parseInt(self.state.subscriptions))
-                            / (parseInt(self.state.miles) * 52);
-                    } else {
-                        final = (parseInt(self.state.depreciationValue) +
-                            parseInt(self.state.iPaid) +
-                            ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
-                            parseInt(self.state.mait) +
-                            (parseInt(self.state.tolls) * 12) +
-                            parseInt(self.state.subscriptions)) /
-                            (parseInt(self.state.miles) * 52);
-
-                    }
-
-                    self.setState(
-                        {
                             costpermile: final
                         });
-
-
-
+                    });
                 });
-            });
+                req.end();
+                
 
-            req.end();
-
-
+            }
         }
     }
 
 
     componentDidMount() {
-
 
     }
     render() {
@@ -304,9 +325,7 @@ class Calculator extends React.Component {
                 .then(data => {
                     this.setState({ models: data["Results"] });
                 })
-
         }
-
         var years = [];
         for (var i = 0; i < 100; i++) {
             years.push(2021 - i);
@@ -314,12 +333,31 @@ class Calculator extends React.Component {
         const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
+        let renderZipAlert;
 
+        if (typeof this.state.statecode === 'undefined') {
+            renderZipAlert = (
+                <Alert variant="danger">
+                    <Alert.Heading>Warning</Alert.Heading>
+                    <p>Please enter a valid Zip code</p>
+                </Alert>
+            );
+        } else if (this.state.statecode.length === 0) {
+            renderZipAlert = <div></div>
+        }
+        else {
+            renderZipAlert = (
+                <Alert variant="success">
+                    <Alert.Heading>Success</Alert.Heading>
+                    <p>Your city, state is {this.state.city}, {this.state.statecode}</p>
+                </Alert>
 
-        let renderThis;
+            )
+        }
+        let renderFuelQuestions;
         // CONDITIONAL RENDERING BASED ON USER CHOICE IF ELECTRIC OR NOT
         if (this.state.isElectric.indexOf("as") > 0) {
-            renderThis = (<div><Form.Group>
+            renderFuelQuestions = (<div><Form.Group>
                 <Form.Label>
                     8a. What fuel type do you use?
                 </Form.Label>
@@ -377,13 +415,11 @@ class Calculator extends React.Component {
                     </Form.Text>
                 </Form.Group>
 
+                {renderZipAlert}
 
-                <label>
-                    {this.state.city.length > 0 ? "Your city, state is " + this.state.city + ", " + this.state.statecode : ""}
-                </label>
             </div>);
         } else if (this.state.isElectric.indexOf("lectric") > 0) {
-            renderThis = (<div>
+            renderFuelQuestions = (<div>
                 <Form.Group>
                     <Form.Label>
                         8a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
@@ -420,12 +456,10 @@ class Calculator extends React.Component {
                 </Form.Group>
             </div>);
         } else {
-            renderThis = (
+            renderFuelQuestions = (
                 <div></div>
             );
         }
-
-
         //STORING THE LAST QUESTION
 
         var lastQuestion;
@@ -653,17 +687,16 @@ class Calculator extends React.Component {
                                 We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button . Some data about your car may still be missing so answer the unaswered questions.
                             </Form.Text>
                         </Form.Group>
-                        <Form.Label>
-                            7. Enter in your car info below if you do not remember your VIN.
-                        </Form.Label>
+                        <h5>
+                            7. Enter in your car info below if you do not remember your VIN
+                        </h5>
                         <Form.Row>
 
                             <Form.Group>
-                              
-                                    <Form.Label>
-                                        Year
-                                    </Form.Label>
-                                
+                                <Form.Label>
+                                    Year
+                                </Form.Label>
+
                                 <Form.Control
                                     onChange={this.handleChange}
                                     id="carYear"
@@ -677,7 +710,7 @@ class Calculator extends React.Component {
 
                                 </Form.Control>
                                 <Form.Text className="text-muted">
-                                    Enter the year your car was made
+                                    Enter in your car info
                                 </Form.Text>
                             </Form.Group>
 
@@ -699,11 +732,6 @@ class Calculator extends React.Component {
                                     {allOptions}
 
                                 </Form.Control>
-
-
-                                <Form.Text className="text-muted">
-                                    Enter your car make. Ex. Toyota, Honda
-                                </Form.Text>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>
@@ -747,7 +775,7 @@ class Calculator extends React.Component {
                             </Form.Control>
 
                             <div>
-                                {renderThis}
+                                {renderFuelQuestions}
                             </div>
                             <Form.Text className="text-muted">
                                 Enter whether your car is electric or fueled by gas by clicking on the drop down.
@@ -783,7 +811,6 @@ class Calculator extends React.Component {
                 <br />
 
                 {/*CONDITIONAL RENDERING IF CPM IS NOT NaN */}
-
                 {renderRelationalData}
             </Container>
         );
