@@ -66,7 +66,31 @@ class Calculator extends React.Component {
     }
     depreciate() {
         let depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
-        this.setState({ depreciationValue: depreciation });
+        this.setState({ depreciationValue: depreciation },
+            function () {
+                let final;
+                if (this.state.isElectric.indexOf("as") > 0) {
+                    final = (parseInt(this.state.depreciationValue) +
+                        parseInt(this.state.iPaid) +
+                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
+                        parseInt(this.state.mait) +
+                        (parseInt(this.state.tolls) * 12) +
+                        parseInt(this.state.subscriptions))
+                        / (parseInt(this.state.miles) * 52);
+                } else {
+                    final = (parseInt(this.state.depreciationValue) +
+                        parseInt(this.state.iPaid) +
+                        ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
+                        parseInt(this.state.mait) +
+                        (parseInt(this.state.tolls) * 12) +
+                        parseInt(this.state.subscriptions)) /
+                        (parseInt(this.state.miles) * 52);
+                }
+                this.setState({
+                    costpermile: final
+                })
+            }
+        );
     }
     handleChange(event) {
         const { name, value } = event.target
@@ -83,37 +107,15 @@ class Calculator extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         //depreciationValue will not update
-        this.depreciate();
-    
+
+
         this.getCityState(this.state.zipcode);
         this.setState({
             submitted: true,
         })
-
+        this.depreciate();
         if (this.state.isElectric.indexOf("as") > 0) {
             this.getGasPrice(this.state.statecode);
-        } else {
-            let final;
-            if (this.state.isElectric.indexOf("as") > 0) {
-                final = (parseInt(this.state.depreciationValue) +
-                    parseInt(this.state.iPaid) +
-                    (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
-                    parseInt(this.state.mait) +
-                    (parseInt(this.state.tolls) * 12) +
-                    parseInt(this.state.subscriptions))
-                    / (parseInt(this.state.miles) * 52);
-            } else {
-                final = (parseInt(this.state.depreciationValue) +
-                    parseInt(this.state.iPaid) +
-                    ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
-                    parseInt(this.state.mait) +
-                    (parseInt(this.state.tolls) * 12) +
-                    parseInt(this.state.subscriptions)) /
-                    (parseInt(this.state.miles) * 52);
-            }
-            this.setState({
-                costpermile: final
-            })
         }
 
         this.setState({ validated: true });
@@ -166,7 +168,7 @@ class Calculator extends React.Component {
                             carModel: model,
                             carYear: modelYear,
                             carBasePrice: basePrice,
-
+                            isElectric: fuelType,
                         })
                         console.log(this.state);
                     }
@@ -266,14 +268,14 @@ class Calculator extends React.Component {
                                gallon: bodyJSON.result.state.eval(self.state.typeOfGas)
                            })
                            */
-                          self.setState({
-                              gallon:bodyJSON.result.state.gasoline
-                          })
+                            self.setState({
+                                gallon: bodyJSON.result.state.gasoline
+                            })
                             console.log(self.state.gallon);
                         }
 
                         let final;
-                        
+
                         if (self.state.mpg.length > 0) {
                             final = (parseInt(self.state.depreciationValue) +
                                 parseInt(self.state.iPaid) +
@@ -297,7 +299,7 @@ class Calculator extends React.Component {
                     });
                 });
                 req.end();
-                
+
 
             }
         }
@@ -338,7 +340,7 @@ class Calculator extends React.Component {
         if (typeof this.state.statecode === 'undefined') {
             renderZipAlert = (
                 <Alert variant="danger">
-                    <Alert.Heading>Warning</Alert.Heading>
+                    <Alert.Heading>Warning!</Alert.Heading>
                     <p>Please enter a valid Zip code</p>
                 </Alert>
             );
