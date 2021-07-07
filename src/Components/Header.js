@@ -4,10 +4,10 @@ function Header() {
     return(
     <Jumbotron>
         <h1>
-            10 Question Cost Per Mile Calculator
+            10 Question Cost Per Mile Comparison
         </h1>
         <p>
-            Fill out these questions to the best of your abilitiy as they are the basis of calculating your cost per mile. You will be asked about information that you may not know about some of these questions so fill them out to the best of your ability.
+            The following questions are the basis for calculating your cost per mile. The information you provide is not stored in anyway. The results are for general information purporses only.
         </p>
     </Jumbotron>
     )

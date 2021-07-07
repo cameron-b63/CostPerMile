@@ -40,9 +40,8 @@ class Calculator extends React.Component {
             tolls: "",
             statecode: "",
             mpg: "",
-            subscriptions: "",
             gallon: "",
-            typeOfGas: "gasoline",
+            typeOfGas: "regular",
             priceOfGas: "",
             city: "",
             VIN: "",
@@ -54,6 +53,7 @@ class Calculator extends React.Component {
             carMake: "",
             carModel: "",
             isElectric: "",
+            licensePlate: "",
             carYear: "",
             carBasePrice: "",
             seeOtherCPM: "",
@@ -76,7 +76,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
-                        parseInt(this.state.subscriptions))
+                        (parseInt(this.state.licensePlate)) )
                         / (parseInt(this.state.miles) * 52);
                 } else {
                     final = (parseInt(this.state.depreciationValue) +
@@ -84,7 +84,7 @@ class Calculator extends React.Component {
                         ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
-                        parseInt(this.state.subscriptions)) /
+                        (parseInt(this.state.licensePlate))) /
                         (parseInt(this.state.miles) * 52);
                 }
                 this.setState({
@@ -255,25 +255,53 @@ class Calculator extends React.Component {
                         console.log(self.state.typeOfGas);
                         var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
                         if (city.length > 0) {
-                            console.log(city[0][self.state.typeOfGas]);
-                            self.setState({
-                                gallon: city[0][self.state.typeOfGas]
-                            })
+                            if(self.state.typeOfGas === "regular"){
+                                self.setState({
+                                    gallon: city[0]["gasoline"]
+                                })
+                            }
+                            else if(self.state.typeOfGas === "mid grade"){
+                                self.setState({
+                                    gallon:city[0]["midGrade"]
+                                })
+                            }
+                            else if(self.state.typeOfGas === "premium"){
+                                self.setState({
+                                    gallon: city[0]["premium"]
+                                })
+                            }
+                            else if(self.state.typeOfGas === "diesel"){
+                                self.setState({
+                                    gallon: city[0]["diesel"]
+                                })
+                            }
+                           
                             console.log(self.state);
                         } else {
-                            //const myTypeOfGas = eval(self.state.typeOfGas)
-                            /*
-                           self.setState({
-                               //This line does not work for some reason
-                               
-                               gallon: bodyJSON.result.state.eval(self.state.typeOfGas)
-                           })
-                           */
-                            self.setState({
-                                gallon: bodyJSON.result.state.gasoline
-                            })
-                            console.log(self.state.gallon);
+                            if(self.state.typeOfGas === "regular"){
+                                self.setState({
+                                    gallon: bodyJSON.result.state.gasoline
+                                })
+                            }
+                            else if(self.state.typeOfGas === "mid grade"){
+                                self.setState({
+                                    gallon: bodyJSON.result.state.midGrade
+                                })
+                            }
+                            else if(self.state.typeOfGas === "premium"){
+                                self.setState({
+                                    gallon: bodyJSON.result.state.premium
+                                })
+                            }
+                            else if(self.state.typeOfGas === "diesel"){
+                                self.setState({
+                                    gallon: bodyJSON.result.state.diesel
+                                })
+                            }
                         }
+  
+ 
+ 
 
                         let final;
 
@@ -283,7 +311,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                parseInt(self.state.subscriptions))
+                                (parseInt(self.state.licensePlate)) )
                                 / (parseInt(self.state.miles) * 52);
                         } else {
                             final = (parseInt(self.state.depreciationValue) +
@@ -291,7 +319,7 @@ class Calculator extends React.Component {
                                 ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                parseInt(self.state.subscriptions)) /
+                                (parseInt(self.state.licensePlate)) ) /
                                 (parseInt(self.state.miles) * 52);
                         }
                         self.setState({
@@ -338,7 +366,7 @@ class Calculator extends React.Component {
                     this.setState({ models: data["Results"] });
                 })
         }
-        
+
         const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
@@ -357,17 +385,17 @@ class Calculator extends React.Component {
             renderZipAlert = (
                 <Alert variant="success">
                     <Alert.Heading>Success</Alert.Heading>
-                    <p>Your city, state is {this.state.city}, {this.state.statecode}</p>
+                    <p>Your city, state is {this.state.city}, {this.state.statecode} where it costs ${this.state.gallon} per gallon</p>
                 </Alert>
 
             )
         }
-        
+
         // CONDITIONAL RENDERING BASED ON USER CHOICE IF ELECTRIC OR NOT
         if (this.state.isElectric.indexOf("as") > 0) {
             renderFuelQuestions = (<div><Form.Group>
                 <Form.Label>
-                    8a. What fuel type do you use?
+                    a. What fuel type do you use?
                 </Form.Label>
                 <Form.Control as="select"
                     onChange={this.handleChange}
@@ -377,53 +405,47 @@ class Calculator extends React.Component {
                     value={this.state.typeOfGas}
                     required
                 >
-                    <option name="typeOfGas"> gasoline</option>
-                    <option name="typeOfGas">midGrade</option>
-                    <option name="typeOfGas"> premium</option>
-                    <option name="typeOfGas"> diesel</option>
+                    <option name="typeOfGas">regular</option>
+                    <option name="typeOfGas">mid grade</option>
+                    <option name="typeOfGas">premium</option>
+                    <option name="typeOfGas">diesel</option>
                 </Form.Control>
-                <Form.Text>
-                    Do not answer this question if you are an electric vehicle user
-                </Form.Text>
+               
             </Form.Group>
 
 
                 <Form.Group>
                     <Form.Label>
-                        8b. What is your MPG(Miles Per Gallon)?
+                        b. What is your MPG(Miles Per Gallon)?
                     </Form.Label>
 
                     <Form.Control
                         placeholder="Enter your mpg"
                         onChange={this.handleChange}
                         id="mpg"
-                        type="number"
+                        type="text"
                         name="mpg"
                         value={this.state.mpg}
                         required
                     />
-                    <Form.Text>
-                        Do not answer this question if you are an electric vehicle user
-                    </Form.Text>
+                   
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>
-                        8c. What is your zip code?
+                        c. What is your zip code?
                     </Form.Label>
 
                     <Form.Control
                         placeholder="Enter your zip code"
                         onChange={this.handleChange}
                         id="zipcode"
-                        type="number"
+                        type="text"
                         name="zipcode"
                         value={this.state.zipcode}
                         required
                     />
-                    <Form.Text >
-                        This question gets the gas prices in your area!
-                    </Form.Text>
+                
                 </Form.Group>
 
                 {renderZipAlert}
@@ -433,39 +455,35 @@ class Calculator extends React.Component {
             renderFuelQuestions = (<div>
                 <Form.Group>
                     <Form.Label>
-                        8a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                        a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
                     </Form.Label>
 
                     <Form.Control
                         placeholder="fullcharge"
                         onChange={this.handleChange}
                         id="fullcharge"
-                        type="number"
+                        type="text"
                         name="fullcharge"
                         value={this.state.fullcharge}
                         required
                     />
-                    <Form.Text>
-                        Do not answer this question if you are a gas vehicle user
-                    </Form.Text>
+                   
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
-                        8b. If you drive an electric vehicle, how much does it cost for a full charge?
+                        b. If you drive an electric vehicle, how much does it cost for a full charge?
                     </Form.Label>
 
                     <Form.Control
                         placeholder="fullchargeCost"
                         onChange={this.handleChange}
                         id="fullchargeCost"
-                        type="number"
+                        type="text"
                         name="fullchargeCost"
                         value={this.state.fullchargeCost}
                         required
                     />
-                    <Form.Text>
-                        Do not answer this question if you are a gas vehicle user
-                    </Form.Text>
+                    
                 </Form.Group>
             </div>);
         } else {
@@ -475,11 +493,11 @@ class Calculator extends React.Component {
         }
         //STORING THE LAST QUESTION
 
-        
-        if (Number.isNaN(this.state.costpermile)) {
+
+        /*if (Number.isNaN(this.state.costpermile)) {
             lastQuestion = (<Form.Group>
                 <Form.Label>
-                    10. How much is your car worth now?
+                    5. How much is your car worth now?
                 </Form.Label>
                 <Form.Control
                     placeholder="Enter the current price"
@@ -497,7 +515,7 @@ class Calculator extends React.Component {
         } else {
             lastQuestion = (<Form.Group>
                 <Form.Label>
-                    10. How much is your car worth now?
+                    5. How much is your car worth now?
                 </Form.Label>
                 <Form.Control
                     placeholder="Enter the current price"
@@ -518,8 +536,9 @@ class Calculator extends React.Component {
                 <br />
             </Form.Group>);
         }
+        */
         //CONDITIONAL RENDERING FOR RELATIONAL DATA
-        
+
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
@@ -557,7 +576,17 @@ class Calculator extends React.Component {
                     <p>You have some unaswered questions. To see your results, you must fill out all questions.</p>
                 </Alert>
             );
-        } else {
+        } else if(!(Number.isNaN(this.state.costpermile)) &&!this.state.submitted){
+            renderAlert = 
+            (
+            <Alert variant = "success">
+                <Alert.Heading>Success!</Alert.Heading>
+                <p>scroll down to see results</p>
+            </Alert>
+            )
+        }
+        
+        else {
             renderAlert = (<div></div>)
         }
 
@@ -565,116 +594,17 @@ class Calculator extends React.Component {
         return (
 
             //
-            
+
             <Container>
 
-                <Header/>
+                <Header />
                 <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-                    <Jumbotron>
-                        <h2>Fixed Costs (Section 1/3)</h2>
-                        <Form.Group>
-
-                            <Form.Label>
-                                1. How much have you paid for insurance a year?
-                            </Form.Label>
-                            <Form.Control
-                                required
-                                placeholder="Enter the amount of insurance paid a year"
-                                onChange={this.handleChange}
-                                id="insurance"
-                                type="number"
-                                name="iPaid"
-                                value={this.state.iPaid}
-
-                            />
-                            <Form.Text className="text-muted">
-                                Enter how much insurace you pay each year
-                            </Form.Text>
-
-                        </Form.Group>
-
-
-                        <Form.Group>
-                            <Form.Label>
-                                2. How much have you paid for maintenance and repairs a year?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter how much you pay for maintenance a year"
-                                onChange={this.handleChange}
-                                id="maitenance"
-                                type="number"
-                                name="mait"
-                                value={this.state.mait}
-                                required
-                            />
-                            <Form.Text className="text-muted">
-                                Enter how much you usually pay for maitenance in a year
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                3. How much do you pay for other related car costs a year? (subscriptions, parking, etc.)
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter your other car related costs throughout the year"
-                                onChange={this.handleChange}
-                                id="subscriptions"
-                                type="number"
-                                name="subscriptions"
-                                value={this.state.subscriptions}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Text className="text-muted">
-                            Enter how much you pay for other related car costs a year.
-                        </Form.Text>
-                    </Jumbotron>
-
 
                     <Jumbotron>
-                        <h2>Variable Costs (Section 2/3)</h2>
+                        <h2>Vehicle Information (Section 1/3)</h2>
                         <Form.Group>
                             <Form.Label>
-                                4. How much do you pay for tolls every month?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter how much you pay for tolls"
-                                onChange={this.handleChange}
-                                id="tolls"
-                                type="number"
-                                name="tolls"
-                                value={this.state.tolls}
-                                required
-                            />
-                            <Form.Text className="text-muted">
-                                Enter how much you usually pay for tolls every month
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group>
-
-                            <Form.Label>
-                                5. How many miles do you usually drive per week?
-                            </Form.Label>
-                            <Form.Control type="number"
-                                placeholder="Enter how many miles driven"
-                                onChange={this.handleChange}
-                                id="miles"
-                                type="number"
-                                name="miles"
-                                value={this.state.miles}
-                                required
-                            />
-                            <Form.Text className="text-muted">
-                                Enter the miles you usually drive per week
-                            </Form.Text>
-                        </Form.Group>
-                    </Jumbotron>
-
-                    <Jumbotron>
-                        <h2>Vehicle Specific Costs (Section 3/3)</h2>
-                        <Form.Group>
-                            <Form.Label>
-                                6. Enter your VIN(Vehicle Identification Number) here
+                                1. Enter your VIN(Vehicle Identification Number) here
                             </Form.Label>
                             <Form.Control
                                 placeholder="VIN (Optional) "
@@ -685,19 +615,21 @@ class Calculator extends React.Component {
                                 value={this.state.VIN}
                                 required
                             />
+                            <Form.Text>
+                                Enter your VIN information to automatically answer the
+                                following questions or skip and answer questions manually.
+                            </Form.Text>
                             {renderCarMakeAlert}
                             <Button
                                 onClick={this.handleClick}
                             >
                                 Submit your VIN to get official data from the NHTSA
                             </Button>
-                            <Form.Text className="text-muted">
-                                We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button . Some data about your car may still be missing so answer the unaswered questions.
-                            </Form.Text>
+                            
                         </Form.Group>
-                        <h5>
-                            7. Enter in your car info below if you do not remember your VIN
-                        </h5>
+                        <Form.Label>
+                            2. Enter in your car info below if you do not remember your VIN
+                        </Form.Label>
                         <Form.Row>
 
                             <Form.Group>
@@ -717,9 +649,7 @@ class Calculator extends React.Component {
                                     {carYears}
 
                                 </Form.Control>
-                                <Form.Text className="text-muted">
-                                    Enter in your car info
-                                </Form.Text>
+                                
                             </Form.Group>
 
                             <Form.Group>
@@ -763,7 +693,7 @@ class Calculator extends React.Component {
                         <Form.Group>
 
                             <Form.Label>
-                                8. Are you an electric vehicle user or gas car user?
+                                3. Are you an electric vehicle user or gas car user?
                             </Form.Label>
 
 
@@ -782,38 +712,147 @@ class Calculator extends React.Component {
 
                             </Form.Control>
 
-                            <div>
-                                {renderFuelQuestions}
-                            </div>
-                            <Form.Text className="text-muted">
-                                Enter whether your car is electric or fueled by gas by clicking on the drop down.
-                            </Form.Text>
+                            
+                          
 
                         </Form.Group>
+                        <div>
+                            {renderFuelQuestions}
+                        </div>
 
 
+
+
+                    
+                    </Jumbotron>
+
+                    <Jumbotron>
+                        <h2>Ownership Costs (Section 2/3)</h2>
                         <Form.Group>
                             <Form.Label>
-                                9. How much was this car when it was brand new?
+                                4. How much was this car when it was brand new?
                             </Form.Label>
                             <Form.Control
                                 placeholder="Enter your original price"
                                 onChange={this.handleChange}
                                 id="originalPrice"
-                                type="number"
+                                type="text"
                                 name="originalPrice"
                                 value={this.state.originalPrice}
                                 required
                             />
-                            <Form.Text className="text-muted">
-                                Enter how much money the car costed when it was brand new
-                            </Form.Text>
+                            
                         </Form.Group>
-                        <div>{lastQuestion}</div>
+                        <Form.Group>
+                            <Form.Label>
+                                5. How much is your car worth now?
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="Enter the current price"
+                                onChange={this.handleChange}
+                                id="finalPrice"
+                                type="text"
+                                name="finalPrice"
+                                value={this.state.finalPrice}
+                                required
+                            />
+                            
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                6. What is your annual insurance cost?
+                            </Form.Label>
+                            <Form.Control
+                                required
+                                placeholder="Enter the amount of insurance paid a year"
+                                onChange={this.handleChange}
+                                id="insurance"
+                                type="text"
+                                name="iPaid"
+                                value={this.state.iPaid}
+
+                            />
+                            
+
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>
+                                7. What is your annual license plate renewal fee?
+                            </Form.Label>
+                            <Form.Control
+                            required
+                            placeholder = "Enter your annual cost to renew your license plate"
+                            onChange = {this.handleChange}
+                            id = "licenseRenewal"
+                            type = "text"
+                            name= "licensePlate"
+                            value = {this.state.licensePlate}
+                            />
+                        </Form.Group>
+
+                        
+                       
+                    </Jumbotron>
+
+
+                    <Jumbotron>
+                        <h2>Operating Costs (Section 3/3)</h2>
+                        <Form.Group>
+                            <Form.Label>
+                                8. What is your annual repair and maintenance cost?
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="Enter how much you pay for maintenance a year"
+                                onChange={this.handleChange}
+                                id="maitenance"
+                                type="text"
+                                name="mait"
+                                value={this.state.mait}
+                                required
+                            />
+                            
+                        </Form.Group>
+                        
+                        <Form.Group>
+                            <Form.Label>
+                                9.  Any annual car related costs? (e.g. parking, tolls, etc.)
+                            </Form.Label>
+                            <Form.Control
+                                placeholder="Enter how much you pay for tolls"
+                                onChange={this.handleChange}
+                                id="tolls"
+                                type="text"
+                                name="tolls"
+                                value={this.state.tolls}
+                                required
+                            />
+                           
+                        </Form.Group>
+                        <Form.Group>
+
+                            <Form.Label>
+                                10. How many miles do you usually drive per week?
+                            </Form.Label>
+                            <Form.Control type="text"
+                                placeholder="Enter how many miles driven"
+                                onChange={this.handleChange}
+                                id="miles"
+                                type="text"
+                                name="miles"
+                                value={this.state.miles}
+                                required
+                            />
+                            <Alert variant = "secondary">
+                                <Alert.Heading>Miles Per Year</Alert.Heading>
+                                <p>That's {parseInt(this.state.miles) * 52} miles a year</p>
+                            </Alert>
+                        </Form.Group>
+                        {renderAlert}
                         <input type="submit"
                         />
-                        {renderAlert}
+                        
                     </Jumbotron>
+
 
                 </Form>
                 <br />
