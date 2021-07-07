@@ -375,6 +375,7 @@ class Calculator extends React.Component {
                     type="text"
                     name="typeOfGas"
                     value={this.state.typeOfGas}
+                    required
                 >
                     <option name="typeOfGas"> gasoline</option>
                     <option name="typeOfGas">midGrade</option>
@@ -399,6 +400,7 @@ class Calculator extends React.Component {
                         type="number"
                         name="mpg"
                         value={this.state.mpg}
+                        required
                     />
                     <Form.Text>
                         Do not answer this question if you are an electric vehicle user
@@ -417,6 +419,7 @@ class Calculator extends React.Component {
                         type="number"
                         name="zipcode"
                         value={this.state.zipcode}
+                        required
                     />
                     <Form.Text >
                         This question gets the gas prices in your area!
@@ -440,6 +443,7 @@ class Calculator extends React.Component {
                         type="number"
                         name="fullcharge"
                         value={this.state.fullcharge}
+                        required
                     />
                     <Form.Text>
                         Do not answer this question if you are a gas vehicle user
@@ -457,6 +461,7 @@ class Calculator extends React.Component {
                         type="number"
                         name="fullchargeCost"
                         value={this.state.fullchargeCost}
+                        required
                     />
                     <Form.Text>
                         Do not answer this question if you are a gas vehicle user
