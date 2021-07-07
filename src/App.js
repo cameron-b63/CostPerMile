@@ -314,6 +314,15 @@ class Calculator extends React.Component {
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarMakeAlert;
+        var years = [];
+        for (var i = 0; i < 100; i++) {
+            years.push(2021 - i);
+        }
+        let renderZipAlert;
+        let renderFuelQuestions;
+        var lastQuestion;
+        var renderRelationalData;
+        var renderAlert;
         if (this.state.carMake === null) {
             renderCarMakeAlert = (
                 <Alert variant="danger">
@@ -328,20 +337,16 @@ class Calculator extends React.Component {
                     this.setState({ models: data["Results"] });
                 })
         }
-        var years = [];
-        for (var i = 0; i < 100; i++) {
-            years.push(2021 - i);
-        }
+        
         const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
-        let renderZipAlert;
 
         if (typeof this.state.statecode === 'undefined') {
             renderZipAlert = (
                 <Alert variant="danger">
                     <Alert.Heading>Warning!</Alert.Heading>
-                    <p>Please enter a valid Zip code</p>
+                    <p>Please enter a valid Zip Code</p>
                 </Alert>
             );
         } else if (this.state.statecode.length === 0) {
@@ -356,7 +361,7 @@ class Calculator extends React.Component {
 
             )
         }
-        let renderFuelQuestions;
+        
         // CONDITIONAL RENDERING BASED ON USER CHOICE IF ELECTRIC OR NOT
         if (this.state.isElectric.indexOf("as") > 0) {
             renderFuelQuestions = (<div><Form.Group>
@@ -464,7 +469,7 @@ class Calculator extends React.Component {
         }
         //STORING THE LAST QUESTION
 
-        var lastQuestion;
+        
         if (Number.isNaN(this.state.costpermile)) {
             lastQuestion = (<Form.Group>
                 <Form.Label>
@@ -509,7 +514,7 @@ class Calculator extends React.Component {
             </Form.Group>);
         }
         //CONDITIONAL RENDERING FOR RELATIONAL DATA
-        var renderRelationalData;
+        
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
@@ -539,7 +544,7 @@ class Calculator extends React.Component {
                     </Form.Group>
                 );
         }
-        var renderAlert;
+        //RENDER ALERT
         if (Number.isNaN(this.state.costpermile) && this.state.submitted) {
             renderAlert = (
                 <Alert variant="danger">
