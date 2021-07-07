@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form'
-import Calculator from './App.js'
 function Question4(stateProps){
         return (
             <Form.Group>

@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
 
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
-import { Table } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
+
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
 import Header from './Components/Header.js'
@@ -19,6 +17,10 @@ import Question3 from './Question3.js'
 import Question4 from './Question4.js'
 import Question5 from './Question5.js'
 import Question6 from './Question6.js'
+import Question7 from './Question7.js'
+import Question8 from './Question8.js'
+import Question9 from './Question9.js'
+import Question10 from './Question10.js'
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -418,8 +420,6 @@ class Calculator extends React.Component {
                 </Form.Control>
                
             </Form.Group>
-
-
                 <Form.Group>
                     <Form.Label>
                         b. What is your MPG(Miles Per Gallon)?
@@ -497,53 +497,7 @@ class Calculator extends React.Component {
                 <div></div>
             );
         }
-        //STORING THE LAST QUESTION
-
-
-        /*if (Number.isNaN(this.state.costpermile)) {
-            lastQuestion = (<Form.Group>
-                <Form.Label>
-                    5. How much is your car worth now?
-                </Form.Label>
-                <Form.Control
-                    placeholder="Enter the current price"
-                    onChange={this.handleChange}
-                    id="finalPrice"
-                    type="number"
-                    name="finalPrice"
-                    value={this.state.finalPrice}
-                    required
-                />
-                <Form.Text className="text-muted">
-                    Enter your car's current worth
-                </Form.Text>
-            </Form.Group>);
-        } else {
-            lastQuestion = (<Form.Group>
-                <Form.Label>
-                    5. How much is your car worth now?
-                </Form.Label>
-                <Form.Control
-                    placeholder="Enter the current price"
-                    onChange={this.handleChange}
-                    id="finalPrice"
-                    type="number"
-                    name="finalPrice"
-                    value={this.state.finalPrice}
-                    required
-                />
-                <Form.Text className="text-muted">
-                    Enter your car's current worth
-                </Form.Text>
-                <Alert variant="success">
-                    <Alert.Heading>Success!</Alert.Heading>
-                    <p>Scroll down to see your results!</p>
-                </Alert>
-                <br />
-            </Form.Group>);
-        }
-        */
-        //CONDITIONAL RENDERING FOR RELATIONAL DATA
+       
 
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
@@ -630,22 +584,7 @@ class Calculator extends React.Component {
                         
                         <Question6 _state = {this.state} _handleChange = {this.handleChange}/>
 
-                        
-                        <Form.Group>
-                            <Form.Label>
-                                7. What is your annual license plate renewal fee?
-                            </Form.Label>
-                            <Form.Control
-                            required
-                            placeholder = "Enter your annual cost to renew your license plate"
-                            onChange = {this.handleChange}
-                            id = "licenseRenewal"
-                            type = "text"
-                            name= "licensePlate"
-                            value = {this.state.licensePlate}
-                            />
-                        </Form.Group>
-
+                        <Question7 _state = {this.state} _handleChange = {this.handleChange}/>
                         
                        
                     </Jumbotron>
@@ -653,66 +592,17 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>
-                        <Form.Group>
-                            <Form.Label>
-                                8. What is your annual repair and maintenance cost?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter how much you pay for maintenance a year"
-                                onChange={this.handleChange}
-                                id="maitenance"
-                                type="text"
-                                name="mait"
-                                value={this.state.mait}
-                                required
-                            />
-                            
-                        </Form.Group>
-                        
-                        <Form.Group>
-                            <Form.Label>
-                                9.  Any annual car related costs? (e.g. parking, tolls, etc.)
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter how much you pay for tolls"
-                                onChange={this.handleChange}
-                                id="tolls"
-                                type="text"
-                                name="tolls"
-                                value={this.state.tolls}
-                                required
-                            />
-                           
-                        </Form.Group>
-                        <Form.Group>
 
-                            <Form.Label>
-                                10. How many miles do you usually drive per week?
-                            </Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Enter how many miles driven"
-                                onChange={this.handleChange}
-                                id="miles"
-                                type="text"
-                                name="miles"
-                                value={this.state.miles}
-                                required
-                            />
-                            {this.state.miles && !Number.isNaN(this.state.miles)?
-                            (<Alert variant = "secondary">
-                                <Alert.Heading>Miles Per Year</Alert.Heading>
-                                <p>That's {parseInt(this.state.miles) * 52} miles a year</p>
-                            </Alert>)
-                            :
-                            (<div></div>)
-                            }
-                        </Form.Group>
+                        <Question8 _state = {this.state} _handleChange = {this.handleChange}/>
+
+                        <Question9 _state = {this.state} _handleChange = {this.handleChange}/>
+                        
+                        <Question10 _state = {this.state} _handleChange = {this.handleChange}/>
                         {renderAlert}
                         <input type="submit"
                         />
                         
                     </Jumbotron>
-
 
                 </Form>
                 <br />
