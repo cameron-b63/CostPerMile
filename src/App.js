@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
-
+import Question4 from './Question4.js'
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -13,6 +13,7 @@ import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
 import Header from './Components/Header.js'
+
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -305,7 +306,7 @@ class Calculator extends React.Component {
 
                         let final;
 
-                        if (self.state.mpg.length > 0) {
+                        if (self.state.isElectric.indexOf("as")> 0) {
                             final = (parseInt(self.state.depreciationValue) +
                                 parseInt(self.state.iPaid) +
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
@@ -437,7 +438,7 @@ class Calculator extends React.Component {
                     </Form.Label>
 
                     <Form.Control
-                        placeholder="Enter your zip code"
+                        placeholder="Enter your zip code. This is needed to find gas prices in your area"
                         onChange={this.handleChange}
                         id="zipcode"
                         type="text"
@@ -576,7 +577,7 @@ class Calculator extends React.Component {
                     <p>You have some unaswered questions. To see your results, you must fill out all questions.</p>
                 </Alert>
             );
-        } else if(!(Number.isNaN(this.state.costpermile)) &&!this.state.submitted){
+        } else if(!(Number.isNaN(this.state.costpermile)) &&this.state.submitted){
             renderAlert = 
             (
             <Alert variant = "success">
@@ -728,21 +729,9 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
-                        <Form.Group>
-                            <Form.Label>
-                                4. How much was this car when it was brand new?
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="Enter your original price"
-                                onChange={this.handleChange}
-                                id="originalPrice"
-                                type="text"
-                                name="originalPrice"
-                                value={this.state.originalPrice}
-                                required
-                            />
-                            
-                        </Form.Group>
+
+                        <Question4 state = {this.state} onChange = {this.handleChange}/>
+                        
                         <Form.Group>
                             <Form.Label>
                                 5. How much is your car worth now?
@@ -842,10 +831,14 @@ class Calculator extends React.Component {
                                 value={this.state.miles}
                                 required
                             />
-                            <Alert variant = "secondary">
+                            {this.state.miles && !Number.isNaN(this.state.miles)?
+                            (<Alert variant = "secondary">
                                 <Alert.Heading>Miles Per Year</Alert.Heading>
                                 <p>That's {parseInt(this.state.miles) * 52} miles a year</p>
-                            </Alert>
+                            </Alert>)
+                            :
+                            (<div></div>)
+                            }
                         </Form.Group>
                         {renderAlert}
                         <input type="submit"
