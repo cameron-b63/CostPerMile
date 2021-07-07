@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
-import { Form } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form'
 import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import Alert from 'react-bootstrap/Alert';
@@ -28,7 +28,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 0,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -50,7 +50,7 @@ class Calculator extends React.Component {
             fullcharge: "",
             fullchargeCost: "",
             zipcode: "",
-            carMake: "-",
+            carMake: "",
             carModel: "",
             isElectric: "",
             carYear: "",
@@ -63,8 +63,6 @@ class Calculator extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
-
-
     }
 
     depreciate() {
@@ -88,7 +86,7 @@ class Calculator extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.depreciate();
-        this.getZIP(this.state.zipcode);
+        this.getCityState(this.state.zipcode);
         this.setState({
             submitted: true,
         })
@@ -156,7 +154,7 @@ class Calculator extends React.Component {
         }
     }
 
-    getZIP(zip) {
+    getCityState(zip) {
         if (zip.length > 0) {
             const options = {
                 "method": "GET",
@@ -169,11 +167,6 @@ class Calculator extends React.Component {
                     "useQueryString": true
                 }
             };
-        
-
-
-
-
 
             const http = require("https");
 
@@ -213,8 +206,8 @@ class Calculator extends React.Component {
 
         if (state.length > 0) {
 
-           
-        
+
+
 
 
             var http = require("https");
@@ -288,7 +281,7 @@ class Calculator extends React.Component {
         }
     }
 
-    
+
     componentDidMount() {
 
 
@@ -298,11 +291,11 @@ class Calculator extends React.Component {
         allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
         let allOptions2;
         let renderCarMakeAlert;
-        if(this.state.carMake=== null){
+        if (this.state.carMake === null) {
             renderCarMakeAlert = (
-            <Alert variant = "danger">
-                <Alert.Heading>Not Valid VIN</Alert.Heading>
-            </Alert>
+                <Alert variant="danger">
+                    <Alert.Heading>Not Valid VIN</Alert.Heading>
+                </Alert>
             )
         }
         else if (this.state.carMake.length > 0) {
@@ -310,7 +303,6 @@ class Calculator extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ models: data["Results"] });
-
                 })
 
         }
@@ -329,7 +321,7 @@ class Calculator extends React.Component {
         if (this.state.isElectric.indexOf("as") > 0) {
             renderThis = (<div><Form.Group>
                 <Form.Label>
-                    9a. What fuel type do you use?
+                    8a. What fuel type do you use?
                 </Form.Label>
                 <Form.Control as="select"
                     onChange={this.handleChange}
@@ -351,7 +343,7 @@ class Calculator extends React.Component {
 
                 <Form.Group>
                     <Form.Label>
-                        9b. What is your MPG(Miles Per Gallon)?
+                        8b. What is your MPG(Miles Per Gallon)?
                     </Form.Label>
 
                     <Form.Control
@@ -369,7 +361,7 @@ class Calculator extends React.Component {
 
                 <Form.Group>
                     <Form.Label>
-                        9c. What is your zip code?
+                        8c. What is your zip code?
                     </Form.Label>
 
                     <Form.Control
@@ -394,7 +386,7 @@ class Calculator extends React.Component {
             renderThis = (<div>
                 <Form.Group>
                     <Form.Label>
-                        9a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
+                        8a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
                     </Form.Label>
 
                     <Form.Control
@@ -411,7 +403,7 @@ class Calculator extends React.Component {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
-                        9b. If you drive an electric vehicle, how much does it cost for a full charge?
+                        8b. If you drive an electric vehicle, how much does it cost for a full charge?
                     </Form.Label>
 
                     <Form.Control
@@ -433,14 +425,14 @@ class Calculator extends React.Component {
             );
         }
 
-   
+
         //STORING THE LAST QUESTION
 
         var lastQuestion;
         if (Number.isNaN(this.state.costpermile)) {
             lastQuestion = (<Form.Group>
                 <Form.Label>
-                    11. How much is your car worth now?
+                    10. How much is your car worth now?
                 </Form.Label>
                 <Form.Control
                     placeholder="Enter the current price"
@@ -458,7 +450,7 @@ class Calculator extends React.Component {
         } else {
             lastQuestion = (<Form.Group>
                 <Form.Label>
-                    11. How much is your car worth now?
+                    10. How much is your car worth now?
                 </Form.Label>
                 <Form.Control
                     placeholder="Enter the current price"
@@ -529,7 +521,7 @@ class Calculator extends React.Component {
 
                 <Jumbotron>
                     <h1>
-                        11 Question Cost Per Mile Calculator
+                        10 Question Cost Per Mile Calculator
                     </h1>
                     <p>
                         Fill out these questions to the best of your abilitiy as they are the basis of calculating your cost per mile. You will be asked about information that you may not know about some of these questions so fill them out to the best of your ability.
@@ -661,10 +653,37 @@ class Calculator extends React.Component {
                                 We are gathering this information in order to gather your mpg, car make, car model, and car year. If you do not know your VIN or do not want to share your VIN, enter the following questions to the best of your ability. However, if you do know your VIN, enter it and click the following button . Some data about your car may still be missing so answer the unaswered questions.
                             </Form.Text>
                         </Form.Group>
+                        <Form.Label>
+                            7. Enter in your car info below if you do not remember your VIN.
+                        </Form.Label>
                         <Form.Row>
+
+                            <Form.Group>
+                              
+                                    <Form.Label>
+                                        Year
+                                    </Form.Label>
+                                
+                                <Form.Control
+                                    onChange={this.handleChange}
+                                    id="carYear"
+                                    name="carYear"
+                                    value={this.state.carYear}
+                                    required
+                                    as="select"
+                                >
+                                    <option></option>
+                                    {carYears}
+
+                                </Form.Control>
+                                <Form.Text className="text-muted">
+                                    Enter the year your car was made
+                                </Form.Text>
+                            </Form.Group>
+
                             <Form.Group>
                                 <Form.Label>
-                                    7. Car Make?
+                                    Make
                                 </Form.Label>
                                 <Form.Control as="select"
                                     placeholder="Enter your car make"
@@ -688,7 +707,7 @@ class Calculator extends React.Component {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>
-                                    8. Car Model
+                                    Model
                                 </Form.Label>
                                 <Form.Control
                                     as="select"
@@ -697,37 +716,18 @@ class Calculator extends React.Component {
                                     id="carModel"
                                     name="carModel"
                                     value={this.state.carModel}
-                                    
+
                                 >
                                     <option></option>
                                     {allOptions2}
                                 </Form.Control>
                             </Form.Group>
-                            <Form.Group>
-                                <Form.Label>
-                                    9. Car Year
-                                </Form.Label>
-                                <Form.Control
-                                    onChange={this.handleChange}
-                                    id="carYear"
-                                    name="carYear"
-                                    value={this.state.carYear}
-                                    required
-                                    as="select"
-                                >
-                                    <option></option>
-                                    {carYears}
 
-                                </Form.Control>
-                                <Form.Text className="text-muted">
-                                    Enter the year your car was made
-                                </Form.Text>
-                            </Form.Group>
                         </Form.Row>
                         <Form.Group>
 
                             <Form.Label>
-                                10. Are you an electric vehicle user or gas car user?
+                                8. Are you an electric vehicle user or gas car user?
                             </Form.Label>
 
 
@@ -758,7 +758,7 @@ class Calculator extends React.Component {
 
                         <Form.Group>
                             <Form.Label>
-                                11. How much was this car when it was brand new?
+                                9. How much was this car when it was brand new?
                             </Form.Label>
                             <Form.Control
                                 placeholder="Enter your original price"
@@ -783,7 +783,7 @@ class Calculator extends React.Component {
                 <br />
 
                 {/*CONDITIONAL RENDERING IF CPM IS NOT NaN */}
-                
+
                 {renderRelationalData}
             </Container>
         );
