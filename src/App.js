@@ -85,7 +85,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
-                        (parseInt(this.state.licensePlate)) )
+                        (parseInt(this.state.licensePlate)))
                         / (parseInt(this.state.miles) * 52);
                 } else {
                     final = (parseInt(this.state.depreciationValue) +
@@ -102,12 +102,33 @@ class Calculator extends React.Component {
             }
         );
     }
-    handleChange(event) {
-        const { name, value } = event.target
-        this.setState({
-            [name]: value,
-        });
+    alphabetCheck(s) {
+        var numbers = /^[0-9]+$/;
+        if ( (s.length === 0 || s.match(numbers)) ) {
+            return true;
+        }
+        else {
+            alert("This is a numeric field only");
+            return false;
+        }
 
+    }
+    handleChange(event) {
+
+        const { name, value } = event.target
+        //checking for alphabetical letters so that there are no errors in calculations
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" &&  name !== "isElectric"  && name !==  "typeOfGas" && name !== "seeOtherCPM") {
+            if (this.alphabetCheck(value)) {
+                this.setState({
+                    [name]: value,
+                });
+            }
+        }
+        else {
+            this.setState({
+                [name]: value,
+            })
+        }
         console.log(this.state);
     }
     handleClick(e) {
@@ -116,7 +137,7 @@ class Calculator extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        
+
 
 
         this.getCityState(this.state.zipcode);
@@ -264,45 +285,45 @@ class Calculator extends React.Component {
                         console.log(self.state.typeOfGas);
                         var city = bodyJSON.result.cities.filter((x) => x.name.toLowerCase() === self.state.city.toLowerCase());
                         if (city.length > 0) {
-                            if(self.state.typeOfGas === "regular"){
+                            if (self.state.typeOfGas === "regular") {
                                 self.setState({
                                     gallon: city[0]["gasoline"]
                                 })
                             }
-                            else if(self.state.typeOfGas === "mid grade"){
+                            else if (self.state.typeOfGas === "mid grade") {
                                 self.setState({
-                                    gallon:city[0]["midGrade"]
+                                    gallon: city[0]["midGrade"]
                                 })
                             }
-                            else if(self.state.typeOfGas === "premium"){
+                            else if (self.state.typeOfGas === "premium") {
                                 self.setState({
                                     gallon: city[0]["premium"]
                                 })
                             }
-                            else if(self.state.typeOfGas === "diesel"){
+                            else if (self.state.typeOfGas === "diesel") {
                                 self.setState({
                                     gallon: city[0]["diesel"]
                                 })
                             }
-                           
+
                             console.log(self.state);
                         } else {
-                            if(self.state.typeOfGas === "regular"){
+                            if (self.state.typeOfGas === "regular") {
                                 self.setState({
                                     gallon: bodyJSON.result.state.gasoline
                                 })
                             }
-                            else if(self.state.typeOfGas === "mid grade"){
+                            else if (self.state.typeOfGas === "mid grade") {
                                 self.setState({
                                     gallon: bodyJSON.result.state.midGrade
                                 })
                             }
-                            else if(self.state.typeOfGas === "premium"){
+                            else if (self.state.typeOfGas === "premium") {
                                 self.setState({
                                     gallon: bodyJSON.result.state.premium
                                 })
                             }
-                            else if(self.state.typeOfGas === "diesel"){
+                            else if (self.state.typeOfGas === "diesel") {
                                 self.setState({
                                     gallon: bodyJSON.result.state.diesel
                                 })
@@ -310,13 +331,13 @@ class Calculator extends React.Component {
                         }
                         let final;
 
-                        if (self.state.isElectric.indexOf("as")> 0) {
+                        if (self.state.isElectric.indexOf("as") > 0) {
                             final = (parseInt(self.state.depreciationValue) +
                                 parseInt(self.state.iPaid) +
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                (parseInt(self.state.licensePlate)) )
+                                (parseInt(self.state.licensePlate)))
                                 / (parseInt(self.state.miles) * 52);
                         } else {
                             final = (parseInt(self.state.depreciationValue) +
@@ -324,7 +345,7 @@ class Calculator extends React.Component {
                                 ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                (parseInt(self.state.licensePlate)) ) /
+                                (parseInt(self.state.licensePlate))) /
                                 (parseInt(self.state.miles) * 52);
                         }
                         self.setState({
@@ -415,7 +436,7 @@ class Calculator extends React.Component {
                     <option name="typeOfGas">premium</option>
                     <option name="typeOfGas">diesel</option>
                 </Form.Control>
-               
+
             </Form.Group>
                 <Form.Group>
                     <Form.Label>
@@ -431,7 +452,7 @@ class Calculator extends React.Component {
                         value={this.state.mpg}
                         required
                     />
-                   
+
                 </Form.Group>
 
                 <Form.Group>
@@ -448,7 +469,7 @@ class Calculator extends React.Component {
                         value={this.state.zipcode}
                         required
                     />
-                
+
                 </Form.Group>
 
                 {renderZipAlert}
@@ -470,7 +491,7 @@ class Calculator extends React.Component {
                         value={this.state.fullcharge}
                         required
                     />
-                   
+
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>
@@ -486,7 +507,7 @@ class Calculator extends React.Component {
                         value={this.state.fullchargeCost}
                         required
                     />
-                    
+
                 </Form.Group>
             </div>);
         } else {
@@ -494,7 +515,7 @@ class Calculator extends React.Component {
                 <div></div>
             );
         }
-       
+
 
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
@@ -516,10 +537,10 @@ class Calculator extends React.Component {
                             value={this.state.seeOtherCPM}
                         >
                             <option name="seeOtherCPM">-Choose one of the below-</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 10k miles per year (192 miles a week)</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 15k miles per year (288 miles a week)</option>
-                            <option name="seeOtherCPM">CPM of Average Car Types for 20k miles per year (384 miles a week)</option>
-                            <option name="seeOtherCPM">Average CPM For Other Cars (15000 miles a year or 288 miles a week)</option>
+                            <option name="seeOtherCPM">Average CPM of Car Types (10k mi/yr)</option>
+                            <option name="seeOtherCPM">Average CPM of Car Types (15k mi/yr)</option>
+                            <option name="seeOtherCPM">Average CPM of Car Types (20k mi/yr)</option>
+                            <option name="seeOtherCPM">Average CPM of Other Models</option>
                         </Form.Control>
                         {OtherCPM(this.state)}
                     </Form.Group>
@@ -533,16 +554,16 @@ class Calculator extends React.Component {
                     <p>You have some unaswered questions. To see your results, you must fill out all questions.</p>
                 </Alert>
             );
-        } else if(!(Number.isNaN(this.state.costpermile)) &&this.state.submitted){
-            renderAlert = 
-            (
-            <Alert variant = "success">
-                <Alert.Heading>Success!</Alert.Heading>
-                <p>scroll down to see results</p>
-            </Alert>
-            )
+        } else if (!(Number.isNaN(this.state.costpermile)) && this.state.submitted) {
+            renderAlert =
+                (
+                    <Alert variant="success">
+                        <Alert.Heading>Success!</Alert.Heading>
+                        <p>scroll down to see results</p>
+                    </Alert>
+                )
         }
-        
+
         else {
             renderAlert = (<div></div>)
         }
@@ -550,7 +571,7 @@ class Calculator extends React.Component {
 
         return (
 
-            //
+            //RENDERING ALL QUESTION COMPONENTS
 
             <Container>
 
@@ -560,45 +581,46 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Vehicle Information (Section 1/3)</h2>
 
-                        <Question1 state = {this.state} onChange = {this.handleChange} carMakeAlert = {renderCarMakeAlert} onClick = {this.handleClick}/>
-                        
+                        <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClick} />
+
                         <Form.Label>
                             2. Enter in your car info below if you do not remember your VIN
                         </Form.Label>
-                        <Question2 _state = {this.state} _handleChange = {this.handleChange} _carYears = {carYears} _allOptions = {allOptions} _allOptions2 = {allOptions2}/>
-                    
-                        <Question3 _state = {this.state} _handleChange = {this.handleChange} _renderFuelQuestions = {renderFuelQuestions}/>                         
+                        <br />
+                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} />
+
+                        <Question3 _state={this.state} _handleChange={this.handleChange} _renderFuelQuestions={renderFuelQuestions} />
                         {renderFuelQuestions}
-                        
+
                     </Jumbotron>
 
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
 
-                        <Question4 state = {this.state} onChange = {this.handleChange}/>
+                        <Question4 state={this.state} onChange={this.handleChange} />
 
-                        <Question5 _state = {this.state} _handleChange = {this.handleChange}/>
-                        
-                        <Question6 _state = {this.state} _handleChange = {this.handleChange}/>
+                        <Question5 _state={this.state} _handleChange={this.handleChange} />
 
-                        <Question7 _state = {this.state} _handleChange = {this.handleChange}/>
-                        
-                       
+                        <Question6 _state={this.state} _handleChange={this.handleChange} />
+
+                        <Question7 _state={this.state} _handleChange={this.handleChange} />
+
+
                     </Jumbotron>
 
 
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>
 
-                        <Question8 _state = {this.state} _handleChange = {this.handleChange}/>
+                        <Question8 _state={this.state} _handleChange={this.handleChange} />
 
-                        <Question9 _state = {this.state} _handleChange = {this.handleChange}/>
-                        
-                        <Question10 _state = {this.state} _handleChange = {this.handleChange}/>
+                        <Question9 _state={this.state} _handleChange={this.handleChange} />
+
+                        <Question10 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
                         <input type="submit"
                         />
-                        
+
                     </Jumbotron>
 
                 </Form>
