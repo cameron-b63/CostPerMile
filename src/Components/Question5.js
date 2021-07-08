@@ -6,17 +6,18 @@ function Question5(props) {
     return (
         <Form.Group>
             <Form.Label>
-                5. How much is your car worth now?
+                5. What is your annual insurance cost?
             </Form.Label>
             <Form.Control
-                placeholder="Enter the current price"
-                onChange={props._handleChange}
-                id="finalPrice"
-                type="text"
-                name="finalPrice"
-                value={props._state.finalPrice}
                 required
+                placeholder="Enter the amount of insurance paid a year"
+                onChange={props._handleChange}
+                id="insurance"
+                type="text"
+                name="iPaid"
+                value={props._state.iPaid}
             />
+
 
         </Form.Group>
     )

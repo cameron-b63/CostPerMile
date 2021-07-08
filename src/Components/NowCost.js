@@ -1,23 +1,24 @@
-import React from 'react'
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 
-function Question7(props) {
+function NowCost(props) {
     return (
         <Form.Group>
             <Form.Label>
-                7. What is your annual repair and maintenance cost?
+                b. How much is your car worth now?
             </Form.Label>
             <Form.Control
-                placeholder="Enter how much you pay for maintenance a year"
+                placeholder="Enter the current price"
                 onChange={props._handleChange}
-                id="maitenance"
+                id="finalPrice"
                 type="text"
-                name="mait"
-                value={props._state.mait}
+                name="finalPrice"
+                value={props._state.finalPrice}
                 required
             />
+
         </Form.Group>
     )
 }
-export default Question7;
+export default NowCost;

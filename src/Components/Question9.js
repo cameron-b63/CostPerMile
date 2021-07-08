@@ -1,11 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-function Quesiton9(props) {
+
+function Question9(props) {
     return (
         <Form.Group>
             <Form.Label>
-                9.  Any annual car related costs? (e.g. parking, tolls, washing etc.)
+                9.  Any other annual car related costs? (e.g. parking, tolls, washing etc.)
             </Form.Label>
             <Form.Control
                 placeholder="Enter how much you pay for tolls"
@@ -18,5 +19,6 @@ function Quesiton9(props) {
             />
 
         </Form.Group>)
+    
 }
-export default Quesiton9;
+export default Question9;

@@ -20,7 +20,10 @@ import Question6 from './Components/Question6.js'
 import Question7 from './Components/Question7.js'
 import Question8 from './Components/Question8.js'
 import Question9 from './Components/Question9.js'
-import Question10 from './Components/Question10.js'
+import NewCost from './Components/NewCost.js'
+import NowCost from './Components/NowCost.js'
+import Loan from './Components/Loan.js'
+import Rental from './Components/Rental.js'
 
 function compare(a, b) {
     const nameA = a.Make_Name;
@@ -69,13 +72,21 @@ class Calculator extends React.Component {
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
             submitted: false,
             validated: false,
+            isRental: "",
+            monthlyCarPay: "",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
     depreciate() {
-        let depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
+        let depreciation;
+        if(this.state.isRental === "bought"){
+            depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
+        }
+        else{
+            depreciation = 0;
+        }
         this.setState({ depreciationValue: depreciation },
             function () {
                 let final;
@@ -85,6 +96,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
+                        (parseInt(this.state.monthlyCarPay)) + 
                         (parseInt(this.state.licensePlate)))
                         / (parseInt(this.state.miles) * 52);
                 } else {
@@ -93,6 +105,7 @@ class Calculator extends React.Component {
                         ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
+                        (parseInt(this.state.monthlyCarPay)) + 
                         (parseInt(this.state.licensePlate))) /
                         (parseInt(this.state.miles) * 52);
                 }
@@ -101,10 +114,11 @@ class Calculator extends React.Component {
                 })
             }
         );
+        
     }
     alphabetCheck(s) {
         var numbers = /^[0-9]+$/;
-        if ( (s.length === 0 || s.match(numbers)) ) {
+        if ((s.length === 0 || s.match(numbers))) {
             return true;
         }
         else {
@@ -117,7 +131,7 @@ class Calculator extends React.Component {
 
         const { name, value } = event.target
         //checking for alphabetical letters so that there are no errors in calculations
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" &&  name !== "isElectric"  && name !==  "typeOfGas" && name !== "seeOtherCPM") {
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -266,7 +280,7 @@ class Calculator extends React.Component {
                     "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
                     "headers": {
                         "content-type": "application/json",
-                        "authorization": "apikey 1xlYvCDfg8hkQzETYVoiv5:5JGIXWt5xUUG6xw4xv3UNa"
+                        "authorization": "apikey 5iXez0LI1FvKDX0gdfXEqa:1hEM5VolDRGvSAJWVJAt1s"
                     }
                 };
                 var self = this;
@@ -337,6 +351,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
+                                (parseInt(self.state.monthlyCarPay)) + 
                                 (parseInt(self.state.licensePlate)))
                                 / (parseInt(self.state.miles) * 52);
                         } else {
@@ -345,6 +360,7 @@ class Calculator extends React.Component {
                                 ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
+                                (parseInt(self.state.monthlyCarPay)) + 
                                 (parseInt(self.state.licensePlate))) /
                                 (parseInt(self.state.miles) * 52);
                         }
@@ -567,6 +583,27 @@ class Calculator extends React.Component {
         else {
             renderAlert = (<div></div>)
         }
+        //Render Bought
+        let renderBought;
+        if (this.state.isRental === "bought") {
+            renderBought = (
+                <div>
+                    <NewCost state={this.state} onChange={this.handleChange} />
+                    <NowCost _state={this.state} _handleChange={this.handleChange} />
+                    <Loan _state={this.state} _handleChange={this.handleChange} />
+
+                </div>
+            )
+        } else if (this.state.isRental === "rental"){
+            renderBought = (
+                <div>
+                    <Rental _state={this.state} _handleChange={this.handleChange} />
+
+                </div>
+            )
+        }else{
+            renderBought = (<div></div>)
+        }
 
 
         return (
@@ -589,7 +626,7 @@ class Calculator extends React.Component {
                         <br />
                         <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} />
 
-                        <Question3 _state={this.state} _handleChange={this.handleChange} _renderFuelQuestions={renderFuelQuestions} />
+                        <Question3 _state={this.state} _handleChange={this.handleChange} />
                         {renderFuelQuestions}
 
                     </Jumbotron>
@@ -597,13 +634,12 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
 
-                        <Question4 state={this.state} onChange={this.handleChange} />
+                        <Question4 _state={this.state} _handleChange={this.handleChange} />
+                        {renderBought}
 
                         <Question5 _state={this.state} _handleChange={this.handleChange} />
 
                         <Question6 _state={this.state} _handleChange={this.handleChange} />
-
-                        <Question7 _state={this.state} _handleChange={this.handleChange} />
 
 
                     </Jumbotron>
@@ -612,11 +648,11 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>
 
+                        <Question7 _state={this.state} _handleChange={this.handleChange} />
+
                         <Question8 _state={this.state} _handleChange={this.handleChange} />
 
                         <Question9 _state={this.state} _handleChange={this.handleChange} />
-
-                        <Question10 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
                         <input type="submit"
                         />

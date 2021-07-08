@@ -1,25 +1,22 @@
-import React from 'react';
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-
 function Question6(props) {
     return (
         <Form.Group>
             <Form.Label>
-                6. What is your annual insurance cost?
+                6. What is your annual license plate renewal fee?
             </Form.Label>
             <Form.Control
                 required
-                placeholder="Enter the amount of insurance paid a year"
+                placeholder="Enter your annual cost to renew your license plate"
                 onChange={props._handleChange}
-                id="insurance"
+                id="licenseRenewal"
                 type="text"
-                name="iPaid"
-                value={props._state.iPaid}
+                name="licensePlate"
+                value={props._state.licensePlate}
             />
-
-
         </Form.Group>
-    )
+    );
 }
 export default Question6;

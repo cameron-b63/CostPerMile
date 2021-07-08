@@ -1,30 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Form from 'react-bootstrap/Form'
-function Question4(stateProps){
-        return (
-            <Form.Group>
-                <Form.Label>
-                    4. How much was this car when it was brand new?
-                </Form.Label>
-                <Form.Control
-                    placeholder="Enter your original price"
-                    onChange={stateProps.onChange} 
-                    id="originalPrice"
-                    type="text"
-                    name="originalPrice"
-                    value={stateProps.state.originalPrice}
-                    required
-                />
 
-            </Form.Group>
-        )
-        }
+function Question4(props) {
+    return (
+        <Form.Group>
+            <Form.Label>
+                4. Is the car you own bought or are you renting it?
+            </Form.Label>
+            <Form.Control as="select"
 
+                onChange={props._handleChange}
+                id="isRental"
+                type="text"
+                name="isRental"
+                value={props._state.isRental}
+                required
+            >
+                <option name="isRental"></option>
+                <option name="isRental">rental</option>
+                <option name="isRental">bought</option>
+            </Form.Control>
+        </Form.Group>
+    )
 
+}
 export default Question4;
