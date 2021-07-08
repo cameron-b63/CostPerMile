@@ -102,7 +102,7 @@ class Calculator extends React.Component {
                 } else {
                     final = (parseInt(this.state.depreciationValue) +
                         parseInt(this.state.iPaid) +
-                        ((parseInt(this.state.miles) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
+                        (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
                         (parseInt(this.state.monthlyCarPay)) + 
@@ -151,9 +151,6 @@ class Calculator extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-
-
         this.getCityState(this.state.zipcode);
         this.setState({
             submitted: true,
@@ -222,7 +219,7 @@ class Calculator extends React.Component {
     }
 
     getCityState(zip) {
-        if (zip.length > 0) {
+        if (zip.length > 0 && this.state.isElectric.indexOf("as") >0) {
             const options = {
                 "method": "GET",
                 "hostname": "redline-redline-zipcode.p.rapidapi.com",
@@ -270,7 +267,7 @@ class Calculator extends React.Component {
     }
     getGasPrice(state) {
         if (typeof state !== 'undefined') {
-            if (state.length > 0) {
+            if (state.length > 0 && this.state.isElectric.indexOf("as") > 0) {
                 var http = require("https");
 
                 var options = {
@@ -357,7 +354,7 @@ class Calculator extends React.Component {
                         } else {
                             final = (parseInt(self.state.depreciationValue) +
                                 parseInt(self.state.iPaid) +
-                                ((parseInt(self.state.miles) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
+                                (((parseInt(self.state.miles) * 52) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
                                 (parseInt(self.state.monthlyCarPay)) + 

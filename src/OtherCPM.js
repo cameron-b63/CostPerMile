@@ -16,7 +16,7 @@ function renderListElement(stringDisplay, CPM,state, displayImage) {
             <tr>
                 <td>{stringDisplay}</td>
                 <td>{CPM}</td>
-                <td>{state.costpermile.toFixed(2) - CPM > 0 ? "+" + (state.costpermile.toFixed(2) - CPM).toFixed(2) : (state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
+                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + (( CPM - state.costpermile.toFixed(2)).toFixed(2)) : ( CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
                 <td><Image src={displayImage} fluid /></td>
             </tr>
         );
@@ -26,7 +26,7 @@ function renderListElement(stringDisplay, CPM,state, displayImage) {
             <tr>
                 <td>{stringDisplay}</td>
                 <td>{CPM}</td>
-                <td>{state.costpermile.toFixed(2) - CPM > 0 ? "+" + (state.costpermile.toFixed(2) - CPM).toFixed(2) : (state.costpermile.toFixed(2) - CPM).toFixed(2)}</td>
+                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + (( CPM - state.costpermile.toFixed(2)).toFixed(2)) : ( CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
             </tr>
         )
     }
@@ -83,7 +83,6 @@ function OtherCPM(state) {
                     </tr>
 
                     {renderListElement("Average US Driver who drives 15k miles", 0.61,state)}
-
                     {renderListElement("Average US Driver who drives a Small Sedan (15k miles)", 0.47,state)}
                     {renderListElement("Average US Driver who drives a Medium Sedan (15k miles)", 0.58,state)}
                     {renderListElement("Average US Driver who drives a Large Sedan (15k miles)", 0.69,state)}
