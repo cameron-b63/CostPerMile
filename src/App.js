@@ -24,7 +24,7 @@ import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
 import Rental from './Components/Rental.js'
-
+var count = 0;
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -146,7 +146,11 @@ class Calculator extends React.Component {
         console.log(this.state);
     }
     handleClick(e) {
-        this.getVIN(this.state.VIN);
+        this.setState({carModel: "", carMake: ""}, function(){
+            this.getVIN(this.state.VIN);
+           
+        })
+        count = 0;
     }
 
     handleSubmit(e) {
@@ -391,6 +395,7 @@ class Calculator extends React.Component {
         var lastQuestion;
         var renderRelationalData;
         var renderAlert;
+        
         if (this.state.carMake === null) {
             renderCarMakeAlert = (
                 <Alert variant="danger">
@@ -398,12 +403,15 @@ class Calculator extends React.Component {
                 </Alert>
             )
         }
-        else if (this.state.carMake.length > 0) {
+        else if (this.state.carMake.length > 0 && count < 10) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ models: data["Results"] });
-                })
+            })
+            count++;
+            console.log(count);
+        
         }
 
         const carYears = years.map((num) => <option>{num}</option>)
