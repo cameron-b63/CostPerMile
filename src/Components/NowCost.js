@@ -8,8 +8,7 @@ function NowCost(props) {
             <Form.Label>
                 b. How much is your car worth now?
             </Form.Label>
-            
-            <div><a href = "https://www.carfax.com/value/" id="target">Click here to get your current value from carfax</a></div>
+            <div><a style={{display: "table-cell"}} href="https://www.carfax.com/value/" target="_blank">Click here to get your Current Car Value from Car Fax!</a></div>
             <Form.Control
                 placeholder="Enter the current price"
                 onChange={props._handleChange}
