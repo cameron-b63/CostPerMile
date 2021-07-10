@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button';
+
 
 import Alert from 'react-bootstrap/Alert';
 import OtherCPM from './OtherCPM.js'
@@ -77,7 +79,9 @@ class Calculator extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickVIN = this.handleClickVIN.bind(this);
+        this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
+    
     }
     depreciate() {
         let depreciation;
@@ -145,24 +149,24 @@ class Calculator extends React.Component {
         }
         console.log(this.state);
     }
-    handleClick(e) {
+    handleClickVIN(e) {
         this.setState({carModel: "", carMake: ""}, function(){
             this.getVIN(this.state.VIN);
            
         })
         count = 0;
     }
+    handleClickGasPrice(e){
+        this.getCityState(this.state.zipcode);
+    }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.getCityState(this.state.zipcode);
         this.setState({
             submitted: true,
         })
         this.depreciate();
-        if (this.state.isElectric.indexOf("as") > 0) {
-            this.getGasPrice(this.state.statecode);
-        }
+        
 
         this.setState({ validated: true });
 
@@ -492,7 +496,10 @@ class Calculator extends React.Component {
                     />
 
                 </Form.Group>
-
+                <Button
+                onClick = {this.handleClickGasPrice}
+                >Click this button to get the gas price in your area!
+                </Button>
                 {renderZipAlert}
 
             </div>);
@@ -623,7 +630,7 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Vehicle Information (Section 1/3)</h2>
 
-                        <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClick} />
+                        <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
 
                         <Form.Label>
                             2. Enter in your car info below if you do not remember your VIN
