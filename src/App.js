@@ -46,7 +46,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -73,8 +73,8 @@ class Calculator extends React.Component {
             licensePlate: "",
             carYear: "",
             carBasePrice: "",
-            seeOtherCPM: "Acura RDX",
-            seeOtherCPM2: "Acura RDX",
+            seeOtherCPM: "",
+            seeOtherCPM2: "",
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
             submitted: false,
             validated: false,
@@ -587,18 +587,19 @@ class Calculator extends React.Component {
         //                 (parseInt(this.state.licensePlate))) /
         //                 (parseInt(this.state.miles) * 52);
         //         }
-        if(this.state.otherFamousCars.length<38){
-            this.state.otherFamousCars.push({
-                Name: "Your",
-                CPM: this.state.costpermile
-            })
-        }
+        
 
         var renderCarOptions = this.state.otherFamousCars.map((N) => <option>{N.Name}</option>)
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
         else {
+            if(this.state.otherFamousCars.length<38){
+                this.state.otherFamousCars.push({
+                    Name: "Your Cost Per Mile",
+                    CPM: this.state.costpermile
+                })
+            }
             const graphData = {
                 labels: this.state.otherFamousCars.map((x) => x.Name),
                 datasets: [{
@@ -709,7 +710,7 @@ class Calculator extends React.Component {
                                     name="seeOtherCPM"
                                     value={this.state.seeOtherCPM}
                                 >
-
+                                    <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
 
@@ -727,7 +728,7 @@ class Calculator extends React.Component {
                                     name="seeOtherCPM2"
                                     value={this.state.seeOtherCPM2}
                                 >
-
+                                    <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
                                 {OtherCPM(this.state)}

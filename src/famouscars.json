@@ -161,11 +161,14 @@
         },
         {
             "Name": "Avg overall 10k miles",
-            "CPM": 0.79
+            "CPM": 0.79,
+            "depreciation": 0.300
         },
         {
             "Name":"Avg Small Sedan (10k miles)",
-            "CPM": 0.61
+            "CPM": 0.61,
+            "depreciation": 0.222
+
         },
         {
             "Name":"Avg Medium Sedan (10k miles)",
