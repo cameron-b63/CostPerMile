@@ -227,6 +227,9 @@ class Calculator extends React.Component {
     }
 
     getCityState(zip) {
+        this.setState({
+            gallon: "loading"
+        });
         if (zip.length > 0 && this.state.isElectric.indexOf("as") >0) {
             const options = {
                 "method": "GET",
@@ -429,7 +432,15 @@ class Calculator extends React.Component {
                     <p>Please enter a valid Zip Code</p>
                 </Alert>
             );
-        } else if (this.state.statecode.length === 0) {
+        } else if(this.state.gallon === "loading"){
+            renderZipAlert = 
+            (<Alert variant = "secondary">
+                <Alert.Heading>Loading...</Alert.Heading>
+            </Alert>
+            )
+        }
+        
+        else if (this.state.statecode.length === 0) {
             renderZipAlert = <div></div>
         }
         else {
