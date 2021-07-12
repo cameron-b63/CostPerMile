@@ -5,32 +5,21 @@ import Alert from 'react-bootstrap/Alert';
 
 function Quesiton8(props) {
     return (
-
         <Form.Group>
-
             <Form.Label>
-                8. How many miles do you usually drive per week?
+                8. What is your annual repair and maintenance cost?
             </Form.Label>
-            <Form.Control type="text"
-                placeholder="Enter how many miles driven"
+            <Form.Control
+                placeholder="Enter how much you pay for maintenance a year"
                 onChange={props._handleChange}
-                id="miles"
+                id="maitenance"
                 type="text"
-                name="miles"
-                value={props._state.miles}
+                name="mait"
+                value={props._state.mait}
                 required
             />
-            {props._state.miles && !Number.isNaN(props._state.miles) ?
-                (<Alert variant="secondary">
-                    <Alert.Heading>Miles Per Year</Alert.Heading>
-                    <p>That's {parseInt(props._state.miles) * 52} miles a year</p>
-                </Alert>)
-                :
-                (<div></div>)
-            }
         </Form.Group>
-       
+    )
     
-    );
 }
 export default Quesiton8;

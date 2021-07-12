@@ -5,18 +5,21 @@ function Question6(props) {
     return (
         <Form.Group>
             <Form.Label>
-                6. What is your annual license plate renewal fee?
+                6. What is your annual insurance cost?
             </Form.Label>
             <Form.Control
                 required
-                placeholder="Enter your annual cost to renew your license plate"
+                placeholder="Enter the amount of insurance paid a year"
                 onChange={props._handleChange}
-                id="licenseRenewal"
+                id="insurance"
                 type="text"
-                name="licensePlate"
-                value={props._state.licensePlate}
+                name="iPaid"
+                value={props._state.iPaid}
             />
+
+
         </Form.Group>
-    );
+    )
+    
 }
 export default Question6;
