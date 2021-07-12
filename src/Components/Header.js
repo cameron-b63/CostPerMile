@@ -15,7 +15,7 @@ function Header() {
         </p>
         <h4>What is a cost per mile</h4>
         <p>
-            Your cost per mile is a calculation that tells you how much it costs per mile. 
+            Your cost per mile is a calculation that tells you how much it costs to drive one mile.
             Many people calculate only for the fuel cost per mile but there is many more hidden expenses that you may not know about.
         </p>
         <h4>Why is your cost per mile so important</h4>

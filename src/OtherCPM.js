@@ -44,6 +44,7 @@ function OtherCPM(state) {
                     <th>Name of Car</th>
                     <th>Cost Per mile</th>
                     <th>Depreciation per mile</th>
+                    <th>Fuel per mile</th>
                 </tr>
             </thead>
             <tbody>
