@@ -160,14 +160,82 @@
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/03/2018-tesla-model-x-75d-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
-            "Name": "Average US Driver who drives 10k miles",
+            "Name": "Avg overall 10k miles",
             "CPM": 0.79
         },
         {
-            "Name": "Average US Driver who drives a Small Sedan (10k miles)",
+            "Name":"Avg Small Sedan (10k miles)",
             "CPM": 0.61
+        },
+        {
+            "Name":"Avg Medium Sedan (10k miles)",
+            "CPM": 0.75
+        },
+        {
+            "Name":"Avg Large Sedan (10k miles)",
+            "CPM": 0.90
+        },
+        {
+            "Name":"Avg Small SUV (10k miles)",
+            "CPM": 0.71
+        },
+        {
+            "Name":"Avg Medium SUV (10k miles)",
+            "CPM": 0.87
+        },
+        {
+            "Name":"Avg Minivan(10k miles)",
+            "CPM": 0.87
+        },
+        {
+            "Name":"Avg Hybrid Vehicle(10k miles)",
+            "CPM": 0.68
+        },
+        {
+            "Name":"Avg Electric Vehicle(10k miles)",
+            "CPM": 0.75
+        },
+
+
+        {
+            "Name": "avg overall 15k miles",
+            "CPM": 0.61
+        },
+        {
+            "Name":"Avg Small Sedan (15k miles)",
+            "CPM": 0.47
+        },
+        {
+            "Name":"Avg Medium Sedan (15k miles)",
+            "CPM": 0.58
+        },
+        {
+            "Name":"Avg Large Sedan (15k miles)",
+            "CPM": 0.69
+        },
+        {
+            "Name":"Avg Small SUV (15k miles)",
+            "CPM": 0.56
+        },
+        {
+            "Name":"Avg Medium SUV (15k miles)",
+            "CPM": 0.68
+        },
+        {
+            "Name":"Avg Minivan(15k miles)",
+            "CPM": 0.67
+        },
+        {
+            "Name":"Avg Hybrid Vehicle(15k miles)",
+            "CPM": 0.52
+        },
+        {
+            "Name":"Avg Electric Vehicle(15k miles)",
+            "CPM": 0.55
         }
+
         
+
 
     ]
 }

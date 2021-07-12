@@ -41,6 +41,7 @@ function OtherCPM(state) {
                     <th>Year of Car</th>
                     <th>Make of Car</th>
                     <th>Model of Car</th>
+                    <th>Name of Car</th>
                     <th>Cost Per mile</th>
                 </tr>
             </thead>
@@ -51,6 +52,7 @@ function OtherCPM(state) {
                     <th>{state.carYear}</th>
                     <th>{state.carMake}</th>
                     <th>{state.carModel}</th>
+                    <th>{state.carMake + " " + state.carModel}</th>
                     <th>{state.costpermile.toFixed(2)}</th>
                 </tr>
                 <tr>
@@ -58,6 +60,7 @@ function OtherCPM(state) {
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log()}</th>
                 </tr>
                 <tr>
@@ -65,6 +68,7 @@ function OtherCPM(state) {
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Year : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log()}</th>
                 </tr>
                 

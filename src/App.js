@@ -26,7 +26,8 @@ import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
 import Rental from './Components/Rental.js'
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 var count = 0;
 function compare(a, b) {
@@ -45,7 +46,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 0,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -86,14 +87,14 @@ class Calculator extends React.Component {
         this.handleClickVIN = this.handleClickVIN.bind(this);
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
         this.handleClickCarFax = this.handleClickCarFax.bind(this);
-    
+
     }
     depreciate() {
         let depreciation;
-        if(this.state.isRental === "bought"){
+        if (this.state.isRental === "bought") {
             depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
         }
-        else{
+        else {
             depreciation = 0;
         }
         this.setState({ depreciationValue: depreciation },
@@ -105,16 +106,16 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
-                        (parseInt(this.state.monthlyCarPay)) + 
+                        (parseInt(this.state.monthlyCarPay)) +
                         (parseInt(this.state.licensePlate)))
                         / (parseInt(this.state.miles) * 52);
                 } else {
                     final = (parseInt(this.state.depreciationValue) +
                         parseInt(this.state.iPaid) +
-                        (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
+                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls) * 12) +
-                        (parseInt(this.state.monthlyCarPay)) + 
+                        (parseInt(this.state.monthlyCarPay)) +
                         (parseInt(this.state.licensePlate))) /
                         (parseInt(this.state.miles) * 52);
                 }
@@ -123,7 +124,7 @@ class Calculator extends React.Component {
                 })
             }
         );
-        
+
     }
     alphabetCheck(s) {
         var numbers = /^[0-9]+$/;
@@ -140,10 +141,10 @@ class Calculator extends React.Component {
 
         const { name, value } = event.target
         //checking for alphabetical letters so that there are no errors in calculations
-        if(name === "carMake"){
+        if (name === "carMake") {
             count = 0;
         }
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" &&name !== "seeOtherCPM2" &&name !== "seeOtherCPM" && name !== "isRental") {
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -158,18 +159,18 @@ class Calculator extends React.Component {
         console.log(this.state);
     }
     handleClickVIN(e) {
-        this.setState({carModel: "", carMake: ""}, function(){
+        this.setState({ carModel: "", carMake: "" }, function () {
             this.getVIN(this.state.VIN);
-           
+
         })
         count = 0;
     }
-    handleClickGasPrice(e){
+    handleClickGasPrice(e) {
         this.getCityState(this.state.zipcode);
     }
-    handleClickCarFax(){
-        this.setState(function(past){
-            return {CarFax: !past.CarFax}
+    handleClickCarFax() {
+        this.setState(function (past) {
+            return { CarFax: !past.CarFax }
         })
     }
     handleSubmit(e) {
@@ -178,7 +179,7 @@ class Calculator extends React.Component {
             submitted: true,
         })
         this.depreciate();
-        
+
 
         this.setState({ validated: true });
 
@@ -242,7 +243,7 @@ class Calculator extends React.Component {
         this.setState({
             gallon: "loading"
         });
-        if (zip.length > 0 && this.state.isElectric.indexOf("as") >0) {
+        if (zip.length > 0 && this.state.isElectric.indexOf("as") > 0) {
             const options = {
                 "method": "GET",
                 "hostname": "redline-redline-zipcode.p.rapidapi.com",
@@ -371,7 +372,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                (parseInt(self.state.monthlyCarPay)) + 
+                                (parseInt(self.state.monthlyCarPay)) +
                                 (parseInt(self.state.licensePlate)))
                                 / (parseInt(self.state.miles) * 52);
                         } else {
@@ -380,7 +381,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls) * 12) +
-                                (parseInt(self.state.monthlyCarPay)) + 
+                                (parseInt(self.state.monthlyCarPay)) +
                                 (parseInt(self.state.licensePlate))) /
                                 (parseInt(self.state.miles) * 52);
                         }
@@ -414,7 +415,7 @@ class Calculator extends React.Component {
         var lastQuestion;
         var renderRelationalData;
         var renderAlert;
-        
+
         if (this.state.carMake === null) {
             renderCarMakeAlert = (
                 <Alert variant="danger">
@@ -427,10 +428,10 @@ class Calculator extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ models: data["Results"] });
-            })
+                })
             count++;
             console.log(count);
-        
+
         }
 
         const carYears = years.map((num) => <option>{num}</option>)
@@ -444,14 +445,14 @@ class Calculator extends React.Component {
                     <p>Please enter a valid Zip Code</p>
                 </Alert>
             );
-        } else if(this.state.gallon === "loading"){
-            renderZipAlert = 
-            (<Alert variant = "secondary">
-                <Alert.Heading>Loading...</Alert.Heading>
-            </Alert>
-            )
+        } else if (this.state.gallon === "loading") {
+            renderZipAlert =
+                (<Alert variant="secondary">
+                    <Alert.Heading>Loading...</Alert.Heading>
+                </Alert>
+                )
         }
-        
+
         else if (this.state.statecode.length === 0) {
             renderZipAlert = <div></div>
         }
@@ -520,7 +521,7 @@ class Calculator extends React.Component {
 
                 </Form.Group>
                 <Button
-                onClick = {this.handleClickGasPrice}
+                    onClick={this.handleClickGasPrice}
                 >Click this button to get the gas price in your area!
                 </Button>
                 {renderZipAlert}
@@ -586,113 +587,152 @@ class Calculator extends React.Component {
         //                 (parseInt(this.state.licensePlate))) /
         //                 (parseInt(this.state.miles) * 52);
         //         }
-        
-       
-        var renderCarOptions =  this.state.otherFamousCars.map((N) => <option>{N.Name}</option>)
+        if(this.state.otherFamousCars.length<38){
+            this.state.otherFamousCars.push({
+                Name: "Your",
+                CPM: this.state.costpermile
+            })
+        }
+
+        var renderCarOptions = this.state.otherFamousCars.map((N) => <option>{N.Name}</option>)
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
         else {
-             const doughnutdata = {
-            labels: [
-              'Depreciation',
-              'Insurance',
-              'Gas',
-              'Charging(Electric)',
-              'Maintenance',
-              'Other costs',
-              'Loans/Rental',
-              'licenseplate'
+            const graphData = {
+                labels: this.state.otherFamousCars.map((x) => x.Name),
+                datasets: [{
+                    label: 'Cost Per Mlie of different cars',
+                    data: this.state.otherFamousCars.map((x) => x.CPM),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+            const doughnutdata = {
+                labels: [
+                    'Depreciation',
+                    'Insurance',
+                    'Gas',
+                    'Charging(Electric)',
+                    'Maintenance',
+                    'Other costs',
+                    'Loans/Rental',
+                    'licenseplate'
 
-          ],
-          datasets: [{
-            data: [
-                (parseInt(this.state.depreciationValue)/ (parseInt(this.state.miles) * 52) ),
-                (parseInt(this.state.iPaid))/ (parseInt(this.state.miles) * 52),
-                (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52),
-                (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52),
-                parseInt(this.state.mait) / (parseInt(this.state.miles) * 52),
-                (parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52),
-                (parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52),
-                (parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52),
                 ],
-            backgroundColor: [
-                'blue',
-                'green',
-                'yellow',
-                'red',
-                'purple',
-                'orange',
-                'lime',
-                'black'
+                datasets: [{
+                    data: [
+                        (parseInt(this.state.depreciationValue) / (parseInt(this.state.miles) * 52)),
+                        (parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52),
+                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52),
+                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52),
+                        parseInt(this.state.mait) / (parseInt(this.state.miles) * 52),
+                        (parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52),
+                        (parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52),
+                        (parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52),
+                    ],
+                    backgroundColor: [
+                        'blue',
+                        'green',
+                        'yellow',
+                        'red',
+                        'purple',
+                        'orange',
+                        'lime',
+                        'black'
 
-            ],
-            hoverBackgroundColor: [
-            'blue',
-            'green',
-            'yellow',
-            'red',
-            'purple',
-            'orange',
-            'lime',
-            'black'
-            ]
-          }]
-          };
+                    ],
+                    hoverBackgroundColor: [
+                        'blue',
+                        'green',
+                        'yellow',
+                        'red',
+                        'purple',
+                        'orange',
+                        'lime',
+                        'black'
+                    ]
+                }]
+            };
             renderRelationalData =
                 (
                     <Container>
                         <Jumbotron>
-                        <Form.Group>
-                       
-                      
-                            <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
-                            <p>This is what is contributing to your cost per mile</p>
-                            <div className = "DoughnutImage">
-                            <Doughnut
-                            
-                            data={doughnutdata}
-                            width={20}
-                            height={20}
-                            />
-                            </div>
-                            <br/>
-                            <h2>See Your CPM in relation to other CPM</h2>
-                            <p>If you choose to see "Average CPM for other cars", the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
-                            <Form.Label>
-                                Enter which cars you would like to see
-                            </Form.Label>
-                            <Form.Control as="select"
-                                onChange={this.handleChange}
-                                id="seeOtherCPM"
-                                type="text"
-                                name="seeOtherCPM"
-                                value={this.state.seeOtherCPM}
-                            >
-                                
-                                {renderCarOptions}
-                            </Form.Control>
-                            
+                            <Form.Group>
 
-                        </Form.Group>
 
-                        <Form.Group>
-                            <Form.Label>
-                                Enter another car
-                            </Form.Label>
-                            <Form.Control as="select"
-                                onChange={this.handleChange}
-                                id="seeOtherCPM"
-                                type="text"
-                                name="seeOtherCPM2"
-                                value={this.state.seeOtherCPM2}
-                            >
-                                
-                                {renderCarOptions}
-                            </Form.Control>
-                            {OtherCPM(this.state)}
-                            
-                        </Form.Group>
+                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                                <p>This is what is contributing to your cost per mile</p>
+                                <div className="DoughnutImage">
+                                    <Doughnut
+
+                                        data={doughnutdata}
+                                        width={20}
+                                        height={20}
+                                    />
+                                </div>
+                                <div className="GraphImage">
+                                    <Bar
+                                        data={graphData}
+                                    />
+
+                                </div>
+                                <br />
+                                <br/>
+                                <br/>
+                                <br />
+                                <br/>
+                                <br/>
+                                <h2>See Your CPM(Cost Per Mile) in relation to others listed on the graph</h2>
+                                <Form.Label>
+                                    Enter which cars you would like to see
+                                </Form.Label>
+                                <Form.Control as="select"
+                                    onChange={this.handleChange}
+                                    id="seeOtherCPM"
+                                    type="text"
+                                    name="seeOtherCPM"
+                                    value={this.state.seeOtherCPM}
+                                >
+
+                                    {renderCarOptions}
+                                </Form.Control>
+
+
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>
+                                    Enter another car
+                                </Form.Label>
+                                <Form.Control as="select"
+                                    onChange={this.handleChange}
+                                    id="seeOtherCPM"
+                                    type="text"
+                                    name="seeOtherCPM2"
+                                    value={this.state.seeOtherCPM2}
+                                >
+
+                                    {renderCarOptions}
+                                </Form.Control>
+                                {OtherCPM(this.state)}
+
+                            </Form.Group>
                         </Jumbotron>
                     </Container>
                 );
@@ -724,19 +764,19 @@ class Calculator extends React.Component {
             renderBought = (
                 <div>
                     <NewCost state={this.state} onChange={this.handleChange} />
-                    <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax = {this.handleClickCarFax} />
+                    <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
                     <Loan _state={this.state} _handleChange={this.handleChange} />
 
                 </div>
             )
-        } else if (this.state.isRental === "rental"){
+        } else if (this.state.isRental === "rental") {
             renderBought = (
                 <div>
                     <Rental _state={this.state} _handleChange={this.handleChange} />
 
                 </div>
             )
-        }else{
+        } else {
             renderBought = (<div></div>)
         }
 
@@ -769,7 +809,7 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
 
-                        <Question4 _state={this.state} _handleChange={this.handleChange}  />
+                        <Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
 
                         <Question5 _state={this.state} _handleChange={this.handleChange} />
