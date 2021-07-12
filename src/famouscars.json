@@ -1,103 +1,173 @@
 {
    
     "Results": [
+        
         {
+           
             "Name": "Acura RDX",
+            "Make": "Acura",
+            "Model": "RDX",
+            "Year": 2019,
             "CPM" : 0.74,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/07/2019-acura-rdx-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Audi Q5",
+            "Make": "Audi",
+            "Model": "Q5",
+            "Year": 2019,
             "CPM": 0.89,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/12/2019-audi-q5-prestige-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
-            "Name": "BMW i3 Series",
+            "Name": "BMW i3",
+            "Make": "BMW",
+            "Model": "i3",
+            "Year": 2019,
             "CPM" : 0.60,
             "Image": "https://www.motortrend.com/uploads/sites/10/2016/12/2017-bmw-i3-range-extender-hatchback-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Buick Enclave",
+            "Make": "Buick",
+            "Model": "Enclave",
+            "Year": 2019,
             "CPM" : 0.76,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/09/2019-buick-enclave-premium-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Cadillac Escalade",
+            "Make": "Cadillac",
+            "Model": "Escalade",
+            "Year": 2019,
             "CPM": 0.76,
             "Image": "https://www.motortrend.com/uploads/sites/10/2021/02/2021-cadillac-escalade-600-sport-suv-angular-front.png?fit=around%7C770:481.25"
         },
         {
             "Name": "Chevrolet Equinox",
+            "Make": "Chevrolet",
+            "Model": "Equinox",
+            "Year": 2019,
             "CPM": 0.61,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-chevrolet-equinox-lt-suv-angular-front.png?fit=around%7C29:481:25"
 
         },
         {
             "Name": "Dodge Charger",
+            "Make": "Dodge",
+            "Model": "Charger",
+            "Year": 2019,
             "CPM" :0.60,
             "Image": "https://www.motortrend.com/uploads/sites/10/2020/03/2020-dodge-charger-sxt-sedan-angular-front.png?fit=around%7C29:481:25"
 
         },
         {
             "Name": "Ford F-150",
+            "Make": "Ford",
+            "Model": "F-150",
+            "Year": 2019,
             "CPM": 0.67,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/11/2019-ford-f-150-xl-pick-up-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Honda CR-V",
+            "Make": "Honda",
+            "Model": "CR-V",
+            "Year": 2019,
             "CPM": 0.45,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/11/2019-honda-cr-v-ex-l-2wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Hyundai Santa Fe",
+            "Make": "Hyundai",
+            "Model": "Santa Fe",
+            "Year": 2019,
             "CPM": 0.57,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-hyundai-santa-fe-se-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Infiniti q50",
+            "Make": "Infiniti",
+            "Model": "q50",
+            "Year": 2019,
             "CPM": 0.80,
             "Image": "https://www.motortrend.com/uploads/sites/10/2019/04/2019-infiniti-q50-luxe-sedan-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Jeep Wrangler",
+            "Make": "Jeep",
+            "Model": "Wrangler",
+            "Year": 2019,
             "CPM": 0.66,
             "Image": "https://www.motortrend.com/uploads/sites/10/2019/06/2019-jeep-wrangler-sport-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Kia Sportage",
+            "Make": "Kia",
+            "Model": "Sportage",
+            "Year": 2019,
             "CPM": 0.48,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-kia-sportage-ex-4wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
-            "Name": "Lexus RX 350",
+            "Name": "Lexus RX",
+            "Make": "Lexus",
+            "Model": "RX",
+            "Year": 2019,
             "CPM": 0.81,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/09/2019-lexus-rx-350-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
-            "Name": "Mercedes C Class",
+            "Name": "Mercedes C-Class",
+            "Make": "Mercedes",
+            "Model": "C-Class",
+            "Year": 2019,
             "CPM": 0.80,
             "Image" : "https://www.motortrend.com/uploads/sites/10/2018/11/2019-mercedes-benz-c-class-c300-sedan-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Nissan Rogue",
+            "Make": "Nissan",
+            "Model": "Rogue",
+            "Year": 2019,
             "CPM": 0.50,
             "Image": "https://www.motortrend.com/uploads/sites/10/2019/03/2019-nissan-rogue-sl-hybrid-fwd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Porsche Macan",
+            "Make": "Porsche",
+            "Model": "Macan",
+            "Year": 2019,
             "CPM": 1.07,
             "Image" : "https://www.motortrend.com/uploads/sites/10/2019/09/2019-porsche-macan-4wd-suv-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Subaru Outback",
+            "Make": "Subaru",
+            "Model": "Outback",
+
+
+            "Year": 2019,
             "CPM": 0.50,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-subaru-outback-premium-wagon-angular-front.png?fit=around%7C29:481:25"
         },
         {
             "Name": "Tesla Model X",
+            "Make": "Tesla",
+            "Model": "Model X",
+            "Year": 2019,
             "CPM": 1.27,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/03/2018-tesla-model-x-75d-suv-angular-front.png?fit=around%7C29:481:25"
+        },
+        {
+            "Name": "Average US Driver who drives 10k miles",
+            "CPM": 0.79
+        },
+        {
+            "Name": "Average US Driver who drives a Small Sedan (10k miles)",
+            "CPM": 0.61
         }
+        
 
     ]
 }

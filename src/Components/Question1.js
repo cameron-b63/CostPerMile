@@ -17,7 +17,7 @@ function Question1(props){
             type="text"
             name="VIN"
             value={props.state.VIN}
-            required
+            
         />
         <Form.Text>
             Enter your VIN information to automatically answer the

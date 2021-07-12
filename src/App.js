@@ -26,6 +26,8 @@ import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
 import Rental from './Components/Rental.js'
+import {Doughnut} from 'react-chartjs-2';
+
 var count = 0;
 function compare(a, b) {
     const nameA = a.Make_Name;
@@ -43,7 +45,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 0,
             iPaid: "",
             miles: "",
             mait: "",
@@ -70,7 +72,8 @@ class Calculator extends React.Component {
             licensePlate: "",
             carYear: "",
             carBasePrice: "",
-            seeOtherCPM: "",
+            seeOtherCPM: "Acura RDX",
+            seeOtherCPM2: "Acura RDX",
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
             submitted: false,
             validated: false,
@@ -140,7 +143,7 @@ class Calculator extends React.Component {
         if(name === "carMake"){
             count = 0;
         }
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM" && name !== "isRental") {
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" &&name !== "seeOtherCPM2" &&name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -415,7 +418,7 @@ class Calculator extends React.Component {
         if (this.state.carMake === null) {
             renderCarMakeAlert = (
                 <Alert variant="danger">
-                    <Alert.Heading>Not Valid VIN</Alert.Heading>
+                    <Alert.Heading>Invalid VIN</Alert.Heading>
                 </Alert>
             )
         }
@@ -531,7 +534,7 @@ class Calculator extends React.Component {
                     </Form.Label>
 
                     <Form.Control
-                        placeholder="fullcharge"
+                        placeholder="Enter how many miles can be drive on a full charge"
                         onChange={this.handleChange}
                         id="fullcharge"
                         type="text"
@@ -547,7 +550,7 @@ class Calculator extends React.Component {
                     </Form.Label>
 
                     <Form.Control
-                        placeholder="fullchargeCost"
+                        placeholder="Enter how much money it costs for a full charge"
                         onChange={this.handleChange}
                         id="fullchargeCost"
                         type="text"
@@ -563,35 +566,135 @@ class Calculator extends React.Component {
                 <div></div>
             );
         }
-
-
+        // let final;
+        //         if (this.state.isElectric.indexOf("as") > 0) {
+        //             final = (parseInt(this.state.depreciationValue) +
+        //                 parseInt(this.state.iPaid) +
+        //                 (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
+        //                 parseInt(this.state.mait) +
+        //                 (parseInt(this.state.tolls) * 12) +
+        //                 (parseInt(this.state.monthlyCarPay)) + 
+        //                 (parseInt(this.state.licensePlate)))
+        //                 / (parseInt(this.state.miles) * 52);
+        //         } else {
+        //             final = (parseInt(this.state.depreciationValue) +
+        //                 parseInt(this.state.iPaid) +
+        //                 (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
+        //                 parseInt(this.state.mait) +
+        //                 (parseInt(this.state.tolls) * 12) +
+        //                 (parseInt(this.state.monthlyCarPay)) + 
+        //                 (parseInt(this.state.licensePlate))) /
+        //                 (parseInt(this.state.miles) * 52);
+        //         }
+        
+       
+        var renderCarOptions =  this.state.otherFamousCars.map((N) => <option>{N.Name}</option>)
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
         else {
+             const doughnutdata = {
+            labels: [
+              'Depreciation',
+              'Insurance',
+              'Gas',
+              'Charging(Electric)',
+              'Maintenance',
+              'Other costs',
+              'Loans/Rental',
+              'licenseplate'
+
+          ],
+          datasets: [{
+            data: [
+                (parseInt(this.state.depreciationValue)/ (parseInt(this.state.miles) * 52) ),
+                (parseInt(this.state.iPaid))/ (parseInt(this.state.miles) * 52),
+                (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52),
+                (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52),
+                parseInt(this.state.mait) / (parseInt(this.state.miles) * 52),
+                (parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52),
+                (parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52),
+                (parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52),
+                ],
+            backgroundColor: [
+                'blue',
+                'green',
+                'yellow',
+                'red',
+                'purple',
+                'orange',
+                'lime',
+                'black'
+
+            ],
+            hoverBackgroundColor: [
+            'blue',
+            'green',
+            'yellow',
+            'red',
+            'purple',
+            'orange',
+            'lime',
+            'black'
+            ]
+          }]
+          };
             renderRelationalData =
                 (
-                    <Form.Group>
-                        <h2>See Your CPM in relation to other CPM</h2>
-                        <p>If you choose to see "Average CPM for other cars", the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
-                        <Form.Label>
-                            Enter what information you would like to see
-                        </Form.Label>
-                        <Form.Control as="select"
-                            onChange={this.handleChange}
-                            id="seeOtherCPM"
-                            type="text"
-                            name="seeOtherCPM"
-                            value={this.state.seeOtherCPM}
-                        >
-                            <option name="seeOtherCPM">-Choose one of the below-</option>
-                            <option name="seeOtherCPM">Average CPM of Car Types (10k mi/yr)</option>
-                            <option name="seeOtherCPM">Average CPM of Car Types (15k mi/yr)</option>
-                            <option name="seeOtherCPM">Average CPM of Car Types (20k mi/yr)</option>
-                            <option name="seeOtherCPM">Average CPM of Other Models</option>
-                        </Form.Control>
-                        {OtherCPM(this.state)}
-                    </Form.Group>
+                    <Container>
+                        <Jumbotron>
+                        <Form.Group>
+                       
+                      
+                            <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                            <p>This is what is contributing to your cost per mile</p>
+                            <div className = "DoughnutImage">
+                            <Doughnut
+                            
+                            data={doughnutdata}
+                            width={20}
+                            height={20}
+                            />
+                            </div>
+                            <br/>
+                            <h2>See Your CPM in relation to other CPM</h2>
+                            <p>If you choose to see "Average CPM for other cars", the cost per mile is calculated assuming that you drive 15k miles per year, ~2000 for insurance, ~1300 for fuel, ~1300 for maitenance/repairs, and ~1300 for other miscellaneous costs</p>
+                            <Form.Label>
+                                Enter which cars you would like to see
+                            </Form.Label>
+                            <Form.Control as="select"
+                                onChange={this.handleChange}
+                                id="seeOtherCPM"
+                                type="text"
+                                name="seeOtherCPM"
+                                value={this.state.seeOtherCPM}
+                            >
+                                
+                                {renderCarOptions}
+                            </Form.Control>
+                            
+
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label>
+                                Enter another car
+                            </Form.Label>
+                            <Form.Control as="select"
+                                onChange={this.handleChange}
+                                id="seeOtherCPM"
+                                type="text"
+                                name="seeOtherCPM2"
+                                value={this.state.seeOtherCPM2}
+                            >
+                                
+                                {renderCarOptions}
+                            </Form.Control>
+                            {OtherCPM(this.state)}
+                            
+                        </Form.Group>
+                        </Jumbotron>
+                    </Container>
                 );
         }
         //RENDER ALERT
@@ -675,7 +778,6 @@ class Calculator extends React.Component {
 
 
                     </Jumbotron>
-
 
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>

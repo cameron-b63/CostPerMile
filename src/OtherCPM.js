@@ -10,13 +10,13 @@ import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
 
-function renderListElement(stringDisplay, CPM,state, displayImage) {
+function renderListElement(stringDisplay, CPM, state, displayImage) {
     if (typeof displayImage !== "undefined") {
         return (
             <tr>
                 <td>{stringDisplay}</td>
                 <td>{CPM}</td>
-                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + (( CPM - state.costpermile.toFixed(2)).toFixed(2)) : ( CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
+                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
                 <td><Image src={displayImage} fluid /></td>
             </tr>
         );
@@ -26,12 +26,54 @@ function renderListElement(stringDisplay, CPM,state, displayImage) {
             <tr>
                 <td>{stringDisplay}</td>
                 <td>{CPM}</td>
-                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + (( CPM - state.costpermile.toFixed(2)).toFixed(2)) : ( CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
+                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
             </tr>
         )
     }
 }
 function OtherCPM(state) {
+    var otherCPM;
+    otherCPM = (
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>Image of Car</th>
+                    <th>Year of Car</th>
+                    <th>Make of Car</th>
+                    <th>Model of Car</th>
+                    <th>Cost Per mile</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <th>Your Car</th>                
+                    <th>{state.carYear}</th>
+                    <th>{state.carMake}</th>
+                    <th>{state.carModel}</th>
+                    <th>{state.costpermile.toFixed(2)}</th>
+                </tr>
+                <tr>
+                    <th> <Image src = {state.seeOtherCPM.length>0?state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image: console.log()} fluid className = "CarImage"/>  </th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log()}</th>
+                </tr>
+                <tr>
+                    <th> <Image src = {state.seeOtherCPM2.length>0?state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image: console.log()} fluid className = "CarImage"/>  </th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Year : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log()}</th>
+                </tr>
+                
+            </tbody>
+
+        </Table>)
+    return otherCPM;
+}
+/*function OtherCPM(state) {
     let otherCPM;
     //conditional rendering of other Cost Per Miles
     if (state.seeOtherCPM.indexOf("10k") > 0) {
@@ -115,7 +157,6 @@ function OtherCPM(state) {
                         <td>{(state.costpermile - state.costpermile).toFixed(2)}</td>
                     </tr>
 
-
                     {renderListElement("Average US Driver who drives 20k miles", 0.53,state)}
                     {renderListElement("Average US Driver who drives a Small Sedan (20k miles)", 0.41,state)}
                     {renderListElement("Average US Driver who drives a Medium Sedan (20k miles)", 0.49,state)}
@@ -188,4 +229,5 @@ function OtherCPM(state) {
         otherCPM
     )
 }
+*/
 export default OtherCPM;
