@@ -135,6 +135,9 @@ class Calculator extends React.Component {
 
         const { name, value } = event.target
         //checking for alphabetical letters so that there are no errors in calculations
+        if(name === "carMake"){
+            count = 0;
+        }
         if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
