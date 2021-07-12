@@ -76,11 +76,13 @@ class Calculator extends React.Component {
             validated: false,
             isRental: "",
             monthlyCarPay: "",
+            CarFax: false,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickVIN = this.handleClickVIN.bind(this);
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
+        this.handleClickCarFax = this.handleClickCarFax.bind(this);
     
     }
     depreciate() {
@@ -162,7 +164,11 @@ class Calculator extends React.Component {
     handleClickGasPrice(e){
         this.getCityState(this.state.zipcode);
     }
-
+    handleClickCarFax(){
+        this.setState(function(past){
+            return {CarFax: !past.CarFax}
+        })
+    }
     handleSubmit(e) {
         e.preventDefault();
         this.setState({
@@ -615,7 +621,7 @@ class Calculator extends React.Component {
             renderBought = (
                 <div>
                     <NewCost state={this.state} onChange={this.handleChange} />
-                    <NowCost _state={this.state} _handleChange={this.handleChange} />
+                    <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax = {this.handleClickCarFax} />
                     <Loan _state={this.state} _handleChange={this.handleChange} />
 
                 </div>
@@ -660,7 +666,7 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
 
-                        <Question4 _state={this.state} _handleChange={this.handleChange} />
+                        <Question4 _state={this.state} _handleChange={this.handleChange}  />
                         {renderBought}
 
                         <Question5 _state={this.state} _handleChange={this.handleChange} />
