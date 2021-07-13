@@ -46,7 +46,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 1,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -590,18 +590,18 @@ class Calculator extends React.Component {
         //         }
         
 
-        var renderCarOptions = this.state.otherFamousCars.map((N) => <option>{N.Name}</option>)
+        var renderCarOptions = this.state.otherFamousCars.slice(1,this.state.otherFamousCars.length).map((N) => <option>{N.Name}</option>)
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
         else {
             if(this.state.otherFamousCars.length<38){
-                this.state.otherFamousCars.push({
+                this.state.otherFamousCars.unshift({
                     Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile
                 })
             }else{
-                this.state.otherFamousCars[37] = 
+                this.state.otherFamousCars[0] = 
                 {
                     Name:"Your Cost Per Mile",
                     CPM: this.state.costpermile
