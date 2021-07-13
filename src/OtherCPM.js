@@ -37,47 +37,82 @@ function OtherCPM(state) {
         <Table striped bordered hover>
             <thead>
                 <tr>
-                    <th>Image of Car</th>
+                    
                     <th>Year of Car</th>
                     <th>Make of Car</th>
                     <th>Model of Car</th>
                     <th>Name of Car</th>
+                    <th>Image of Car</th>
                     <th>Cost Per mile</th>
                     <th>Depreciation per mile</th>
                     <th>Fuel per mile</th>
+                    <th>Insurance per mile</th>
+                    <th>Maintenance/Repairs per mile</th>
+                    <th>Other costs</th>
+
                 </tr>
             </thead>
             <tbody>
-                
+
                 <tr>
-                    <th>Your Car</th>                
+                    
                     <th>{state.carYear}</th>
                     <th>{state.carMake}</th>
                     <th>{state.carModel}</th>
-                    <th>{state.carMake + " " + state.carModel}</th>
-                    <th>{state.costpermile.toFixed(2)}</th>
-                    <th>{state.depreciationValue}</th>
+                    <th>{"YOUR CAR"}</th>
+                    <th></th>
+                    <th>{state.costpermile.toFixed(3)}</th>
+                    <th>{(state.depreciationValue / (state.miles * 52)).toFixed(3)}</th>
+                    <th>{   Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52))? (  (((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(3): ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(3)  }</th>
+                    <th>{((state.iPaid) / (state.miles* 52)).toFixed(3)}</th>
+                    <th>{(state.mait / (state.miles * 52)).toFixed(3)}</th>
+                    <th>{((parseInt(state.tolls) + parseInt(state.monthlyCarPay) + parseInt(state.licensePlate))/ ((parseInt(state.miles))* 52)).toFixed(3)}</th>
                 </tr>
                 <tr>
-                    <th> <Image src = {state.seeOtherCPM.length>0?state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image: console.log()} fluid className = "CarImage"/>  </th>
+                    
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log()}</th>
+                    <th> <Image src={state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image : console.log()} fluid className="CarImage" />  </th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].depreciation : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].insurance : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].maintenance : console.log()}</th>
+                    <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log()}</th>
                 </tr>
                 <tr>
-                    <th> <Image src = {state.seeOtherCPM2.length>0?state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image: console.log()} fluid className = "CarImage"/>  </th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Year : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name : console.log()}</th>
+                    <th> <Image src={state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image : console.log()} fluid className="CarImage" />  </th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].depreciation : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].fuel : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].insurance : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].maintenance : console.log()}</th>
+                    <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log()}</th>
+
 
                 </tr>
-                
+                <tr>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Year : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Make : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Model : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name : console.log()}</th>
+                    <th> <Image src={state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image : console.log()} fluid className="CarImage" />  </th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].CPM : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].depreciation : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].fuel : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].insurance : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].maintenance : console.log()}</th>
+                    <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()}</th>
+
+
+                </tr>
+
             </tbody>
 
         </Table>)

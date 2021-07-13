@@ -46,7 +46,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -75,6 +75,7 @@ class Calculator extends React.Component {
             carBasePrice: "",
             seeOtherCPM: "",
             seeOtherCPM2: "",
+            seeOtherCPM3:"",
             otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
             submitted: false,
             validated: false,
@@ -144,7 +145,7 @@ class Calculator extends React.Component {
         if (name === "carMake") {
             count = 0;
         }
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" &&name !== "seeOtherCPM3"&& name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -599,6 +600,12 @@ class Calculator extends React.Component {
                     Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile
                 })
+            }else{
+                this.state.otherFamousCars[37] = 
+                {
+                    Name:"Your Cost Per Mile",
+                    CPM: this.state.costpermile
+                }
             }
             const graphData = {
                 labels: this.state.otherFamousCars.map((x) => x.Name),
@@ -622,6 +629,29 @@ class Calculator extends React.Component {
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
+                }]
+            }
+            const doughnutdata2 = {
+                labels : [
+                    'red',
+                    'blue',
+                    'green'
+                ],
+                datasets: [{
+                    data: [
+                        0,3,2
+                    ],
+                    backgroundColor: [
+                        'red',
+                        'blue',
+                        'green'
+
+                    ],
+                    hoverBackgroundColor: [
+                        'red',
+                        'blue',
+                        'green'
+                    ]
                 }]
             }
             const doughnutdata = {
@@ -681,7 +711,6 @@ class Calculator extends React.Component {
                                 <p>This is what is contributing to your cost per mile</p>
                                 <div className="DoughnutImage">
                                     <Doughnut
-
                                         data={doughnutdata}
                                         width={20}
                                         height={20}
@@ -719,7 +748,7 @@ class Calculator extends React.Component {
 
                             <Form.Group>
                                 <Form.Label>
-                                    Enter another car
+                                    Enter 2nd car
                                 </Form.Label>
                                 <Form.Control as="select"
                                     onChange={this.handleChange}
@@ -731,10 +760,30 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-                                {OtherCPM(this.state)}
+                                
 
                             </Form.Group>
+                            <Form.Group>
+                                <Form.Label>
+                                    Enter 3rd car
+                                </Form.Label>
+                                <Form.Control as="select"
+                                    onChange={this.handleChange}
+                                    id="seeOtherCPM3"
+                                    type="text"
+                                    name="seeOtherCPM3"
+                                    value={this.state.seeOtherCPM3}
+                                >
+                                    <option></option>
+                                    {renderCarOptions}
+                                </Form.Control>
+                                {OtherCPM(this.state)}
+                               
+                            </Form.Group>
+                            
                         </Jumbotron>
+                        
+                        
                     </Container>
                 );
         }
