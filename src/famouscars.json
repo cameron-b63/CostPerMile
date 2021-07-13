@@ -1,9 +1,7 @@
 {
    
     "Results": [
-        
         {
-           
             "Name": "Acura RDX",
             "Make": "Acura",
             "Model": "RDX",
@@ -254,6 +252,9 @@
         },
         {
             "Name": "Avg overall 10k miles",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.79,
             "depreciation": 0.300,
             "fuel": 0.116,
@@ -264,6 +265,9 @@
         },
         {
             "Name":"Avg Small Sedan (10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.61,
             "depreciation": 0.203,
             "fuel": 0.0836,
@@ -274,6 +278,9 @@
         },
         {
             "Name":"Avg Medium Sedan (10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.75,
             "depreciation": 0.294,
             "fuel": 0.0927,
@@ -284,6 +291,9 @@
         },
         {
             "Name":"Avg Large Sedan (10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.90,
             "depreciation": 0.377,
             "fuel": 0.127,
@@ -294,6 +304,9 @@
         },
         {
             "Name":"Avg Small SUV (10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.71,
             "depreciation": 0.285,
             "fuel": 0.0942,
@@ -304,6 +317,9 @@
         },
         {
             "Name":"Avg Medium SUV (10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.87,
             "depreciation": 0.341,
             "fuel": 0.132,
@@ -314,6 +330,9 @@
         },
         {
             "Name":"Avg Minivan(10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.87,
             "depreciation": 0.3772,
             "fuel": 0.1261,
@@ -325,6 +344,9 @@
         },
         {
             "Name":"Avg Hybrid Vehicle(10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.68,
             "depreciation": 0.282,
             "fuel": 0.0576,
@@ -336,6 +358,9 @@
         },
         {
             "Name":"Avg Electric Vehicle(10k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.75,
             "depreciation": 0.494,
             "fuel": 0.0365,
@@ -350,6 +375,9 @@
 
         {
             "Name": "Avg overall 15k miles",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.61,
             "depreciation": 0.222,
             "fuel": 0.116,
@@ -361,6 +389,9 @@
         },
         {
             "Name":"Avg Small Sedan (15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.47,
             "depreciation": 0.149,
             "fuel": 0.0836,
@@ -373,6 +404,9 @@
         },
         {
             "Name":"Avg Medium Sedan (15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.58,
             "depreciation": 0.211,
             "fuel": 0.0927,
@@ -385,6 +419,9 @@
         },
         {
             "Name":"Avg Large Sedan (15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.69,
             "depreciation": 0.271,
             "fuel": 0.127,
@@ -396,6 +433,9 @@
         },
         {
             "Name":"Avg Small SUV (15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.56,
             "fuel": 0.0942,
             "depreciation": 0.2088,
@@ -407,6 +447,9 @@
         },
         {
             "Name":"Avg Medium SUV (15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.68,
             "depreciation": 0.253,
             "fuel": 0.132,
@@ -418,6 +461,9 @@
         },
         {
             "Name":"Avg Minivan(15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.67,
             "depreciation": 0.269,
             "fuel": 0.1261,
@@ -430,6 +476,9 @@
         },
         {
             "Name":"Avg Hybrid Vehicle(15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.52,
             "depreciation": 0.2058,
             "fuel": 0.0576,
@@ -440,6 +489,9 @@
         },
         {
             "Name":"Avg Electric Vehicle(15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
             "CPM": 0.55,
             "depreciation": 0.363,
             "fuel": 0.0365,
