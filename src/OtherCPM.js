@@ -74,7 +74,7 @@ function OtherCPM(state) {
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log()}</th>
-                    <th> <Image src={state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image : console.log()}  className="CarImage" />  </th>
+                    <th>{state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image}  className="CarImage" />: <div></div> } </th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].depreciation : console.log()}</th>
                     <th>{state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log()}</th>
@@ -87,7 +87,7 @@ function OtherCPM(state) {
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name : console.log()}</th>
-                    <th> <Image src={state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image : ""}  className="CarImage" />  </th> 
+                    <th>{state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image}  className="CarImage" />: <div></div> } </th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].depreciation : console.log()}</th>
                     <th>{state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].fuel : console.log()}</th>
@@ -102,7 +102,7 @@ function OtherCPM(state) {
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Make : console.log()}</th>
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Model : console.log()}</th>
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name : console.log()}</th>
-                    <th> <Image src={state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image : console.log()}  className="CarImage" />  </th>
+                    <th>{state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image}  className="CarImage" />: <div></div> } </th>
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].CPM : console.log()}</th>
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].depreciation : console.log()}</th>
                     <th>{state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].fuel : console.log()}</th>

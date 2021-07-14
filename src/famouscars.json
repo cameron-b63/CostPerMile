@@ -260,7 +260,8 @@
             "fuel": 0.116,
             "insurance": 0.1194,
             "maintenance": 0.0894,
-            "other": 0.16793
+            "other": 0.16793,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         },
         {
@@ -273,7 +274,9 @@
             "fuel": 0.0836,
             "insurance": 0.1328,
             "maintenance": 0.0853,
-            "other": 0.1012
+            "other": 0.1012,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
 
         },
         {
@@ -286,7 +289,9 @@
             "fuel": 0.0927,
             "insurance": 0.1251,
             "maintenance": 0.0918,
-            "other": 0.1455
+            "other": 0.1455,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
 
         },
         {
@@ -299,7 +304,9 @@
             "fuel": 0.127,
             "insurance": 0.1221,
             "maintenance": 0.0949,
-            "other": 0.1782
+            "other": 0.1782,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
 
         },
         {
@@ -312,7 +319,8 @@
             "fuel": 0.0942,
             "insurance": 0.1089,
             "maintenance": 0.0909,
-            "other": 0.1396
+            "other": 0.1396,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         },
         {
@@ -325,7 +333,8 @@
             "fuel": 0.132,
             "insurance": 0.1114,
             "maintenance": 0.960,
-            "other": 0.1937
+            "other": 0.1937,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         },
         {
@@ -338,7 +347,8 @@
             "fuel": 0.1261,
             "insurance": 0.1103,
             "maintenance": 0.873,
-            "other": 0.1696
+            "other": 0.1696,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -352,7 +362,8 @@
             "fuel": 0.0576,
             "insurance": 0.1202,
             "maintenance": 0.0770,
-            "other": 0.1428
+            "other": 0.1428,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -366,7 +377,8 @@
             "fuel": 0.0365,
             "insurance": 0.1203,
             "maintenance": 0.0660,
-            "other": 0.0329
+            "other": 0.0329,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
             
@@ -383,7 +395,8 @@
             "fuel": 0.116,
             "insurance": 0.0796,
             "maintenance": 0.0894,
-            "other": 0.112
+            "other": 0.112,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -397,7 +410,8 @@
             "fuel": 0.0836,
             "insurance": 0.089,
             "maintenance": 0.0853,
-            "other": 0.0675
+            "other": 0.0675,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
 
@@ -412,8 +426,9 @@
             "fuel": 0.0927,
             "insurance": 0.0834,
             "maintenance": 0.0918,
-            "other": 0.097
-        
+            "other": 0.097,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
 
 
         },
@@ -427,7 +442,8 @@
             "fuel": 0.127,
             "insurance": 0.0814,
             "maintenance": 0.0949,
-            "other": 0.119
+            "other": 0.119,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -441,7 +457,8 @@
             "depreciation": 0.2088,
             "insurance": 0.0726,
             "maintenance": 0.0909,
-            "other": 0.0930
+            "other": 0.0930,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -455,7 +472,8 @@
             "fuel": 0.132,
             "insurance": 0.0742,
             "maintenance": 0.960,
-            "other": 0.129
+            "other": 0.129,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
         },
@@ -469,7 +487,8 @@
             "fuel": 0.1261,
             "insurance": 0.0735,
             "maintenance": 0.873,
-            "other": 0.113
+            "other": 0.113,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
 
 
@@ -484,7 +503,8 @@
             "fuel": 0.0576,
             "insurance": 0.0801,
             "maintenance": 0.0770,
-            "other": 0.0952
+            "other": 0.0952,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         },
         {
@@ -497,8 +517,9 @@
             "fuel": 0.0365,
             "insurance": 0.0802,
             "maintenance": 0.0660,
-            "other": 0.022
-            
+            "other": 0.022,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
         }
 
         
