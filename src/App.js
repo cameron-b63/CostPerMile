@@ -41,12 +41,23 @@ function compare(a, b) {
     }
     return comparison;
 }
+function compare2(a, b) {
+    const nameA = a.CPM;
+    const nameB = b.CPM;
+    let comparison = 0;
+    if (nameA > nameB) {
+        comparison = 1;
+    } else if (nameA < nameB) {
+        comparison = -1;
+    }
+    return comparison;
+}
 
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -76,18 +87,45 @@ class Calculator extends React.Component {
             seeOtherCPM: "",
             seeOtherCPM2: "",
             seeOtherCPM3:"",
-            otherFamousCars: require('./famouscars.json')["Results"].sort(compare),
+            otherFamousCars: require('./famouscars.json')["Results"],
+            sortedOtherFamousCars: [],
             submitted: false,
             validated: false,
             isRental: "",
             monthlyCarPay: "",
             CarFax: false,
+            graphRender: false,
+        }
+        this.graphData  = {
+            labels: this.state.otherFamousCars.map((x) => x.Name),
+            datasets: [{
+                label: 'Cost Per Mlie of different cars',
+                data: this.state.otherFamousCars.map((x) => x.CPM),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickVIN = this.handleClickVIN.bind(this);
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
         this.handleClickCarFax = this.handleClickCarFax.bind(this);
+        this.handleClickGraph = this.handleClickGraph.bind(this);
 
     }
     depreciate() {
@@ -173,6 +211,64 @@ class Calculator extends React.Component {
         this.setState(function (past) {
             return { CarFax: !past.CarFax }
         })
+    }
+    handleClickGraph(){
+        if(this.state.graphRender){
+            this.graphData = {
+                labels: this.state.otherFamousCars.map((x) => x.Name),
+                datasets: [{
+                    label: 'Cost Per Mlie of different cars',
+                    data: this.state.otherFamousCars.map((x) => x.CPM),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        }else{
+            this.graphData = {
+                labels: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name),
+                datasets: [{
+                    label: 'Cost Per Mlie of different cars',
+                    data: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.CPM),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        }
+        this.setState(function (past) {
+            return { graphRender: !past.graphRender }
+        })
+        console.log(this.state.graphRender);
+        console.log(this.graphData);
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -607,29 +703,58 @@ class Calculator extends React.Component {
                     CPM: this.state.costpermile
                 }
             }
-            const graphData = {
-                labels: this.state.otherFamousCars.map((x) => x.Name),
-                datasets: [{
-                    label: 'Cost Per Mlie of different cars',
-                    data: this.state.otherFamousCars.map((x) => x.CPM),
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+
+            //rendering the bar data for the first time
+            if(!this.state.graphRender){
+                this.graphData = {
+                    labels: this.state.otherFamousCars.map((x) => x.Name),
+                    datasets: [{
+                        label: 'Cost Per Mlie of different cars',
+                        data: this.state.otherFamousCars.map((x) => x.CPM),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            }else{
+                this.graphData = {
+                    labels: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name),
+                    datasets: [{
+                        label: 'Cost Per Mlie of different cars',
+                        data: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.CPM),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
             }
             const doughnutdata2 = {
                 labels : [
@@ -716,9 +841,11 @@ class Calculator extends React.Component {
                                         height={20}
                                     />
                                 </div>
+                                <Button
+                                onClick = {this.handleClickGraph}>{!this.state.graphRender? "Sort Bar Data": "Unsort Bar Data"}</Button>
                                 <div className="GraphImage">
                                     <Bar
-                                        data={graphData}
+                                        data={this.graphData}
                                     />
 
                                 </div>
@@ -728,7 +855,11 @@ class Calculator extends React.Component {
                                 <br />
                                 <br/>
                                 <br/>
-                                <h2>See Your CPM(Cost Per Mile) in relation to others listed on the graph</h2>
+                               
+                                <h2>Comparison Table</h2>
+                                <p>Below this table, choose 3 cars to compare data with.</p>
+                                {OtherCPM(this.state)}
+
                                 <Form.Label>
                                     Enter which cars you would like to see
                                 </Form.Label>
@@ -777,7 +908,7 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-                                {OtherCPM(this.state)}
+                                <br/>
                                
                             </Form.Group>
                             

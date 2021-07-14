@@ -2,6 +2,20 @@
    
     "Results": [
         {
+            "Name":"Avg Electric Vehicle(15k miles)",
+            "Make": "None",
+            "Model": "None",
+            "Year": 2019,
+            "CPM": 0.55,
+            "depreciation": 0.363,
+            "fuel": 0.0365,
+            "insurance": 0.0802,
+            "maintenance": 0.0660,
+            "other": 0.022,
+            "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
+
+        },
+        {
             "Name": "Acura RDX",
             "Make": "Acura",
             "Model": "RDX",
@@ -521,7 +535,7 @@
             "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         }
-
+        
         
 
 
