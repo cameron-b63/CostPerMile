@@ -57,7 +57,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 1,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -833,7 +833,7 @@ class Calculator extends React.Component {
 
 
                                 <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
-                                <p>This is what is contributing to your cost per mile</p>
+                                <p>This is what is contributing to your cost per mile every mile you drive</p>
                                 <div className="DoughnutImage">
                                     <Doughnut
                                         data={doughnutdata}
@@ -857,7 +857,7 @@ class Calculator extends React.Component {
                                 <br/>
                                
                                 <h2>Comparison Table</h2>
-                                <p>Below this table, choose 3 cars to compare data with.</p>
+                                <p>Below the below table, choose 3 cars to compare data with.</p>
                                 {OtherCPM(this.state)}
 
                                 <Form.Label>
