@@ -57,7 +57,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -88,6 +88,7 @@ class Calculator extends React.Component {
             seeOtherCPM2: "",
             seeOtherCPM3:"",
             otherFamousCars: require('./famouscars.json')["Results"],
+            otherFamousCarsLength: 0,
             sortedOtherFamousCars: [],
             submitted: false,
             validated: false,
@@ -496,7 +497,9 @@ class Calculator extends React.Component {
 
 
     componentDidMount() {
-
+        this.setState({
+            otherFamousCarsLength: this.state.otherFamousCars.length
+        })
     }
     render() {
         let allOptions;
@@ -691,7 +694,7 @@ class Calculator extends React.Component {
             renderRelationalData = <div></div>
         }
         else {
-            if(this.state.otherFamousCars.length<38){
+            if(this.state.otherFamousCars.length<this.state.otherFamousCarsLength){
                 this.state.otherFamousCars.unshift({
                     Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile

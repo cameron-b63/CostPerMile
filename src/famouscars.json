@@ -1,7 +1,7 @@
 {
    
     "Results": [
-       
+        
         {
             "Name": "Acura RDX",
             "Make": "Acura",
@@ -133,6 +133,22 @@
             "maintenance": 0.074,
             "other": 0.094,
             "Image": "https://www.motortrend.com/uploads/sites/10/2018/08/2019-hyundai-santa-fe-se-suv-angular-front.png?fit=around%7C29:481:25"
+        },
+        {
+            "Name": "Indigo Alpha",
+            "Make": "Indigo",
+            "Model": "Alpha",
+            "Year": 2021,
+            "CPM": 0.38,
+            "Image": "https://indigotech.com/wp-content/uploads/2021/02/Alpha1.png"
+        },
+        {
+            "Name": "Indigo Bravo",
+            "Make": "Indigo",
+            "Model": "Bravo",
+            "Year": 2021,
+            "CPM": 0.38,
+            "Image": "https://indigotech.com/wp-content/uploads/2021/02/Bravo.png"
         },
         {
             "Name": "Infiniti q50",
@@ -522,6 +538,7 @@
             "Image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Blank_button.svg/292px-Blank_button.svg.png"
 
         }
+        
         
         
 
