@@ -57,7 +57,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 1,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
