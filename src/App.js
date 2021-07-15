@@ -844,7 +844,7 @@ class Calculator extends React.Component {
                                         height={20}
                                     />
                                 </div>
-                                
+                                <br/>
                                 <h2>Other Famous Cars</h2>
                                 <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
                                 <Button
