@@ -1,6 +1,3 @@
-[submodule "react-chartjs-2"]
-	path = react-chartjs-2
-	url = https://github.com/zandergr888/react-chartjs-2.git
 [submodule "lib/react-chartjs-2"]
 	path = lib/react-chartjs-2
 	url = https://github.com/zandergr888/react-chartjs-2.git
