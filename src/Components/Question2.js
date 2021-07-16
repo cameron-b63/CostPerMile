@@ -2,11 +2,13 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function Question2(props) {
     return (
-        <Form.Row>
-
+        <Row>
+            <Col xs = {2}>
             <Form.Group>
                 <Form.Label>
                     Year
@@ -26,7 +28,8 @@ function Question2(props) {
                 </Form.Control>
 
             </Form.Group>
-
+            </Col>
+            <Col>
             <Form.Group>
                 <Form.Label>
                     Make
@@ -46,6 +49,8 @@ function Question2(props) {
 
                 </Form.Control>
             </Form.Group>
+            </Col>
+            <Col>
             <Form.Group>
                 <Form.Label>
                     Model
@@ -63,8 +68,8 @@ function Question2(props) {
                     {props._allOptions2}
                 </Form.Control>
             </Form.Group>
-
-        </Form.Row>
+            </Col>
+        </Row>
     );
 }
 export default Question2

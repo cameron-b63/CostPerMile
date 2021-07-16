@@ -28,6 +28,7 @@ import Loan from './Components/Loan.js'
 import Rental from './Components/Rental.js'
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
+import Badge from 'react-bootstrap/Badge'
 
 var count = 0;
 function compare(a, b) {
@@ -835,7 +836,8 @@ class Calculator extends React.Component {
                             <Form.Group>
 
 
-                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2> 
+                                
                                 <p>This is what is contributing to your cost per mile every mile you drive</p>
                                 <div className="DoughnutImage">
                                     <Doughnut
@@ -984,7 +986,7 @@ class Calculator extends React.Component {
                         <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
 
                         <Form.Label>
-                            2. Enter in your car info below if you do not remember your VIN
+                            2. Enter you Car Year, Make, Model
                         </Form.Label>
                         <br />
                         <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} />
