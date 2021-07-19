@@ -58,8 +58,8 @@ function printArrayPhone(state){
         ],
         [
             "Image of Car",
-            <Image src = {"https://pic.onlinewebfonts.com/svg/img_10593.png"} className = "CarImage"/>,
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
+            <Image src = {"https://pic.onlinewebfonts.com/svg/img_10593.png"} className = "CarImagePhone"/>,
+            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
         ],
@@ -288,7 +288,7 @@ function OtherCPM(state) {
     }
     else {
         otherCPM = (
-            <div className="Slim">
+            <div className = "Slim">
                 <Table striped bordered hover className="CarTable" >
                     <thead>
                         <tr>
