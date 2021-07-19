@@ -880,7 +880,7 @@ class Calculator extends React.Component {
                                 {OtherCPM(this.state)}
 
                                 <Form.Label>
-                                    Enter which cars you would like to see
+                                    Enter which car(s) you would like to compare
                                 </Form.Label>
                                 <Form.Control as="select"
                                     onChange={this.handleChange}
@@ -895,7 +895,7 @@ class Calculator extends React.Component {
 
 
                             </Form.Group>
-
+                            {this.state.width >800 && 
                             <Form.Group>
                                 <Form.Label>
                                     Enter 2nd car
@@ -910,9 +910,10 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-
+                            
 
                             </Form.Group>
+                            }
                             {this.state.width>800 && 
                             <Form.Group>
                                 <Form.Label>

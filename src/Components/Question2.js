@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 function Question2(props) {
     return (
         <Row>
-            <Col xs = {2}>
+            <Col >
             <Form.Group>
                 <Form.Label>
                     Year
