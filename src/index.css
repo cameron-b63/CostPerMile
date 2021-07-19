@@ -7,6 +7,10 @@
     width: 100px;
     height: 60px;
 }
+.CarImagePhone{
+    width: 50px;
+    height: 30px;
+}
 .DoughnutImage{
     width:300px;
     height: 300px
@@ -18,5 +22,6 @@
     width: 100%;
 }
 .Slim{
-    width: 50%;
+    width:100px;
+
 }

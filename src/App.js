@@ -71,7 +71,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 1,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -842,7 +842,7 @@ class Calculator extends React.Component {
                                 <Button
                                     onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
                                 </Button>
-                                {this.state.width >= 1100 ?
+                                {this.state.width >= 900 ?
                                     <div className="GraphImage">
                                         <Bar
                                             data={this.graphData}
@@ -851,7 +851,7 @@ class Calculator extends React.Component {
                                     </div>
                                     :
                                     <Chart
-                                        width={'500px'}
+                                        width={'300px'}
                                         height={'2000px'}
                                         chartType="BarChart"
                                         loader={<div>Loading Chart</div>}
@@ -875,7 +875,7 @@ class Calculator extends React.Component {
 
 
 
-                                <h2>Comparison Table {this.state.width}</h2>
+                                <h2>Comparison Table</h2>
                                 <p>Below the below table, choose 3 cars to compare data with.</p>
                                 {OtherCPM(this.state)}
 
