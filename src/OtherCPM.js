@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Table } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
+import Col from 'react-bootstrap/Col'
 
 function renderListElement(stringDisplay, CPM, state, displayImage) {
     if (typeof displayImage !== "undefined") {
@@ -67,9 +68,9 @@ function printArrayOfInformation(state){
         [
             "Image of Car",
             "",
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} fluid /> : <div></div>),
-            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} fluid /> : <div></div>),
-            (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} fluid /> : <div></div>)
+            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className = "CarImage" /> : <div></div>),
+            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className = "CarImage" /> : <div></div>),
+            (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className = "CarImage" /> : <div></div>)
     
     
         ],
@@ -166,6 +167,7 @@ function OtherCPM(state) {
         <Table striped bordered hover className="CarTable">
             <thead>
                 <tr>
+
                     <th>Quantity of Information</th>
                     <th>Your Car</th>
                     <th>Car 1</th>

@@ -693,26 +693,6 @@ class Calculator extends React.Component {
                 <div></div>
             );
         }
-        // let final;
-        //         if (this.state.isElectric.indexOf("as") > 0) {
-        //             final = (parseInt(this.state.depreciationValue) +
-        //                 parseInt(this.state.iPaid) +
-        //                 (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
-        //                 parseInt(this.state.mait) +
-        //                 (parseInt(this.state.tolls) * 12) +
-        //                 (parseInt(this.state.monthlyCarPay)) + 
-        //                 (parseInt(this.state.licensePlate)))
-        //                 / (parseInt(this.state.miles) * 52);
-        //         } else {
-        //             final = (parseInt(this.state.depreciationValue) +
-        //                 parseInt(this.state.iPaid) +
-        //                 (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
-        //                 parseInt(this.state.mait) +
-        //                 (parseInt(this.state.tolls) * 12) +
-        //                 (parseInt(this.state.monthlyCarPay)) + 
-        //                 (parseInt(this.state.licensePlate))) /
-        //                 (parseInt(this.state.miles) * 52);
-        //         }
 
 
         var renderCarOptions = this.state.otherFamousCars.slice(1, this.state.otherFamousCars.length).map((N) => <option>{N.Name}</option>)
@@ -858,38 +838,45 @@ class Calculator extends React.Component {
                                     />
                                 </div>
 
+
+
+
+                                <br/>
+
                                 <h2>Other Famous Cars</h2>
                                 <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
                                 <Button
                                     onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
                                 </Button>
-                                {this.state.width>=1100?
-                                <div className="GraphImage">
-                                    <Bar
-                                        data={this.graphData}
+                                {this.state.width >= 1100 ?
+                                    <div className="GraphImage">
+                                        <Bar
+                                            data={this.graphData}
+                                        />
+
+                                    </div>
+                                    :
+                                    <Chart
+                                        width={'500px'}
+                                        height={'2000px'}
+                                        chartType="BarChart"
+                                        loader={<div>Loading Chart</div>}
+                                        data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
+                                        options={{
+                                            title: 'Cost Per Mile of Other Famous Cars',
+                                            chartArea: { width: '50%' },
+
+                                            vAxis: {
+                                                title: 'Car Make And Model',
+                                            },
+                                            bar: { groupWidth: '70%' },
+                                            legend: { position: 'none' },
+                                            rx: 10,
+                                            ry: 10,
+                                        }}
+                                        // For tests
+                                        rootProps={{ 'data-testid': '2' }}
                                     />
-
-                                </div>
-                                :
-                                <Chart
-                                    width={'500px'}
-                                    height={'2000px'}
-                                    chartType="BarChart"
-                                    loader={<div>Loading Chart</div>}
-                                    data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
-                                    options={{
-                                        title: 'Cost Per Mile of Other Famous Cars',
-                                        chartArea: { width: '50%' },
-
-                                        vAxis: {
-                                            title: 'Car Make And Model',
-                                        },
-                                        bar: { groupWidth: '70%' },
-                                        legend: { position: 'none' },
-                                    }}
-                                    // For tests
-                                    rootProps={{ 'data-testid': '2' }}
-                                />
                                 }
 
 
@@ -1005,7 +992,7 @@ class Calculator extends React.Component {
             //RENDERING ALL QUESTION COMPONENTS
 
             <Container>
-                
+
                 <Header />
                 <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
 
