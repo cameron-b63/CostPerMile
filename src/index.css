@@ -4,7 +4,7 @@
     border-radius: 10px;
 }
 .CarImage{
-    width: 120px;
+    width: 100px;
     height: 60px;
 }
 .DoughnutImage{
@@ -12,8 +12,7 @@
     height: 300px
 }
 .GraphImage{
-    width: 100%;
-    height: 400px
+    
 }
 .CarTable{
     width: 100%;

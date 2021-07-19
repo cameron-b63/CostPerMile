@@ -28,7 +28,8 @@ import Loan from './Components/Loan.js'
 import Rental from './Components/Rental.js'
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import Badge from 'react-bootstrap/Badge'
+import Chart from "react-google-charts";
+import useWindowDimensions from './windowDimensions.js'
 
 var count = 0;
 function compare(a, b) {
@@ -53,12 +54,24 @@ function compare2(a, b) {
     }
     return comparison;
 }
+function getBarData(labels, CPMs) {
+    var arr = [];
+    arr.push(['Name of Car', 'CPM', { role: 'style' }])
+    for (var i = 0; i < labels.length; i++) {
+        if (i % 2 == 1)
+            arr.push([labels[i], CPMs[i], '#176BEF'])
 
+        else
+            arr.push([labels[i], CPMs[i], '#FF3E30'])
+    }
+    console.log(arr);
+    return arr;
+}
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -87,7 +100,7 @@ class Calculator extends React.Component {
             carBasePrice: "",
             seeOtherCPM: "",
             seeOtherCPM2: "",
-            seeOtherCPM3:"",
+            seeOtherCPM3: "",
             otherFamousCars: require('./famouscars.json')["Results"],
             otherFamousCarsLength: 0,
             sortedOtherFamousCars: [],
@@ -97,8 +110,10 @@ class Calculator extends React.Component {
             monthlyCarPay: "",
             CarFax: false,
             graphRender: false,
+            width: 0,
+            height: 0,
         }
-        this.graphData  = {
+        this.graphData = {
             labels: this.state.otherFamousCars.map((x) => x.Name),
             datasets: [{
                 label: 'Cost Per Mlie of different cars',
@@ -128,6 +143,8 @@ class Calculator extends React.Component {
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
         this.handleClickCarFax = this.handleClickCarFax.bind(this);
         this.handleClickGraph = this.handleClickGraph.bind(this);
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+
 
     }
     depreciate() {
@@ -185,7 +202,7 @@ class Calculator extends React.Component {
         if (name === "carMake") {
             count = 0;
         }
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" &&name !== "seeOtherCPM3"&& name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
+        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM3" && name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -214,8 +231,8 @@ class Calculator extends React.Component {
             return { CarFax: !past.CarFax }
         })
     }
-    handleClickGraph(){
-        if(this.state.graphRender){
+    handleClickGraph() {
+        if (this.state.graphRender) {
             this.graphData = {
                 labels: this.state.otherFamousCars.map((x) => x.Name),
                 datasets: [{
@@ -240,7 +257,7 @@ class Calculator extends React.Component {
                     borderWidth: 1
                 }]
             }
-        }else{
+        } else {
             this.graphData = {
                 labels: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name),
                 datasets: [{
@@ -501,6 +518,14 @@ class Calculator extends React.Component {
         this.setState({
             otherFamousCarsLength: this.state.otherFamousCars.length
         })
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
     render() {
         let allOptions;
@@ -668,48 +693,28 @@ class Calculator extends React.Component {
                 <div></div>
             );
         }
-        // let final;
-        //         if (this.state.isElectric.indexOf("as") > 0) {
-        //             final = (parseInt(this.state.depreciationValue) +
-        //                 parseInt(this.state.iPaid) +
-        //                 (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
-        //                 parseInt(this.state.mait) +
-        //                 (parseInt(this.state.tolls) * 12) +
-        //                 (parseInt(this.state.monthlyCarPay)) + 
-        //                 (parseInt(this.state.licensePlate)))
-        //                 / (parseInt(this.state.miles) * 52);
-        //         } else {
-        //             final = (parseInt(this.state.depreciationValue) +
-        //                 parseInt(this.state.iPaid) +
-        //                 (( (parseInt(this.state.miles) * 52)  / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
-        //                 parseInt(this.state.mait) +
-        //                 (parseInt(this.state.tolls) * 12) +
-        //                 (parseInt(this.state.monthlyCarPay)) + 
-        //                 (parseInt(this.state.licensePlate))) /
-        //                 (parseInt(this.state.miles) * 52);
-        //         }
-        
 
-        var renderCarOptions = this.state.otherFamousCars.slice(1,this.state.otherFamousCars.length).map((N) => <option>{N.Name}</option>)
+
+        var renderCarOptions = this.state.otherFamousCars.slice(1, this.state.otherFamousCars.length).map((N) => <option>{N.Name}</option>)
         if (Number.isNaN(this.state.costpermile)) {
             renderRelationalData = <div></div>
         }
         else {
-            if(this.state.otherFamousCars.length<this.state.otherFamousCarsLength){
+            if (this.state.otherFamousCars.length < this.state.otherFamousCarsLength) {
                 this.state.otherFamousCars.unshift({
                     Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile
                 })
-            }else{
-                this.state.otherFamousCars[0] = 
+            } else {
+                this.state.otherFamousCars[0] =
                 {
-                    Name:"Your Cost Per Mile",
+                    Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile
                 }
             }
 
             //rendering the bar data for the first time
-            if(!this.state.graphRender){
+            if (!this.state.graphRender) {
                 this.graphData = {
                     labels: this.state.otherFamousCars.map((x) => x.Name),
                     datasets: [{
@@ -734,7 +739,7 @@ class Calculator extends React.Component {
                         borderWidth: 1
                     }]
                 }
-            }else{
+            } else {
                 this.graphData = {
                     labels: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name),
                     datasets: [{
@@ -760,29 +765,7 @@ class Calculator extends React.Component {
                     }]
                 }
             }
-            const doughnutdata2 = {
-                labels : [
-                    'red',
-                    'blue',
-                    'green'
-                ],
-                datasets: [{
-                    data: [
-                        0,3,2
-                    ],
-                    backgroundColor: [
-                        'red',
-                        'blue',
-                        'green'
 
-                    ],
-                    hoverBackgroundColor: [
-                        'red',
-                        'blue',
-                        'green'
-                    ]
-                }]
-            }
             const doughnutdata = {
                 labels: [
                     'Depreciation',
@@ -798,13 +781,13 @@ class Calculator extends React.Component {
                 datasets: [{
                     data: [
                         (parseInt(this.state.depreciationValue) / (parseInt(this.state.miles) * 52)),
-                        (parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52),
-                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52),
-                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52),
-                        parseInt(this.state.mait) / (parseInt(this.state.miles) * 52),
-                        (parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52),
-                        (parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52),
-                        (parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52),
+                        ((parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52)),
+                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)),
+                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
+                        (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52)),
                     ],
                     backgroundColor: [
                         'blue',
@@ -829,15 +812,20 @@ class Calculator extends React.Component {
                     ]
                 }]
             };
+
+            var labels = this.state.otherFamousCars.map((x) => x.Name);
+            var CPMs = this.state.otherFamousCars.map((x) => x.CPM);
+
+
+
+            var sortedLabels = this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name);
+            var sortedCPMs = this.state.otherFamousCars.slice().sort(compare2).map((x) => x.CPM)
             renderRelationalData =
                 (
                     <Container>
                         <Jumbotron>
                             <Form.Group>
-
-
-                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2> 
-                                
+                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
                                 <p>This is what is contributing to your cost per mile every mile you drive</p>
                                 <div className="DoughnutImage">
                                     <Doughnut
@@ -850,21 +838,41 @@ class Calculator extends React.Component {
                                 <h2>Other Famous Cars</h2>
                                 <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
                                 <Button
-                                onClick = {this.handleClickGraph}>{!this.state.graphRender? "Sort Bar Data": "Unsort Bar Data"}
+                                    onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
                                 </Button>
-                                <div className="GraphImage">
-                                    <Bar
-                                        data={this.graphData}
-                                    />
+                                {this.state.width >= 1100 ?
+                                    <div className="GraphImage">
+                                        <Bar
+                                            data={this.graphData}
+                                        />
 
-                                </div>
-                                <br />
-                                <br/>
-                                <br/>
-                                <br />
-                                <br/>
-                                <br/>
-                               
+                                    </div>
+                                    :
+                                    <Chart
+                                        width={'500px'}
+                                        height={'2000px'}
+                                        chartType="BarChart"
+                                        loader={<div>Loading Chart</div>}
+                                        data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
+                                        options={{
+                                            title: 'Cost Per Mile of Other Famous Cars',
+                                            chartArea: { width: '50%' },
+
+                                            vAxis: {
+                                                title: 'Car Make And Model',
+                                            },
+                                            bar: { groupWidth: '70%' },
+                                            legend: { position: 'none' },
+                                            rx: 10,
+                                            ry: 10,
+                                        }}
+                                        // For tests
+                                        rootProps={{ 'data-testid': '2' }}
+                                    />
+                                }
+
+
+
                                 <h2>Comparison Table</h2>
                                 <p>Below the below table, choose 3 cars to compare data with.</p>
                                 {OtherCPM(this.state)}
@@ -900,7 +908,7 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-                                
+
 
                             </Form.Group>
                             <Form.Group>
@@ -917,13 +925,13 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-                                <br/>
-                               
+                                <br />
+
                             </Form.Group>
-                            
+
                         </Jumbotron>
-                        
-                        
+
+
                     </Container>
                 );
         }
