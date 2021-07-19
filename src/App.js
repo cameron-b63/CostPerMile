@@ -825,10 +825,7 @@ class Calculator extends React.Component {
                     <Container>
                         <Jumbotron>
                             <Form.Group>
-
-
                                 <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
-
                                 <p>This is what is contributing to your cost per mile every mile you drive</p>
                                 <div className="DoughnutImage">
                                     <Doughnut
@@ -838,7 +835,6 @@ class Calculator extends React.Component {
                                     />
                                 </div>
                                 <br/>
-
                                 <h2>Other Famous Cars</h2>
                                 <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
                                 <Button
