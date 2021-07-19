@@ -31,7 +31,123 @@ function renderListElement(stringDisplay, CPM, state, displayImage) {
         )
     }
 }
+function printArrayPhone(state){
+    var arr = [
+        [
+            "Year of Car",
+            state.carYear,
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Year : console.log(),
+        ],
+        [
+            "Make of Car",
+            state.carMake,
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log(),
 
+        ],
+
+        [
+            "Model of Car",
+            state.carModel,
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log(),
+
+        ],
+        [
+            "Name of Car",
+            "YOUR CAR",
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name : console.log(),
+        ],
+        [
+            "Image of Car",
+            "",
+            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
+            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
+
+
+        ],
+        [
+            "Cost Per mile",
+            state.costpermile.toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log(),
+
+        ],
+        [
+            "Depreciation",
+            (state.depreciationValue / (state.miles * 52)).toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].depreciation : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].depreciation : console.log(),
+
+        ],
+        [
+            "Fuel",
+            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(3) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].fuel : console.log(),
+
+        ],
+        [
+            "Insurance",
+            ((state.iPaid) / (state.miles * 52)).toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].insurance : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].insurance : console.log(),
+
+        ],
+        [
+            "Maintenance /Repairs",
+            (state.mait / (state.miles * 52)).toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].maintenance : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].maintenance : console.log(),
+        ],
+        [
+            "Other costs ",
+            ((parseInt(state.tolls) + (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
+            state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log(),
+        ]
+    ]
+    console.log(arr);
+    //let arr0 = arr[0][1];
+    let Information0 = arr[0].map((element) => <th>{element}</th>)
+    let Information1 = arr[1].map((element) => <th>{element}</th>)
+
+    let Information2 = arr[2].map((element) => <th>{element}</th>)
+    let Information3 = arr[3].map((element) => <th>{element}</th>)
+    let Information4 = arr[4].map((element) => <th>{element}</th>)
+    let Information5 = arr[5].map((element) => <th>{element}</th>)
+    let Information6 = arr[6].map((element) => <th>{element}</th>)
+    let Information7 = arr[7].map((element) => <th>{element}</th>)
+    let Information8 = arr[8].map((element) => <th>{element}</th>)
+    let Information9 = arr[9].map((element) => <th>{element}</th>)
+    let Information10 = arr[10].map((element) => <th>{element}</th>)
+
+
+
+
+
+
+
+    return (
+        <tbody>
+            <tr>{Information0}</tr>
+            <tr>{Information1}</tr>
+            <tr>{Information2}</tr>
+            <tr>{Information3}</tr>
+            <tr>{Information4}</tr>
+            <tr>{Information5}</tr>
+            <tr>{Information6}</tr>
+            <tr>{Information7}</tr>
+            <tr>{Information8}</tr>
+            <tr>{Information9}</tr>
+            <tr>{Information10}</tr>
+
+
+        </tbody>
+    )
+}
 function printArrayOfInformation(state) {
     var arr = [
         [
@@ -115,7 +231,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Other costs ",
-            ((parseInt(state.tolls) + parseInt(state.monthlyCarPay) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            ((parseInt(state.tolls) + (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(3),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()
@@ -163,7 +279,7 @@ function printArrayOfInformation(state) {
 function OtherCPM(state) {
 
     var otherCPM;
-    if (state.width < 1000) {
+    if (state.width > 800) {
         otherCPM = (
             <Table striped bordered hover className="CarTable">
                 <thead>
@@ -183,21 +299,23 @@ function OtherCPM(state) {
     }
     else {
         otherCPM = (
-            <Table striped bordered hover className="CarTable" className = "Slim">
-                <thead>
-                    <tr>
+            <div className="Slim">
+                <Table striped bordered hover className="CarTable" >
+                    <thead>
+                        <tr>
 
-                        <th>Quantity of Information</th>
-                        <th>Your Car</th>
-                        <th>Car 1</th>
-                        <th>Car 2</th>
-                        <th>Car 3</th>
-                    </tr>
-                </thead>
+                            <th>Quantity of Information</th>
+                            <th>Your Car</th>
+                            <th>Car 1</th>
+                            <th>Car 2</th>
+                            
+                        </tr>
+                    </thead>
 
 
-                {printArrayOfInformation(state)}
-            </Table>
+                    {printArrayPhone(state)}
+                </Table>
+            </div>
         );
     }
     return otherCPM;

@@ -164,7 +164,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay)) +
+                        (parseInt(this.state.monthlyCarPay)* 12) +
                         (parseInt(this.state.licensePlate)))
                         / (parseInt(this.state.miles) * 52);
                 } else {
@@ -173,7 +173,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay)) +
+                        (parseInt(this.state.monthlyCarPay)* 12) +
                         (parseInt(this.state.licensePlate))) /
                         (parseInt(this.state.miles) * 52);
                 }
@@ -488,7 +488,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay)) +
+                                (parseInt(self.state.monthlyCarPay)* 12) +
                                 (parseInt(self.state.licensePlate)))
                                 / (parseInt(self.state.miles) * 52);
                         } else {
@@ -497,7 +497,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay)) +
+                                (parseInt(self.state.monthlyCarPay)* 12) +
                                 (parseInt(self.state.licensePlate))) /
                                 (parseInt(self.state.miles) * 52);
                         }
@@ -786,7 +786,7 @@ class Calculator extends React.Component {
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.tolls)) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52)),
                     ],
                     backgroundColor: [
@@ -913,6 +913,7 @@ class Calculator extends React.Component {
 
 
                             </Form.Group>
+                            {this.state.width>800 && 
                             <Form.Group>
                                 <Form.Label>
                                     Enter 3rd car
@@ -930,6 +931,7 @@ class Calculator extends React.Component {
                                 <br />
 
                             </Form.Group>
+                            }
 
                         </Jumbotron>
 
