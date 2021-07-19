@@ -71,7 +71,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: 1,
+            costpermile: NaN,
             iPaid: "",
             miles: "",
             mait: "",
@@ -825,6 +825,8 @@ class Calculator extends React.Component {
                     <Container>
                         <Jumbotron>
                             <Form.Group>
+
+
                                 <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
                                 <p>This is what is contributing to your cost per mile every mile you drive</p>
                                 <div className="DoughnutImage">
