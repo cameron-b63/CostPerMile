@@ -71,7 +71,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -773,7 +773,7 @@ class Calculator extends React.Component {
                     'Gas',
                     'Charging(Electric)',
                     'Maintenance',
-                    'Other costs',
+                    'Other costs(parking, tolls, washing, etc.)',
                     'Loans/Rental',
                     'licenseplate'
 
@@ -785,7 +785,7 @@ class Calculator extends React.Component {
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)),
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.tolls)) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.monthlyCarPay)) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52)),
                     ],
