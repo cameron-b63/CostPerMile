@@ -839,12 +839,6 @@ class Calculator extends React.Component {
                                 </div>
 
 
-
-
-
-
-
-
                                 <br/>
 
                                 <h2>Other Famous Cars</h2>
