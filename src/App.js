@@ -417,7 +417,7 @@ class Calculator extends React.Component {
                     "path": "/gasPrice/stateUsaPrice?state=" + state.toUpperCase(),
                     "headers": {
                         "content-type": "application/json",
-                        "authorization": "apikey 5iXez0LI1FvKDX0gdfXEqa:1hEM5VolDRGvSAJWVJAt1s"
+                        "authorization": "apikey 6jwMhjlXWz2rcXdhdpLjz6:4X6MQAYjbRiFWwNAxcc5k1"
                     }
                 };
                 var self = this;
