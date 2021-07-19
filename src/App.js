@@ -71,7 +71,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -98,8 +98,8 @@ class Calculator extends React.Component {
             licensePlate: "",
             carYear: "",
             carBasePrice: "",
-            seeOtherCPM: "",
-            seeOtherCPM2: "",
+            seeOtherCPM: "Indigo Alpha",
+            seeOtherCPM2: "Indigo Bravo",
             seeOtherCPM3: "",
             otherFamousCars: require('./famouscars.json')["Results"],
             otherFamousCarsLength: 0,
