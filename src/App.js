@@ -837,19 +837,6 @@ class Calculator extends React.Component {
                                         height={20}
                                     />
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 <br/>
 
                                 <h2>Other Famous Cars</h2>
