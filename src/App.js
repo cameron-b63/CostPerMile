@@ -71,7 +71,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
@@ -875,7 +875,7 @@ class Calculator extends React.Component {
 
 
 
-                                <h2>Comparison Table</h2>
+                                <h2>Comparison Table {this.state.width}</h2>
                                 <p>Below the below table, choose 3 cars to compare data with.</p>
                                 {OtherCPM(this.state)}
 
