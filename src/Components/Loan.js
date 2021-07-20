@@ -21,7 +21,6 @@ function Loan(props) {
                 value={props._state.monthlyCarPay}
                 required
             />
-            <Form.Text className="text-muted">The average monthly loan payment is $530 for new cars and $381 for used cars - NerdWallet</Form.Text>
 
 
         </Form.Group>
