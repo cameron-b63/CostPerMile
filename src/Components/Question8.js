@@ -18,8 +18,10 @@ function Quesiton8(props) {
                 value={props._state.mait}
                 required
             />
+            <Form.Text className="text-muted">Average in the US is $792</Form.Text>
+
         </Form.Group>
     )
-    
+
 }
 export default Quesiton8;

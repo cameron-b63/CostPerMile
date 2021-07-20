@@ -16,6 +16,7 @@ function Question6(props) {
                 name="iPaid"
                 value={props._state.iPaid}
             />
+                    <Form.Text className="text-muted">Average in the US is $1674</Form.Text>
 
 
         </Form.Group>

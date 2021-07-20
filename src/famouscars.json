@@ -8,7 +8,7 @@
             "Model": "Alpha",
             "Year": 2021,
             "CPM": 0.38,
-            "Image": "https://indigotech.com/wp-content/uploads/2021/02/Alpha1.png"
+            "Image": "None"
         },
         {
             "Name": "Indigo Bravo",
@@ -16,7 +16,7 @@
             "Model": "Bravo",
             "Year": 2021,
             "CPM": 0.38,
-            "Image": "https://indigotech.com/wp-content/uploads/2021/02/Bravo.png"
+            "Image": "None"
         },
         {
             "Name": "Acura RDX",

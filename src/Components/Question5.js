@@ -17,6 +17,8 @@ function Question5(props) {
                 name="licensePlate"
                 value={props._state.licensePlate}
             />
+            <Form.Text className="text-muted">Varies depending on state e.g., California = $23</Form.Text>
+
         </Form.Group>
     );
 }
