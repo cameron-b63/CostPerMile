@@ -20,6 +20,8 @@ function Question7(props) {
                 value={props._state.miles}
                 required
             />
+            <Form.Text className="text-muted">Average in the US is $9772</Form.Text>
+
             {props._state.miles && !Number.isNaN(props._state.miles) ?
                 (<Alert variant="secondary">
                     <Alert.Heading>Miles Per Year</Alert.Heading>
@@ -29,8 +31,8 @@ function Question7(props) {
                 (<div></div>)
             }
         </Form.Group>
-       
-    
+
+
     );
 }
 export default Question7;

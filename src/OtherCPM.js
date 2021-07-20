@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
 
+import defaultImage from './Components/Images/default(1).png'
+import Bravo from './Components/Images/Bravo.png'
+import Alpha from './Components/Images/Alpha.png'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -58,7 +61,7 @@ function printArrayPhone(state){
         ],
         [
             "Image of Car",
-            <Image src = {"https://pic.onlinewebfonts.com/svg/img_10593.png"} className = "CarImagePhone"/>,
+            <Image src = {defaultImage} className = "CarImagePhone"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
@@ -172,10 +175,10 @@ function printArrayOfInformation(state) {
         ],
         [
             "Image of Car",
-            <Image src = {"https://pic.onlinewebfonts.com/svg/img_10593.png"} className = "CarImage"/>,
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
-            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
-            (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : <div></div>)
+            <Image src = {defaultImage} className = "CarImage"/>,
+            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
+            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
+            (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : <div></div>),
 
 
         ],

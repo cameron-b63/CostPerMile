@@ -31,6 +31,7 @@ import { Bar } from 'react-chartjs-2';
 import Chart from "react-google-charts";
 import useWindowDimensions from './windowDimensions.js'
 
+
 var count = 0;
 function compare(a, b) {
     const nameA = a.Make_Name;
@@ -143,6 +144,7 @@ class Calculator extends React.Component {
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
         this.handleClickCarFax = this.handleClickCarFax.bind(this);
         this.handleClickGraph = this.handleClickGraph.bind(this);
+        this.handleClickSkip = this.handleClickSkip.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
 
@@ -164,7 +166,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay)* 12) +
+                        (parseInt(this.state.monthlyCarPay) * 12) +
                         (parseInt(this.state.licensePlate)))
                         / (parseInt(this.state.miles) * 52);
                 } else {
@@ -173,7 +175,7 @@ class Calculator extends React.Component {
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
                         (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay)* 12) +
+                        (parseInt(this.state.monthlyCarPay) * 12) +
                         (parseInt(this.state.licensePlate))) /
                         (parseInt(this.state.miles) * 52);
                 }
@@ -229,6 +231,11 @@ class Calculator extends React.Component {
     handleClickCarFax() {
         this.setState(function (past) {
             return { CarFax: !past.CarFax }
+        })
+    }
+    handleClickSkip() {
+        this.setState({
+            costpermile: 0
         })
     }
     handleClickGraph() {
@@ -488,7 +495,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay)* 12) +
+                                (parseInt(self.state.monthlyCarPay) * 12) +
                                 (parseInt(self.state.licensePlate)))
                                 / (parseInt(self.state.miles) * 52);
                         } else {
@@ -497,7 +504,7 @@ class Calculator extends React.Component {
                                 (((parseInt(self.state.miles) * 52) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
                                 parseInt(self.state.mait) +
                                 (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay)* 12) +
+                                (parseInt(self.state.monthlyCarPay) * 12) +
                                 (parseInt(self.state.licensePlate))) /
                                 (parseInt(self.state.miles) * 52);
                         }
@@ -627,6 +634,7 @@ class Calculator extends React.Component {
                         value={this.state.mpg}
                         required
                     />
+                    <Form.Text className="text-muted">Average MPG around the US is 24.9</Form.Text>
 
                 </Form.Group>
 
@@ -669,6 +677,8 @@ class Calculator extends React.Component {
                         value={this.state.fullcharge}
                         required
                     />
+                    <Form.Text className="text-muted">If driving a Tesla vehicle, the least mileage from a full charge is 250 miles</Form.Text>
+
 
                 </Form.Group>
                 <Form.Group>
@@ -685,6 +695,8 @@ class Calculator extends React.Component {
                         value={this.state.fullchargeCost}
                         required
                     />
+                    <Form.Text className="text-muted">If driving a Tesla Model S, it costs $15.29 for a full charge</Form.Text>
+
 
                 </Form.Group>
             </div>);
@@ -824,63 +836,62 @@ class Calculator extends React.Component {
                 (
                     <Container>
                         <Jumbotron>
-                            <Form.Group>
 
 
-                                <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
-                                <p>This is what is contributing to your cost per mile every mile you drive</p>
-                                <div className="DoughnutImage">
-                                    <Doughnut
-                                        data={doughnutdata}
-                                        width={20}
-                                        height={20}
+
+                            <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                            <p>This is what is contributing to your cost per mile every mile you drive</p>
+                            <div className="DoughnutImage">
+                                <Doughnut
+                                    data={doughnutdata}
+                                    width={20}
+                                    height={20}
+                                />
+                            </div>
+                            <br />
+                            <h2>Other Famous Cars</h2>
+                            <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
+                            <Button
+                                onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
+                            </Button>
+                            {this.state.width >= 900 ?
+                                <div className="GraphImage">
+                                    <Bar
+                                        data={this.graphData}
                                     />
+
                                 </div>
-                                <br/>
-                                <h2>Other Famous Cars</h2>
-                                <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
-                                <Button
-                                    onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
-                                </Button>
-                                {this.state.width >= 900 ?
-                                    <div className="GraphImage">
-                                        <Bar
-                                            data={this.graphData}
-                                        />
+                                :
+                                <Chart
+                                    width={'300px'}
+                                    height={'2000px'}
+                                    chartType="BarChart"
+                                    loader={<div>Loading Chart</div>}
+                                    data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
+                                    options={{
+                                        title: 'Cost Per Mile of Other Famous Cars',
+                                        chartArea: { width: '50%' },
 
-                                    </div>
-                                    :
-                                    <Chart
-                                        width={'300px'}
-                                        height={'2000px'}
-                                        chartType="BarChart"
-                                        loader={<div>Loading Chart</div>}
-                                        data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
-                                        options={{
-                                            title: 'Cost Per Mile of Other Famous Cars',
-                                            chartArea: { width: '50%' },
-
-                                            vAxis: {
-                                                title: 'Car Make And Model',
-                                            },
-                                            bar: { groupWidth: '70%' },
-                                            legend: { position: 'none' },
-                                            rx: 10,
-                                            ry: 10,
-                                        }}
-                                        // For tests
-                                        rootProps={{ 'data-testid': '2' }}
-                                    />
-                                }
+                                        vAxis: {
+                                            title: 'Car Make And Model',
+                                        },
+                                        bar: { groupWidth: '70%' },
+                                        legend: { position: 'none' },
+                                        rx: 10,
+                                        ry: 10,
+                                    }}
+                                    // For tests
+                                    rootProps={{ 'data-testid': '2' }}
+                                />
+                            }
 
 
 
-                                <h2>Comparison Table</h2>
-                                <p>Below the below table, choose 3 cars to compare data with.</p>
-                                {OtherCPM(this.state)}
-
+                            <h2>Comparison Table</h2>
+                            <p>Choose 3 cars to compare data with below.</p>
+                            <Form.Group>
                                 <Form.Label>
-                                    Enter which car(s) you would like to compare
+                                    Enter Car
                                 </Form.Label>
                                 <Form.Control as="select"
                                     onChange={this.handleChange}
@@ -892,47 +903,49 @@ class Calculator extends React.Component {
                                     <option></option>
                                     {renderCarOptions}
                                 </Form.Control>
-
-
                             </Form.Group>
-                            {this.state.width >800 && 
-                            <Form.Group>
-                                <Form.Label>
-                                    Enter 2nd car
-                                </Form.Label>
-                                <Form.Control as="select"
-                                    onChange={this.handleChange}
-                                    id="seeOtherCPM"
-                                    type="text"
-                                    name="seeOtherCPM2"
-                                    value={this.state.seeOtherCPM2}
-                                >
-                                    <option></option>
-                                    {renderCarOptions}
-                                </Form.Control>
-                            
 
-                            </Form.Group>
+
+                            {this.state.width > 800 &&
+                                <Form.Group>
+                                    <Form.Label>
+                                        Enter second car
+                                    </Form.Label>
+                                    <Form.Control as="select"
+                                        onChange={this.handleChange}
+                                        id="seeOtherCPM"
+                                        type="text"
+                                        name="seeOtherCPM2"
+                                        value={this.state.seeOtherCPM2}
+                                    >
+                                        <option></option>
+                                        {renderCarOptions}
+                                    </Form.Control>
+
+
+                                </Form.Group>
                             }
-                            {this.state.width>800 && 
-                            <Form.Group>
-                                <Form.Label>
-                                    Enter 3rd car
-                                </Form.Label>
-                                <Form.Control as="select"
-                                    onChange={this.handleChange}
-                                    id="seeOtherCPM3"
-                                    type="text"
-                                    name="seeOtherCPM3"
-                                    value={this.state.seeOtherCPM3}
-                                >
-                                    <option></option>
-                                    {renderCarOptions}
-                                </Form.Control>
-                                <br />
+                            {this.state.width > 800 &&
+                                <Form.Group>
+                                    <Form.Label>
+                                        Enter 3rd car
+                                    </Form.Label>
+                                    <Form.Control as="select"
+                                        onChange={this.handleChange}
+                                        id="seeOtherCPM3"
+                                        type="text"
+                                        name="seeOtherCPM3"
+                                        value={this.state.seeOtherCPM3}
+                                    >
+                                        <option></option>
+                                        {renderCarOptions}
+                                    </Form.Control>
+                                    <br />
 
-                            </Form.Group>
+                                </Form.Group>
                             }
+
+                            {OtherCPM(this.state)}
 
                         </Jumbotron>
 
@@ -969,7 +982,7 @@ class Calculator extends React.Component {
                     <NewCost state={this.state} onChange={this.handleChange} />
                     <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
                     <Loan _state={this.state} _handleChange={this.handleChange} />
-
+                    
                 </div>
             )
         } else if (this.state.isRental === "rental") {
@@ -1033,10 +1046,13 @@ class Calculator extends React.Component {
                         {renderAlert}
                         <input type="submit"
                         />
+                        <br />
+                        {/* <Button onClick={this.handleClickSkip}>Skip form and see comparison</Button> */}
 
                     </Jumbotron>
 
                 </Form>
+
                 <br />
 
                 {/*CONDITIONAL RENDERING IF CPM IS NOT NaN */}
