@@ -891,7 +891,7 @@ class Calculator extends React.Component {
                             <p>Choose 3 cars to compare data with below.</p>
                             <Form.Group>
                                 <Form.Label>
-                                    Enter Car
+                                    Enter first car
                                 </Form.Label>
                                 <Form.Control as="select"
                                     onChange={this.handleChange}
@@ -928,7 +928,7 @@ class Calculator extends React.Component {
                             {this.state.width > 800 &&
                                 <Form.Group>
                                     <Form.Label>
-                                        Enter 3rd car
+                                        Enter third car
                                     </Form.Label>
                                     <Form.Control as="select"
                                         onChange={this.handleChange}

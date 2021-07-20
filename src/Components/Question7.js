@@ -20,7 +20,7 @@ function Question7(props) {
                 value={props._state.miles}
                 required
             />
-            <Form.Text className="text-muted">Average in the US is $9772</Form.Text>
+            <Form.Text className="text-muted">Average in the US is 187 miles</Form.Text>
 
             {props._state.miles && !Number.isNaN(props._state.miles) ?
                 (<Alert variant="secondary">
