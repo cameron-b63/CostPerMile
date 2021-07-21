@@ -63,7 +63,7 @@ function printArrayPhone(state){
         ],
         [
             "Image of Car",
-            <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
+            <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
