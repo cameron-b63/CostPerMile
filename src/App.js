@@ -59,11 +59,7 @@ function getBarData(labels, CPMs) {
     var arr = [];
     arr.push(['Name of Car', 'CPM', { role: 'style' }])
     for (var i = 0; i < labels.length; i++) {
-        if (i % 2 == 1)
-            arr.push([labels[i], CPMs[i], '#176BEF'])
-
-        else
-            arr.push([labels[i], CPMs[i], '#FF3E30'])
+        arr.push([labels[i], CPMs[i], '#176BEF'])
     }
     console.log(arr);
     return arr;
@@ -72,7 +68,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            costpermile: NaN,
+            costpermile: 1,
             iPaid: "",
             miles: "",
             mait: "",
