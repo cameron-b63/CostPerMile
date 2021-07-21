@@ -677,7 +677,7 @@ class Calculator extends React.Component {
                         value={this.state.fullcharge}
                         required
                     />
-                    <Form.Text className="text-muted">If driving a Tesla vehicle, the least mileage from a full charge is 250 miles</Form.Text>
+                    <Form.Text className="text-muted">Average in the US is 181 miles</Form.Text>
 
 
                 </Form.Group>
@@ -695,7 +695,7 @@ class Calculator extends React.Component {
                         value={this.state.fullchargeCost}
                         required
                     />
-                    <Form.Text className="text-muted">If driving a Tesla Model S, it costs $15.29 for a full charge</Form.Text>
+                    <Form.Text className="text-muted">Varies depending on car. Average in the US is $9</Form.Text>
 
 
                 </Form.Group>
