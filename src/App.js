@@ -566,7 +566,6 @@ class Calculator extends React.Component {
         const carYears = years.map((num) => <option>{num}</option>)
         allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
 
-
         if (typeof this.state.statecode === 'undefined') {
             renderZipAlert = (
                 <Alert variant="danger">

@@ -35,6 +35,8 @@ function renderListElement(stringDisplay, CPM, state, displayImage) {
     }
 }
 function printArrayPhone(state){
+    var imageDefault = state.otherFamousCars.filter((x) => x.Name.toLowerCase() === (state.carMake + " "+ state.carModel).toLowerCase());
+
     var arr = [
         [
             "Year of Car",
@@ -61,8 +63,8 @@ function printArrayPhone(state){
         ],
         [
             "Image of Car",
-            <Image src = {defaultImage} className = "CarImagePhone"/>,
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
+            <Image src = { typeof imageDefault[0] !== "undefined"?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
+            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
         ],
@@ -176,7 +178,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Image of Car",
-            <Image src = { typeof imageDefault[0] !== "undefined"?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
+            <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
             (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
             (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : <div></div>),
