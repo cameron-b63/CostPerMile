@@ -8,6 +8,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 
 
 import Alert from 'react-bootstrap/Alert';
@@ -145,11 +146,12 @@ class Calculator extends React.Component {
     }
     depreciate() {
         let depreciation;
-        
+
         if (this.state.isRental === "bought") {
-            depreciation = -100 * ( Math.pow((parseInt(this.state.finalPrice) /parseInt(this.state.originalPrice)), (1/(2021- parseInt(this.state.carYear)))) -1)
-            depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation/100)));
-            
+            depreciation = -100 * (Math.pow((parseInt(this.state.finalPrice) / parseInt(this.state.originalPrice)), (1 / (2021 - parseInt(this.state.carYear)))) - 1)
+            console.log(depreciation);
+            depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation / 100)));
+
             console.log(depreciation);
         }
         else {
@@ -483,7 +485,7 @@ class Calculator extends React.Component {
                                 })
                             }
                         }
-                       
+
                     });
                 });
                 req.end();
@@ -754,8 +756,8 @@ class Calculator extends React.Component {
                 labels: [
                     'Depreciation',
                     'Insurance',
-                    'Gas',
-                    'Charging(Electric)',
+                    'Fuel',
+                    
                     'Maintenance',
                     'Other costs(parking, tolls, washing, etc.)',
                     'Loans/Rental',
@@ -765,7 +767,8 @@ class Calculator extends React.Component {
                     data: [
                         (parseInt(this.state.depreciationValue) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52)),
-                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)),
+                        this.state.isElectric === "gas"? 
+                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)):
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
@@ -810,7 +813,7 @@ class Calculator extends React.Component {
 
 
                             <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
-                            <h4>Throughout the entire year, this amounted to ${ (this.state.costpermile * (this.state.miles * 52)).toFixed(2)}</h4>
+                            <h4>Throughout the entire year, this amounted to ${(this.state.costpermile * (this.state.miles * 52)).toFixed(2)}</h4>
                             <p>This is what is contributing to your cost per mile every mile you drive</p>
                             <div className="DoughnutImage">
                                 <Doughnut
@@ -819,6 +822,51 @@ class Calculator extends React.Component {
                                     height={20}
                                 />
                             </div>
+                            <Table>
+                                <thead>
+                                    <tr>
+                                        <th>Cost per mile contributors</th>
+                                        <th>Cost Per Mile</th>
+                                        <th>Cost Through Year</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Depreciation</th>
+                                        <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(3)}</th>
+                                        <th>{this.state.depreciationValue.toFixed(3)}</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Insurance</th>
+                                        <th>{(parseInt(this.state.iPaid) / ((parseInt(this.state.miles) * 52))).toFixed(3)}</th>
+                                        <th>{(parseInt(this.state.iPaid)).toFixed(3)}</th>
+                                    </tr>
+                                    {this.state.isElectric === "electric" ?
+                                        <tr>
+                                            <th>Charging (Electric)</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost))).toFixed(3)}</th>
+                                        </tr>
+                                        :
+                                        <tr>
+                                            <th>Gas</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon))).toFixed(3)}</th>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <th>Maintenance</th>
+                                        <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                        <th>{(parseInt(this.state.mait)).toFixed(3)}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Other Costs</th>
+                                        <th>{((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                        <th>{((parseInt(this.state.tolls) * 12)).toFixed(3)}</th>
+                                    </tr>
+                                </tbody>
+                            </Table>
                             <br />
                             <h2>Other Famous Cars</h2>
                             <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
@@ -952,9 +1000,9 @@ class Calculator extends React.Component {
                 <div>
                     <NewCost state={this.state} onChange={this.handleChange} />
                     <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
-                    
+
                     <Loan _state={this.state} _handleChange={this.handleChange} />
-                    
+
                 </div>
             )
         } else if (this.state.isRental === "rental") {
@@ -990,6 +1038,7 @@ class Calculator extends React.Component {
                         <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} />
 
                         <Question3 _state={this.state} _handleChange={this.handleChange} />
+                        {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
                     </Jumbotron>
