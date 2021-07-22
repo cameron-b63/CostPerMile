@@ -5,7 +5,7 @@ function Question6(props) {
     return (
         <Form.Group>
             <Form.Label>
-                6. What is your annual insurance cost?
+                5. What is your annual insurance cost for this car?
             </Form.Label>
             <Form.Control
                 required

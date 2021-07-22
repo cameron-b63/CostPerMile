@@ -7,7 +7,7 @@ function Quesiton8(props) {
     return (
         <Form.Group>
             <Form.Label>
-                8. What is your annual repair and maintenance cost?
+                7. What is your annual repair and maintenance cost for this car?
             </Form.Label>
             <Form.Control
                 placeholder="Enter how much you pay for maintenance a year"
