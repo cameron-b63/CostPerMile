@@ -17,7 +17,6 @@ import Question1 from './Components/Question1.js'
 import Question2 from './Components/Question2.js'
 import Question3 from './Components/Question3.js'
 import Question4 from './Components/Question4.js'
-import Question5 from './Components/Question5.js'
 import Question6 from './Components/Question6.js'
 import Question7 from './Components/Question7.js'
 import Question8 from './Components/Question8.js'
@@ -92,7 +91,6 @@ class Calculator extends React.Component {
             carMake: "",
             carModel: "",
             isElectric: "",
-            licensePlate: "",
             carYear: "",
             carBasePrice: "",
             seeOtherCPM: "Indigo Alpha",
@@ -147,8 +145,12 @@ class Calculator extends React.Component {
     }
     depreciate() {
         let depreciation;
+        
         if (this.state.isRental === "bought") {
-            depreciation = (parseInt(this.state.originalPrice) - parseInt(this.state.finalPrice)) / (2021 - parseInt(this.state.carYear));
+            depreciation = -100 * ( Math.pow((parseInt(this.state.finalPrice) /parseInt(this.state.originalPrice)), (1/(2021- parseInt(this.state.carYear)))) -1)
+            depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation/100)));
+            
+            console.log(depreciation);
         }
         else {
             depreciation = 0;
@@ -161,18 +163,16 @@ class Calculator extends React.Component {
                         parseInt(this.state.iPaid) +
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
                         parseInt(this.state.mait) +
-                        (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay) * 12) +
-                        (parseInt(this.state.licensePlate)))
+                        (parseInt(this.state.tolls) * 12) +
+                        (parseInt(this.state.monthlyCarPay) * 12))
                         / (parseInt(this.state.miles) * 52);
                 } else {
                     final = (parseInt(this.state.depreciationValue) +
                         parseInt(this.state.iPaid) +
                         (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
                         parseInt(this.state.mait) +
-                        (parseInt(this.state.tolls)) +
-                        (parseInt(this.state.monthlyCarPay) * 12) +
-                        (parseInt(this.state.licensePlate))) /
+                        (parseInt(this.state.tolls) * 12) +
+                        (parseInt(this.state.monthlyCarPay) * 12)) /
                         (parseInt(this.state.miles) * 52);
                 }
                 this.setState({
@@ -183,7 +183,7 @@ class Calculator extends React.Component {
 
     }
     alphabetCheck(s) {
-        var numbers = /^[0-9]+$/;
+        var numbers = /^[0-9|.]+$/;
         if ((s.length === 0 || s.match(numbers))) {
             return true;
         }
@@ -483,30 +483,7 @@ class Calculator extends React.Component {
                                 })
                             }
                         }
-                        let final;
-
-                        if (self.state.isElectric.indexOf("as") > 0) {
-                            final = (parseInt(self.state.depreciationValue) +
-                                parseInt(self.state.iPaid) +
-                                (((parseInt(self.state.miles) * 52) / parseInt(self.state.mpg)) * parseInt(self.state.gallon)) +
-                                parseInt(self.state.mait) +
-                                (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay) * 12) +
-                                (parseInt(self.state.licensePlate)))
-                                / (parseInt(self.state.miles) * 52);
-                        } else {
-                            final = (parseInt(self.state.depreciationValue) +
-                                parseInt(self.state.iPaid) +
-                                (((parseInt(self.state.miles) * 52) / parseInt(self.state.fullcharge)) * parseInt(self.state.fullchargeCost)) +
-                                parseInt(self.state.mait) +
-                                (parseInt(self.state.tolls)) +
-                                (parseInt(self.state.monthlyCarPay) * 12) +
-                                (parseInt(self.state.licensePlate))) /
-                                (parseInt(self.state.miles) * 52);
-                        }
-                        self.setState({
-                            costpermile: final
-                        });
+                       
                     });
                 });
                 req.end();
@@ -782,7 +759,6 @@ class Calculator extends React.Component {
                     'Maintenance',
                     'Other costs(parking, tolls, washing, etc.)',
                     'Loans/Rental',
-                    'licenseplate'
 
                 ],
                 datasets: [{
@@ -792,9 +768,8 @@ class Calculator extends React.Component {
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)),
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.tolls)) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.licensePlate)) / (parseInt(this.state.miles) * 52)),
                     ],
                     backgroundColor: [
                         'blue',
@@ -835,6 +810,7 @@ class Calculator extends React.Component {
 
 
                             <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                            <h4>Throughout the entire year, this amounted to ${ (this.state.costpermile * (this.state.miles * 52)).toFixed(2)}</h4>
                             <p>This is what is contributing to your cost per mile every mile you drive</p>
                             <div className="DoughnutImage">
                                 <Doughnut
@@ -976,6 +952,7 @@ class Calculator extends React.Component {
                 <div>
                     <NewCost state={this.state} onChange={this.handleChange} />
                     <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
+                    
                     <Loan _state={this.state} _handleChange={this.handleChange} />
                     
                 </div>
@@ -1022,8 +999,6 @@ class Calculator extends React.Component {
 
                         <Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
-
-                        <Question5 _state={this.state} _handleChange={this.handleChange} />
 
                         <Question6 _state={this.state} _handleChange={this.handleChange} />
 

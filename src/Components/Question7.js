@@ -9,7 +9,7 @@ function Question7(props) {
         <Form.Group>
 
             <Form.Label>
-                7. How many miles do you usually drive per week?
+                6. How many miles do you usually drive per week?
             </Form.Label>
             <Form.Control type="text"
                 placeholder="Enter how many miles driven"

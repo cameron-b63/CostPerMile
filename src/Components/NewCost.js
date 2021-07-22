@@ -10,7 +10,7 @@ function NewCost(stateProps) {
     return (
         <Form.Group>
             <Form.Label>
-                a. How much was this car when it was brand new?
+                a. How much was this car when you first bought it?
             </Form.Label>
             <Form.Control
                 placeholder="Enter your original price"

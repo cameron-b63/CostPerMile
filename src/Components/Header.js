@@ -4,7 +4,7 @@ function Header() {
     return(
     <Jumbotron>
         <h1>
-            9 Question Cost Per Mile Comparison
+            8 Question Cost Per Mile Comparison
         </h1>
         <br/>
         
