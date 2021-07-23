@@ -50,8 +50,22 @@ function Question2(props) {
                 </Form.Control>
             </Form.Group>
             </Col>
-            <Col>
+            <Col>{
+            props._count<5?
             <Form.Group>
+                <Form.Label>
+                    Model
+                </Form.Label>
+                <Form.Control
+                    placeholder = "disabled"
+                    disabled
+                />
+                    
+              
+            </Form.Group>
+            :
+            <Form.Group>
+                
                 <Form.Label>
                     Model
                 </Form.Label>
@@ -69,6 +83,7 @@ function Question2(props) {
                     {props._allOptions2}
                 </Form.Control>
             </Form.Group>
+}
             </Col>
         </Row>
     );

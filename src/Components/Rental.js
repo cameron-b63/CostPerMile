@@ -10,7 +10,7 @@ function Rental(props) {
     return (
         <Form.Group>
             <Form.Label>
-                a. How much do you pay for rental bills per month for this car?
+                a. How much do you pay for rental/lease bills per month for this car?
             </Form.Label>
             <Form.Control
                 placeholder="Enter monthly rental bill cost"

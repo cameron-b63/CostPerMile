@@ -99,7 +99,7 @@ function printArrayPhone(state){
         ],
         [
             "Other costs ",
-            ((parseInt(state.tolls) + (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            (((parseInt(state.tolls)  * 12 )+ (parseInt(state.monthlyCarPay) * 12) ) / ((parseInt(state.miles)) * 52)).toFixed(3),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
         ]
     ]
@@ -226,7 +226,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Other costs ",
-            ((parseInt(state.tolls) + (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            (((parseInt(state.tolls) * 12) + (parseInt(state.monthlyCarPay) * 12)) / ((parseInt(state.miles)) * 52)).toFixed(3),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()
