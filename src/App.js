@@ -759,8 +759,9 @@ class Calculator extends React.Component {
                     'Fuel',
                     
                     'Maintenance',
-                    'Other costs(parking, tolls, washing, etc.)',
                     'Loans/Rental',
+                    'Other costs(parking, tolls, washing, etc.)',
+                    
 
                 ],
                 datasets: [{
@@ -771,8 +772,9 @@ class Calculator extends React.Component {
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)):
                         ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)),
+                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
+                        
                     ],
                     backgroundColor: [
                         'blue',
@@ -832,6 +834,11 @@ class Calculator extends React.Component {
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <th>Total</th>
+                                        <th>{this.state.costpermile.toFixed(3)}</th>
+                                        <th>{(this.state.costpermile * (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                    </tr>
+                                    <tr>
                                         <th>Depreciation</th>
                                         <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(3)}</th>
                                         <th>{this.state.depreciationValue.toFixed(3)}</th>
@@ -859,6 +866,12 @@ class Calculator extends React.Component {
                                         <th>Maintenance</th>
                                         <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
                                         <th>{(parseInt(this.state.mait)).toFixed(3)}</th>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>Loans/Rental/Lease</th>
+                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) ).toFixed(3)}</th>
                                     </tr>
                                     <tr>
                                         <th>Other Costs</th>
@@ -1035,9 +1048,9 @@ class Calculator extends React.Component {
                             2. Enter you Car Year, Make, Model
                         </Form.Label>
                         <br />
-                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} />
+                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count = {count} />
 
-                        <Question3 _state={this.state} _handleChange={this.handleChange} />
+                        <Question3 _state={this.state} _handleChange={this.handleChange}/>
                         {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
