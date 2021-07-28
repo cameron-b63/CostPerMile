@@ -6,7 +6,7 @@ function Question4(props) {
     return (
         <Form.Group>
             <Form.Label>
-                4. Is the car you own bought or are you renting it?
+                4. Is the car you own bought or are you renting/leasing it?
             </Form.Label>
             <Form.Control as="select"
 
@@ -18,7 +18,7 @@ function Question4(props) {
                 required
             >
                 <option name="isRental"></option>
-                <option name="isRental">rental</option>
+                <option name="isRental">rental/lease</option>
                 <option name="isRental">bought</option>
             </Form.Control>
         </Form.Group>

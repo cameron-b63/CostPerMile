@@ -760,7 +760,7 @@ class Calculator extends React.Component {
                     
                     'Maintenance',
                     'Loans/Rental',
-                    'Other costs(parking, tolls, washing, etc.)',
+                    'Other Costs(parking, tolls, washing, etc.)',
                     
 
                 ],
@@ -814,9 +814,9 @@ class Calculator extends React.Component {
 
 
 
-                            <h2>Your Cost Per mile is ${this.state.costpermile.toFixed(2)}</h2>
+                            <h2>Your Cost Per Mile is ${this.state.costpermile.toFixed(2)}</h2>
                             <h4>Throughout the entire year, this amounted to ${(this.state.costpermile * (this.state.miles * 52)).toFixed(2)}</h4>
-                            <p>This is what is contributing to your cost per mile every mile you drive</p>
+                            <p>This is what is contributing to your Cost Per Mile every mile you drive</p>
                             <div className="DoughnutImage">
                                 <Doughnut
                                     data={doughnutdata}
@@ -827,7 +827,7 @@ class Calculator extends React.Component {
                             <Table>
                                 <thead>
                                     <tr>
-                                        <th>Cost per mile contributors</th>
+                                        <th>Cost Per Mile contributors</th>
                                         <th>Cost Per Mile</th>
                                         <th>Cost Through Year</th>
                                     </tr>
@@ -835,48 +835,48 @@ class Calculator extends React.Component {
                                 <tbody>
                                     <tr>
                                         <th>Total</th>
-                                        <th>{this.state.costpermile.toFixed(3)}</th>
-                                        <th>{(this.state.costpermile * (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
+                                        <th>{this.state.costpermile.toFixed(2)}</th>
+                                        <th>{(this.state.costpermile * (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Depreciation</th>
-                                        <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(3)}</th>
-                                        <th>{this.state.depreciationValue.toFixed(3)}</th>
+                                        <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>{ (this.state.depreciationValue/1).toFixed(2)}</th>
 
                                     </tr>
                                     <tr>
                                         <th>Insurance</th>
-                                        <th>{(parseInt(this.state.iPaid) / ((parseInt(this.state.miles) * 52))).toFixed(3)}</th>
-                                        <th>{(parseInt(this.state.iPaid)).toFixed(3)}</th>
+                                        <th>{(parseInt(this.state.iPaid) / ((parseInt(this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>{(parseInt(this.state.iPaid)).toFixed(2)}</th>
                                     </tr>
                                     {this.state.isElectric === "electric" ?
                                         <tr>
                                             <th>Charging (Electric)</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost))).toFixed(3)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost))).toFixed(2)}</th>
                                         </tr>
                                         :
                                         <tr>
                                             <th>Gas</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon))).toFixed(3)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon))).toFixed(2)}</th>
                                         </tr>
                                     }
                                     <tr>
                                         <th>Maintenance</th>
-                                        <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
-                                        <th>{(parseInt(this.state.mait)).toFixed(3)}</th>
+                                        <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{(parseInt(this.state.mait)).toFixed(2)}</th>
                                     </tr>
                                     
                                     <tr>
                                         <th>Loans/Rental/Lease</th>
-                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
-                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) ).toFixed(3)}</th>
+                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) ).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Other Costs</th>
-                                        <th>{((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)).toFixed(3)}</th>
-                                        <th>{((parseInt(this.state.tolls) * 12)).toFixed(3)}</th>
+                                        <th>{((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{((parseInt(this.state.tolls) * 12)).toFixed(2)}</th>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -1018,7 +1018,7 @@ class Calculator extends React.Component {
 
                 </div>
             )
-        } else if (this.state.isRental === "rental") {
+        } else if (this.state.isRental === "rental/lease") {
             renderBought = (
                 <div>
                     <Rental _state={this.state} _handleChange={this.handleChange} />

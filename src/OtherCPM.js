@@ -39,67 +39,67 @@ function printArrayPhone(state){
 
     var arr = [
         [
-            "Year of Car",
+            "Year",
             state.carYear,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log(),
         ],
         [
-            "Make of Car",
+            "Make",
             state.carMake,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log(),
 
         ],
 
         [
-            "Model of Car",
+            "Model",
             state.carModel,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log(),
 
         ],
         [
-            "Name of Car",
+            "Name",
             "YOUR CAR",
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log(),
         ],
         [
-            "Image of Car",
+            "Image",
             <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
         ],
         [
-            "Cost Per mile",
-            state.costpermile.toFixed(3),
+            "Cost Per Mile",
+            state.costpermile.toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log(),
 
         ],
         [
             "Depreciation",
-            (state.depreciationValue / (state.miles * 52)).toFixed(3),
+            (state.depreciationValue / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].depreciation : console.log(),
 
         ],
         [
             "Fuel",
-            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(3) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(3),
+            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(2) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log(),
 
         ],
         [
             "Insurance",
-            ((state.iPaid) / (state.miles * 52)).toFixed(3),
+            ((state.iPaid) / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].insurance : console.log(),
 
         ],
         [
-            "Maintenance /Repairs",
-            (state.mait / (state.miles * 52)).toFixed(3),
+            "Maintenance/ Repairs",
+            (state.mait / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].maintenance : console.log(),
         ],
         [
-            "Other costs ",
-            (((parseInt(state.tolls)  * 12 )+ (parseInt(state.monthlyCarPay) * 12) ) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            "Other Costs",
+            (((parseInt(state.tolls)  * 12 )+ (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
         ]
     ]
@@ -146,14 +146,14 @@ function printArrayOfInformation(state) {
     var imageDefault = state.otherFamousCars.filter((x) => x.Name.toLowerCase() === (state.carMake + " "+ state.carModel).toLowerCase());
     var arr = [
         [
-            "Year of Car",
+            "Year",
             state.carYear,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Year : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Year : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Year : console.log()
         ],
         [
-            "Make of Car",
+            "Make",
             state.carMake,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Make : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Make : console.log(),
@@ -162,7 +162,7 @@ function printArrayOfInformation(state) {
         ],
 
         [
-            "Model of Car",
+            "Model",
             state.carModel,
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Model : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Model : console.log(),
@@ -170,14 +170,14 @@ function printArrayOfInformation(state) {
 
         ],
         [
-            "Name of Car",
+            "Name",
             "YOUR CAR",
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name : console.log()
         ],
         [
-            "Image of Car",
+            "Image",
             <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
             (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
@@ -186,8 +186,8 @@ function printArrayOfInformation(state) {
 
         ],
         [
-            "Cost Per mile",
-            state.costpermile.toFixed(3),
+            "Cost Per Mile",
+            state.costpermile.toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].CPM : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].CPM : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].CPM : console.log()
@@ -195,7 +195,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Depreciation",
-            (state.depreciationValue / (state.miles * 52)).toFixed(3),
+            (state.depreciationValue / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].depreciation : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].depreciation : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].depreciation : console.log()
@@ -203,7 +203,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Fuel",
-            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(3) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(3),
+            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(2) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].fuel : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].fuel : console.log()
@@ -211,22 +211,22 @@ function printArrayOfInformation(state) {
         ],
         [
             "Insurance",
-            ((state.iPaid) / (state.miles * 52)).toFixed(3),
+            ((state.iPaid) / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].insurance : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].insurance : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].insurance : console.log()
 
         ],
         [
-            "Maintenance /Repairs",
-            (state.mait / (state.miles * 52)).toFixed(3),
+            "Maintenance/Repairs",
+            (state.mait / (state.miles * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].maintenance : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].maintenance : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].maintenance : console.log()
         ],
         [
-            "Other costs ",
-            (((parseInt(state.tolls) * 12) + (parseInt(state.monthlyCarPay) * 12)) / ((parseInt(state.miles)) * 52)).toFixed(3),
+            "Other Costs ",
+            (((parseInt(state.tolls) * 12) + (parseInt(state.monthlyCarPay) * 12)) / ((parseInt(state.miles)) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()
