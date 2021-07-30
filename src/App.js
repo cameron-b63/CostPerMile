@@ -196,7 +196,6 @@ class Calculator extends React.Component {
 
     }
     handleChange(event) {
-
         const { name, value } = event.target
         //checking for alphabetical letters so that there are no errors in calculations
         if (name === "carMake") {
@@ -358,6 +357,46 @@ class Calculator extends React.Component {
                     }
                 })
         }
+     
+        const http = require("https");
+
+        const options = {
+            "method": "GET",
+            "hostname": "vindecoder.p.rapidapi.com",
+            "port": null,
+            "path": "/v2.0/decode_vin?vin=" + vin,
+            "headers": {
+                "x-rapidapi-key": "73d45d6313mshd16f17ab16d3fe8p1368ecjsn7f132604eddb",
+                "x-rapidapi-host": "vindecoder.p.rapidapi.com",
+                "useQueryString": true
+            }
+        };
+        var self = this;
+        const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+                chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+                const body = Buffer.concat(chunks);
+                var bodyJSON = JSON.parse(body.toString());
+                var citymileage = bodyJSON.specification.city_mileage;
+                var highwaymileage = bodyJSON.specification.highway_mileage;
+                if (citymileage !== null) {
+                    var Numcitymileage = parseInt(citymileage.substring(0, citymileage.indexOf(" ")));
+                    var Numhighwaymileage = parseInt(highwaymileage.substring(0, highwaymileage.indexOf(" ")));
+                    var mileage = (Numcitymileage + Numhighwaymileage) / 2;
+                    self.setState({
+                        mpg: mileage
+                    });
+                }
+
+            });
+        });
+
+        req.end();
     }
 
     getCityState(zip) {
@@ -757,24 +796,24 @@ class Calculator extends React.Component {
                     'Depreciation',
                     'Insurance',
                     'Fuel',
-                    
+
                     'Maintenance',
                     'Loans/Rental',
                     'Other Costs(parking, tolls, washing, etc.)',
-                    
+
 
                 ],
                 datasets: [{
                     data: [
                         (parseInt(this.state.depreciationValue) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52)),
-                        this.state.isElectric === "gas"? 
-                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)):
-                        ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
+                        this.state.isElectric === "gas" ?
+                            ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)) :
+                            ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
                         (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)),
                         ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
-                        
+
                     ],
                     backgroundColor: [
                         'blue',
@@ -841,7 +880,7 @@ class Calculator extends React.Component {
                                     <tr>
                                         <th>Depreciation</th>
                                         <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>{ (this.state.depreciationValue/1).toFixed(2)}</th>
+                                        <th>{(this.state.depreciationValue / 1).toFixed(2)}</th>
 
                                     </tr>
                                     <tr>
@@ -867,11 +906,11 @@ class Calculator extends React.Component {
                                         <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
                                         <th>{(parseInt(this.state.mait)).toFixed(2)}</th>
                                     </tr>
-                                    
+
                                     <tr>
                                         <th>Loans/Rental/Lease</th>
                                         <th>{((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) ).toFixed(2)}</th>
+                                        <th>{((parseInt(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Other Costs</th>
@@ -1048,9 +1087,9 @@ class Calculator extends React.Component {
                             2. Enter you Car Year, Make, Model
                         </Form.Label>
                         <br />
-                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count = {count} />
+                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
 
-                        <Question3 _state={this.state} _handleChange={this.handleChange}/>
+                        <Question3 _state={this.state} _handleChange={this.handleChange} />
                         {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
