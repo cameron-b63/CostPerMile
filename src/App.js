@@ -64,6 +64,7 @@ function getBarData(labels, CPMs) {
     console.log(arr);
     return arr;
 }
+
 class Calculator extends React.Component {
     constructor(props) {
         super(props);
@@ -878,48 +879,47 @@ class Calculator extends React.Component {
                                 <tbody>
                                     <tr>
                                         <th>Total</th>
-                                        <th>{this.state.costpermile.toFixed(2)}</th>
-                                        <th>{(this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{"$" +this.state.costpermile.toFixed(2)} </th>
+                                        <th>{"$"+(this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Depreciation</th>
-                                        <th>{(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>{(this.state.depreciationValue / 1).toFixed(2)}</th>
-
+                                        <th>${(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>${(this.state.depreciationValue / 1).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Insurance</th>
-                                        <th>{(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>{(parseFloat(this.state.iPaid)).toFixed(2)}</th>
+                                        <th>${(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>${(parseFloat(this.state.iPaid)).toFixed(2)}</th>
                                     </tr>
                                     {this.state.isElectric === "electric" ?
                                         <tr>
                                             <th>Charging (Electric)</th>
-                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}</th>
+                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}</th>
                                         </tr>
                                         :
                                         <tr>
                                             <th>Gas</th>
-                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}</th>
+                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}</th>
                                         </tr>
                                     }
                                     <tr>
                                         <th>Maintenance</th>
-                                        <th>{(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{(parseFloat(this.state.mait)).toFixed(2)}</th>
+                                        <th>${(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>${(parseFloat(this.state.mait)).toFixed(2)}</th>
                                     </tr>
 
                                     <tr>
                                         <th>Loans/Rental/Lease</th>
-                                        <th>{((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
+                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Other Costs</th>
-                                        <th>{((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{((parseFloat(this.state.tolls) * 12)).toFixed(2)}</th>
+                                        <th>${((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>${((parseFloat(this.state.tolls) * 12)).toFixed(2)}</th>
                                     </tr>
                                 </tbody>
                             </Table>
