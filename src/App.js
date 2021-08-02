@@ -93,6 +93,7 @@ class Calculator extends React.Component {
             carModel: "",
             isElectric: "",
             carYear: "",
+            boughtCarYear: "",
             carBasePrice: "",
             seeOtherCPM: "Indigo Alpha",
             seeOtherCPM2: "Indigo Bravo",
@@ -148,7 +149,7 @@ class Calculator extends React.Component {
         let depreciation;
 
         if (this.state.isRental === "bought") {
-            depreciation = -100 * (Math.pow((parseInt(this.state.finalPrice) / parseInt(this.state.originalPrice)), (1 / (2021 - parseInt(this.state.carYear)))) - 1)
+            depreciation = -100 * (Math.pow((parseFloat(this.state.finalPrice) / parseFloat(this.state.originalPrice)), (1 / (2021 - parseFloat(this.state.boughtCarYear)))) - 1)
             console.log(depreciation);
             depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation / 100)));
 
@@ -161,21 +162,21 @@ class Calculator extends React.Component {
             function () {
                 let final;
                 if (this.state.isElectric.indexOf("as") > 0) {
-                    final = (parseInt(this.state.depreciationValue) +
-                        parseInt(this.state.iPaid) +
-                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) +
-                        parseInt(this.state.mait) +
-                        (parseInt(this.state.tolls) * 12) +
-                        (parseInt(this.state.monthlyCarPay) * 12))
-                        / (parseInt(this.state.miles) * 52);
+                    final = (parseFloat(this.state.depreciationValue) +
+                        parseFloat(this.state.iPaid) +
+                        (((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) +
+                        parseFloat(this.state.mait) +
+                        (parseFloat(this.state.tolls) * 12) +
+                        (parseFloat(this.state.monthlyCarPay) * 12))
+                        / (parseFloat(this.state.miles) * 52);
                 } else {
-                    final = (parseInt(this.state.depreciationValue) +
-                        parseInt(this.state.iPaid) +
-                        (((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) +
-                        parseInt(this.state.mait) +
-                        (parseInt(this.state.tolls) * 12) +
-                        (parseInt(this.state.monthlyCarPay) * 12)) /
-                        (parseInt(this.state.miles) * 52);
+                    final = (parseFloat(this.state.depreciationValue) +
+                        parseFloat(this.state.iPaid) +
+                        (((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) +
+                        parseFloat(this.state.mait) +
+                        (parseFloat(this.state.tolls) * 12) +
+                        (parseFloat(this.state.monthlyCarPay) * 12)) /
+                        (parseFloat(this.state.miles) * 52);
                 }
                 this.setState({
                     costpermile: final
@@ -340,8 +341,11 @@ class Calculator extends React.Component {
                         if (fuelType !== null) {
                             if (fuelType.indexOf("as") > 0) {
                                 fuelType = "gas"
-                            } else {
+                            } else if (fuelType.indexOf("lectr") > 0) {
                                 fuelType = "electric"
+                            }
+                            else {
+                                fuelType = ""
                             }
                         } else {
                             fuelType = ""
@@ -357,7 +361,7 @@ class Calculator extends React.Component {
                     }
                 })
         }
-     
+
         const http = require("https");
 
         const options = {
@@ -385,8 +389,8 @@ class Calculator extends React.Component {
                 var citymileage = bodyJSON.specification.city_mileage;
                 var highwaymileage = bodyJSON.specification.highway_mileage;
                 if (citymileage !== null) {
-                    var Numcitymileage = parseInt(citymileage.substring(0, citymileage.indexOf(" ")));
-                    var Numhighwaymileage = parseInt(highwaymileage.substring(0, highwaymileage.indexOf(" ")));
+                    var Numcitymileage = parseFloat(citymileage.substring(0, citymileage.indexOf(" ")));
+                    var Numhighwaymileage = parseFloat(highwaymileage.substring(0, highwaymileage.indexOf(" ")));
                     var mileage = (Numcitymileage + Numhighwaymileage) / 2;
                     self.setState({
                         mpg: mileage
@@ -805,14 +809,14 @@ class Calculator extends React.Component {
                 ],
                 datasets: [{
                     data: [
-                        (parseInt(this.state.depreciationValue) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.iPaid)) / (parseInt(this.state.miles) * 52)),
+                        (parseFloat(this.state.depreciationValue) / (parseFloat(this.state.miles) * 52)),
+                        ((parseFloat(this.state.iPaid)) / (parseFloat(this.state.miles) * 52)),
                         this.state.isElectric === "gas" ?
-                            ((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)) :
-                            ((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)),
-                        (parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)),
-                        ((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)),
+                            ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)) :
+                            ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)),
+                        (parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)),
+                        ((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)),
+                        ((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)),
 
                     ],
                     backgroundColor: [
@@ -875,47 +879,47 @@ class Calculator extends React.Component {
                                     <tr>
                                         <th>Total</th>
                                         <th>{this.state.costpermile.toFixed(2)}</th>
-                                        <th>{(this.state.costpermile * (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{(this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Depreciation</th>
-                                        <th>{(parseInt(this.state.depreciationValue) / (parseInt((this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>{(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}</th>
                                         <th>{(this.state.depreciationValue / 1).toFixed(2)}</th>
 
                                     </tr>
                                     <tr>
                                         <th>Insurance</th>
-                                        <th>{(parseInt(this.state.iPaid) / ((parseInt(this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>{(parseInt(this.state.iPaid)).toFixed(2)}</th>
+                                        <th>{(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}</th>
+                                        <th>{(parseFloat(this.state.iPaid)).toFixed(2)}</th>
                                     </tr>
                                     {this.state.isElectric === "electric" ?
                                         <tr>
                                             <th>Charging (Electric)</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost)) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.fullcharge)) * parseInt(this.state.fullchargeCost))).toFixed(2)}</th>
+                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}</th>
                                         </tr>
                                         :
                                         <tr>
                                             <th>Gas</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon)) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>{((((parseInt(this.state.miles) * 52) / parseInt(this.state.mpg)) * parseInt(this.state.gallon))).toFixed(2)}</th>
+                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                            <th>{((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}</th>
                                         </tr>
                                     }
                                     <tr>
                                         <th>Maintenance</th>
-                                        <th>{(parseInt(this.state.mait) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{(parseInt(this.state.mait)).toFixed(2)}</th>
+                                        <th>{(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{(parseFloat(this.state.mait)).toFixed(2)}</th>
                                     </tr>
 
                                     <tr>
                                         <th>Loans/Rental/Lease</th>
-                                        <th>{((parseInt(this.state.monthlyCarPay) * 12) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{((parseInt(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
+                                        <th>{((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Other Costs</th>
-                                        <th>{((parseInt(this.state.tolls) * 12) / (parseInt(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>{((parseInt(this.state.tolls) * 12)).toFixed(2)}</th>
+                                        <th>{((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{((parseFloat(this.state.tolls) * 12)).toFixed(2)}</th>
                                     </tr>
                                 </tbody>
                             </Table>
@@ -1052,7 +1056,22 @@ class Calculator extends React.Component {
                 <div>
                     <NewCost state={this.state} onChange={this.handleChange} />
                     <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
-
+                    <Form.Group>
+                        <Form.Label>
+                            c. What year did you buy this car?
+                        </Form.Label>
+                        <Form.Control
+                            onChange={this.handleChange}
+                            id="boughtCarYear"
+                            name="boughtCarYear"
+                            value={this.state.boughtCarYear}
+                            required
+                            as="select"
+                        >
+                            <option></option>
+                            {carYears}
+                        </Form.Control>
+                    </Form.Group>
                     <Loan _state={this.state} _handleChange={this.handleChange} />
 
                 </div>
