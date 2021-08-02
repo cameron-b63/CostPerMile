@@ -10,7 +10,7 @@ function Loan(props) {
     return (
         <Form.Group>
             <Form.Label>
-                c. How much do you pay for loans per month for this car?
+                d. How much do you pay for loans per month for this car?
             </Form.Label>
             <Form.Control
                 placeholder="Enter your monthly loan cost"

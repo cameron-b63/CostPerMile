@@ -63,7 +63,7 @@ function printArrayPhone(state){
         ],
         [
             "Image",
-            <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
+            <Image src = { typeof imageDefault[0] !== "undefined" && (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
 
 
@@ -82,7 +82,7 @@ function printArrayPhone(state){
         ],
         [
             "Fuel",
-            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(2) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(2),
+            Number.isNaN((((parseFloat(state.miles) * 52) / parseFloat(state.mpg)) * parseFloat(state.gallon)) / (parseFloat(state.miles) * 52)) ? ((((parseFloat(state.miles) * 52) / parseFloat(state.fullcharge)) * parseFloat(state.fullchargeCost)) / (parseFloat(state.miles) * 52)).toFixed(2) : ((((parseFloat(state.miles) * 52) / parseFloat(state.mpg)) * parseFloat(state.gallon)) / (parseFloat(state.miles) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log(),
 
         ],
@@ -99,7 +99,7 @@ function printArrayPhone(state){
         ],
         [
             "Other Costs",
-            (((parseInt(state.tolls)  * 12 )+ (parseInt(state.monthlyCarPay) * 12) + parseInt(state.licensePlate)) / ((parseInt(state.miles)) * 52)).toFixed(2),
+            (((parseFloat(state.tolls)  * 12 )+ (parseFloat(state.monthlyCarPay) * 12) + parseFloat(state.licensePlate)) / ((parseFloat(state.miles)) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
         ]
     ]
@@ -178,7 +178,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Image",
-            <Image src = { typeof imageDefault[0] !== "undefined" && (parseInt(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
+            <Image src = { typeof imageDefault[0] !== "undefined" && (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
             (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
             (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
             (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : <div></div>),
@@ -203,7 +203,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Fuel",
-            Number.isNaN((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)) ? ((((parseInt(state.miles) * 52) / parseInt(state.fullcharge)) * parseInt(state.fullchargeCost)) / (parseInt(state.miles) * 52)).toFixed(2) : ((((parseInt(state.miles) * 52) / parseInt(state.mpg)) * parseInt(state.gallon)) / (parseInt(state.miles) * 52)).toFixed(2),
+            Number.isNaN((((parseFloat(state.miles) * 52) / parseFloat(state.mpg)) * parseFloat(state.gallon)) / (parseFloat(state.miles) * 52)) ? ((((parseFloat(state.miles) * 52) / parseFloat(state.fullcharge)) * parseFloat(state.fullchargeCost)) / (parseFloat(state.miles) * 52)).toFixed(2) : ((((parseFloat(state.miles) * 52) / parseFloat(state.mpg)) * parseFloat(state.gallon)) / (parseFloat(state.miles) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].fuel : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].fuel : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].fuel : console.log()
@@ -226,7 +226,7 @@ function printArrayOfInformation(state) {
         ],
         [
             "Other Costs ",
-            (((parseInt(state.tolls) * 12) + (parseInt(state.monthlyCarPay) * 12)) / ((parseInt(state.miles)) * 52)).toFixed(2),
+            (((parseFloat(state.tolls) * 12) + (parseFloat(state.monthlyCarPay) * 12)) / ((parseFloat(state.miles)) * 52)).toFixed(2),
             state.seeOtherCPM.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].other : console.log(),
             state.seeOtherCPM2.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].other : console.log(),
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()

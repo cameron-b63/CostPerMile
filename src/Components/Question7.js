@@ -25,7 +25,7 @@ function Question7(props) {
             {props._state.miles && !Number.isNaN(props._state.miles) ?
                 (<Alert variant="secondary">
                     <Alert.Heading>Miles Per Year</Alert.Heading>
-                    <p>That's {parseInt(props._state.miles) * 52} miles a year</p>
+                    <p>That's {parseFloat(props._state.miles) * 52} miles a year</p>
                 </Alert>)
                 :
                 (<div></div>)
