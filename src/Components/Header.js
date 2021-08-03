@@ -1,5 +1,9 @@
 import Jumbotron from 'react-bootstrap/Jumbotron';
 
+/**
+ * 
+ * @returns {object} Header of the webpage
+ */
 function Header() {
     return(
     <Jumbotron>

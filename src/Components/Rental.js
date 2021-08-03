@@ -6,6 +6,12 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form'
+
+/**
+ * 
+ * @param {object} props properties of component
+ * @returns {object} $ paid for Rental Question
+ */
 function Rental(props) {
     return (
         <Form.Group>

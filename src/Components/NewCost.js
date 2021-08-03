@@ -6,6 +6,11 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form'
+/**
+ * 
+ * @param {object} stateProps properties passed as a component
+ * @returns {object}  a. How much was this car when you first bought it? question
+ */
 function NewCost(stateProps) {
     return (
         <Form.Group>

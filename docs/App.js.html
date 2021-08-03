@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
@@ -45,7 +73,7 @@ function compare(a, b) {
     let comparison = 0;
     if (nameA > nameB) {
         comparison = 1;
-    } else if (nameA < nameB) {
+    } else if (nameA &lt; nameB) {
         comparison = -1;
     }
     return comparison;
@@ -62,7 +90,7 @@ function compare2(a, b) {
     let comparison = 0;
     if (nameA > nameB) {
         comparison = 1;
-    } else if (nameA < nameB) {
+    } else if (nameA &lt; nameB) {
         comparison = -1;
     }
     return comparison;
@@ -76,7 +104,7 @@ function compare2(a, b) {
 function getBarData(labels, CPMs) {
     var arr = [];
     arr.push(['Name of Car', 'CPM', { role: 'style' }])
-    for (var i = 0; i < labels.length; i++) {
+    for (var i = 0; i &lt; labels.length; i++) {
         arr.push([labels[i], CPMs[i], '#176BEF'])
     }
     console.log(arr);
@@ -366,7 +394,7 @@ class Calculator extends React.Component {
         if (name === "carMake") {
             count = 0;
         }
-        if (name !== "VIN" && name !== "carMake" && name !== "carYear" && name !== "carModel" && name !== "isElectric" && name !== "typeOfGas" && name !== "seeOtherCPM3" && name !== "seeOtherCPM2" && name !== "seeOtherCPM" && name !== "isRental") {
+        if (name !== "VIN" &amp;&amp; name !== "carMake" &amp;&amp; name !== "carYear" &amp;&amp; name !== "carModel" &amp;&amp; name !== "isElectric" &amp;&amp; name !== "typeOfGas" &amp;&amp; name !== "seeOtherCPM3" &amp;&amp; name !== "seeOtherCPM2" &amp;&amp; name !== "seeOtherCPM" &amp;&amp; name !== "isRental") {
             if (this.alphabetCheck(value)) {
                 this.setState({
                     [name]: value,
@@ -501,7 +529,7 @@ class Calculator extends React.Component {
             /**
              * API call from NHTSA
              */
-            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/' + this.state.VIN + '?format=json&modelyear=')
+            fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/' + this.state.VIN + '?format=json&amp;modelyear=')
                 .then(response => response.json())
                 .then(data => {
                     this.setState({ VINAPI: data["Results"] });
@@ -605,7 +633,7 @@ class Calculator extends React.Component {
         this.setState({
             gallon: "loading"
         });
-        if (zip.length > 0 && this.state.isElectric.indexOf("as") > 0) {
+        if (zip.length > 0 &amp;&amp; this.state.isElectric.indexOf("as") > 0) {
             const options = {
                 "method": "GET",
                 "hostname": "redline-redline-zipcode.p.rapidapi.com",
@@ -657,7 +685,7 @@ class Calculator extends React.Component {
      */
     getGasPrice(state) {
         if (typeof state !== 'undefined') {
-            if (state.length > 0 && this.state.isElectric.indexOf("as") > 0) {
+            if (state.length > 0 &amp;&amp; this.state.isElectric.indexOf("as") > 0) {
                 var http = require("https");
 
                 var options = {
@@ -774,7 +802,7 @@ class Calculator extends React.Component {
          * allOptions to display for Make Question
          */
         let allOptions;
-        allOptions = this.state.api.map((num) => <option>{num.Make_Name}</option>)
+        allOptions = this.state.api.map((num) => &lt;option>{num.Make_Name}&lt;/option>)
         /**
          * allOption2 to display all Models based on Make on Model Question
          */
@@ -787,7 +815,7 @@ class Calculator extends React.Component {
          * array of the past 100 years
          */
         var years = [];
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i &lt; 100; i++) {
             years.push(2021 - i);
         }
         /**
@@ -812,12 +840,12 @@ class Calculator extends React.Component {
          */
         if (this.state.carMake === null) {
             renderCarMakeAlert = (
-                <Alert variant="danger">
-                    <Alert.Heading>Invalid VIN</Alert.Heading>
-                </Alert>
+                &lt;Alert variant="danger">
+                    &lt;Alert.Heading>Invalid VIN&lt;/Alert.Heading>
+                &lt;/Alert>
             )
         }
-        else if (this.state.carMake.length > 0 && count < 10) {
+        else if (this.state.carMake.length > 0 &amp;&amp; count &lt; 10) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
                 .then(response => response.json())
                 .then(data => {
@@ -830,39 +858,39 @@ class Calculator extends React.Component {
         /**
          * past carYears
          */
-        const carYears = years.map((num) => <option>{num}</option>)
+        const carYears = years.map((num) => &lt;option>{num}&lt;/option>)
         /**
          * allOptions2 is all of the Models
          */
-        allOptions2 = this.state.models.map((num) => <option>{num.Model_Name}</option>)
+        allOptions2 = this.state.models.map((num) => &lt;option>{num.Model_Name}&lt;/option>)
 
         /**
          * renders alert based on statecode and gallon price
          */
         if (typeof this.state.statecode === 'undefined') {
             renderZipAlert = (
-                <Alert variant="danger">
-                    <Alert.Heading>Warning!</Alert.Heading>
-                    <p>Please enter a valid Zip Code</p>
-                </Alert>
+                &lt;Alert variant="danger">
+                    &lt;Alert.Heading>Warning!&lt;/Alert.Heading>
+                    &lt;p>Please enter a valid Zip Code&lt;/p>
+                &lt;/Alert>
             );
         } else if (this.state.gallon === "loading") {
             renderZipAlert =
-                (<Alert variant="secondary">
-                    <Alert.Heading>Loading...</Alert.Heading>
-                </Alert>
+                (&lt;Alert variant="secondary">
+                    &lt;Alert.Heading>Loading...&lt;/Alert.Heading>
+                &lt;/Alert>
                 )
         }
 
         else if (this.state.statecode.length === 0) {
-            renderZipAlert = <div></div>
+            renderZipAlert = &lt;div>&lt;/div>
         }
         else {
             renderZipAlert = (
-                <Alert variant="success">
-                    <Alert.Heading>Success</Alert.Heading>
-                    <p>Your city, state is {this.state.city}, {this.state.statecode} where it costs ${this.state.gallon} per gallon</p>
-                </Alert>
+                &lt;Alert variant="success">
+                    &lt;Alert.Heading>Success&lt;/Alert.Heading>
+                    &lt;p>Your city, state is {this.state.city}, {this.state.statecode} where it costs ${this.state.gallon} per gallon&lt;/p>
+                &lt;/Alert>
 
             )
         }
@@ -871,11 +899,11 @@ class Calculator extends React.Component {
          * modifies renderFuelQuestions based on whether user chose electric or gas
          */
         if (this.state.isElectric.indexOf("as") > 0) {
-            renderFuelQuestions = (<div><Form.Group>
-                <Form.Label>
+            renderFuelQuestions = (&lt;div>&lt;Form.Group>
+                &lt;Form.Label>
                     a. What fuel type do you use?
-                </Form.Label>
-                <Form.Control as="select"
+                &lt;/Form.Label>
+                &lt;Form.Control as="select"
                     onChange={this.handleChange}
                     id="typeOfGas"
                     type="text"
@@ -883,19 +911,19 @@ class Calculator extends React.Component {
                     value={this.state.typeOfGas}
                     required
                 >
-                    <option name="typeOfGas">regular</option>
-                    <option name="typeOfGas">mid grade</option>
-                    <option name="typeOfGas">premium</option>
-                    <option name="typeOfGas">diesel</option>
-                </Form.Control>
+                    &lt;option name="typeOfGas">regular&lt;/option>
+                    &lt;option name="typeOfGas">mid grade&lt;/option>
+                    &lt;option name="typeOfGas">premium&lt;/option>
+                    &lt;option name="typeOfGas">diesel&lt;/option>
+                &lt;/Form.Control>
 
-            </Form.Group>
-                <Form.Group>
-                    <Form.Label>
+            &lt;/Form.Group>
+                &lt;Form.Group>
+                    &lt;Form.Label>
                         b. What is your MPG(Miles Per Gallon)?
-                    </Form.Label>
+                    &lt;/Form.Label>
 
-                    <Form.Control
+                    &lt;Form.Control
                         placeholder="Enter your mpg"
                         onChange={this.handleChange}
                         id="mpg"
@@ -904,16 +932,16 @@ class Calculator extends React.Component {
                         value={this.state.mpg}
                         required
                     />
-                    <Form.Text className="text-muted">Average MPG around the US is 24.9</Form.Text>
+                    &lt;Form.Text className="text-muted">Average MPG around the US is 24.9&lt;/Form.Text>
 
-                </Form.Group>
+                &lt;/Form.Group>
 
-                <Form.Group>
-                    <Form.Label>
+                &lt;Form.Group>
+                    &lt;Form.Label>
                         c. What is your zip code?
-                    </Form.Label>
+                    &lt;/Form.Label>
 
-                    <Form.Control
+                    &lt;Form.Control
                         placeholder="Enter your zip code. This is needed to find gas prices in your area"
                         onChange={this.handleChange}
                         id="zipcode"
@@ -923,22 +951,22 @@ class Calculator extends React.Component {
                         required
                     />
 
-                </Form.Group>
-                <Button
+                &lt;/Form.Group>
+                &lt;Button
                     onClick={this.handleClickGasPrice}
                 >Click this button to get the gas price in your area!
-                </Button>
+                &lt;/Button>
                 {renderZipAlert}
 
-            </div>);
+            &lt;/div>);
         } else if (this.state.isElectric.indexOf("lectric") > 0) {
-            renderFuelQuestions = (<div>
-                <Form.Group>
-                    <Form.Label>
+            renderFuelQuestions = (&lt;div>
+                &lt;Form.Group>
+                    &lt;Form.Label>
                         a. If you drive an electric vehicle, how far can you drive on a full charge in miles?
-                    </Form.Label>
+                    &lt;/Form.Label>
 
-                    <Form.Control
+                    &lt;Form.Control
                         placeholder="Enter how many miles can be drive on a full charge"
                         onChange={this.handleChange}
                         id="fullcharge"
@@ -947,16 +975,16 @@ class Calculator extends React.Component {
                         value={this.state.fullcharge}
                         required
                     />
-                    <Form.Text className="text-muted">Average in the US is 181 miles</Form.Text>
+                    &lt;Form.Text className="text-muted">Average in the US is 181 miles&lt;/Form.Text>
 
 
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>
+                &lt;/Form.Group>
+                &lt;Form.Group>
+                    &lt;Form.Label>
                         b. If you drive an electric vehicle, how much does it cost for a full charge?
-                    </Form.Label>
+                    &lt;/Form.Label>
 
-                    <Form.Control
+                    &lt;Form.Control
                         placeholder="Enter how much money it costs for a full charge"
                         onChange={this.handleChange}
                         id="fullchargeCost"
@@ -965,14 +993,14 @@ class Calculator extends React.Component {
                         value={this.state.fullchargeCost}
                         required
                     />
-                    <Form.Text className="text-muted">Varies depending on car. Average in the US is $9</Form.Text>
+                    &lt;Form.Text className="text-muted">Varies depending on car. Average in the US is $9&lt;/Form.Text>
 
 
-                </Form.Group>
-            </div>);
+                &lt;/Form.Group>
+            &lt;/div>);
         } else {
             renderFuelQuestions = (
-                <div></div>
+                &lt;div>&lt;/div>
             );
         }
 
@@ -981,12 +1009,12 @@ class Calculator extends React.Component {
          * @see {file} "./otherCPM.js"
          * 
          */
-        var renderCarOptions = this.state.otherFamousCars.slice(1, this.state.otherFamousCars.length).map((N) => <option>{N.Name}</option>)
+        var renderCarOptions = this.state.otherFamousCars.slice(1, this.state.otherFamousCars.length).map((N) => &lt;option>{N.Name}&lt;/option>)
         if (Number.isNaN(this.state.costpermile)) {
-            renderRelationalData = <div></div>
+            renderRelationalData = &lt;div>&lt;/div>
         }
         else {
-            if (this.state.otherFamousCars.length < this.state.otherFamousCarsLength) {
+            if (this.state.otherFamousCars.length &lt; this.state.otherFamousCarsLength) {
                 this.state.otherFamousCars.unshift({
                     Name: "Your Cost Per Mile",
                     CPM: this.state.costpermile
@@ -1109,26 +1137,26 @@ class Calculator extends React.Component {
             var sortedCPMs = this.state.otherFamousCars.slice().sort(compare2).map((x) => x.CPM)
             renderRelationalData =
                 (
-                    <Container>
-                        <Jumbotron>
+                    &lt;Container>
+                        &lt;Jumbotron>
 
 
 
-                            <h2>Your Cost Per Mile is ${this.state.costpermile.toFixed(2)}</h2>
-                            <h4>Throughout the entire year, this amounted to ${(this.state.costpermile * (this.state.miles * 52)).toFixed(2)}</h4>
-                            <p>This is what is contributing to your Cost Per Mile every mile you drive</p>
-                            <div className="DoughnutImage">
-                                <Doughnut
+                            &lt;h2>Your Cost Per Mile is ${this.state.costpermile.toFixed(2)}&lt;/h2>
+                            &lt;h4>Throughout the entire year, this amounted to ${(this.state.costpermile * (this.state.miles * 52)).toFixed(2)}&lt;/h4>
+                            &lt;p>This is what is contributing to your Cost Per Mile every mile you drive&lt;/p>
+                            &lt;div className="DoughnutImage">
+                                &lt;Doughnut
                                     data={doughnutdata}
                                     width={20}
                                     height={20}
                                 />
-                            </div>
-                            {/* <Chart
+                            &lt;/div>
+                            {/* &lt;Chart
                                 width={'100%'}
                                 height={'100%'}
                                 chartType="Table"
-                                loader={<div>Loading Chart</div>}
+                                loader={&lt;div>Loading Chart&lt;/div>}
                                 data={[
                                     [
                                         { type: 'string', label: 'Cost Per Mile Contributor' },
@@ -1161,80 +1189,80 @@ class Calculator extends React.Component {
                                     
                                 }}
                             /> */}
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>Cost Per Mile contributors</th>
-                                        <th>Cost Per Mile</th>
-                                        <th>Cost Through Year</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>Total</th>
-                                        <th>{"$" + this.state.costpermile.toFixed(2)} </th>
-                                        <th>{"$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Depreciation</th>
-                                        <th>${(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>${(this.state.depreciationValue / 1).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Insurance</th>
-                                        <th>${(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>${(parseFloat(this.state.iPaid)).toFixed(2)}</th>
-                                    </tr>
+                            &lt;Table>
+                                &lt;thead>
+                                    &lt;tr>
+                                        &lt;th>Cost Per Mile contributors&lt;/th>
+                                        &lt;th>Cost Per Mile&lt;/th>
+                                        &lt;th>Cost Through Year&lt;/th>
+                                    &lt;/tr>
+                                &lt;/thead>
+                                &lt;tbody>
+                                    &lt;tr>
+                                        &lt;th>Total&lt;/th>
+                                        &lt;th>{"$" + this.state.costpermile.toFixed(2)} &lt;/th>
+                                        &lt;th>{"$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
+                                    &lt;tr>
+                                        &lt;th>Depreciation&lt;/th>
+                                        &lt;th>${(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}&lt;/th>
+                                        &lt;th>${(this.state.depreciationValue / 1).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
+                                    &lt;tr>
+                                        &lt;th>Insurance&lt;/th>
+                                        &lt;th>${(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}&lt;/th>
+                                        &lt;th>${(parseFloat(this.state.iPaid)).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
                                     {this.state.isElectric === "electric" ?
-                                        <tr>
-                                            <th>Charging (Electric)</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}</th>
-                                        </tr>
+                                        &lt;tr>
+                                            &lt;th>Charging (Electric)&lt;/th>
+                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}&lt;/th>
+                                        &lt;/tr>
                                         :
-                                        <tr>
-                                            <th>Gas</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}</th>
-                                        </tr>
+                                        &lt;tr>
+                                            &lt;th>Gas&lt;/th>
+                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}&lt;/th>
+                                        &lt;/tr>
                                     }
-                                    <tr>
-                                        <th>Maintenance</th>
-                                        <th>${(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${(parseFloat(this.state.mait)).toFixed(2)}</th>
-                                    </tr>
+                                    &lt;tr>
+                                        &lt;th>Maintenance&lt;/th>
+                                        &lt;th>${(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                        &lt;th>${(parseFloat(this.state.mait)).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
 
-                                    <tr>
-                                        <th>Loans/Rental/Lease</th>
-                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Other Costs</th>
-                                        <th>${((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${((parseFloat(this.state.tolls) * 12)).toFixed(2)}</th>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                            <br />
-                            <h2>Other Famous Cars</h2>
-                            <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
-                            <Button
+                                    &lt;tr>
+                                        &lt;th>Loans/Rental/Lease&lt;/th>
+                                        &lt;th>${((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                        &lt;th>${((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
+                                    &lt;tr>
+                                        &lt;th>Other Costs&lt;/th>
+                                        &lt;th>${((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
+                                        &lt;th>${((parseFloat(this.state.tolls) * 12)).toFixed(2)}&lt;/th>
+                                    &lt;/tr>
+                                &lt;/tbody>
+                            &lt;/Table>
+                            &lt;br />
+                            &lt;h2>Other Famous Cars&lt;/h2>
+                            &lt;p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.&lt;/p>
+                            &lt;Button
                                 onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
-                            </Button>
+                            &lt;/Button>
                             {this.state.width >= 900 ?
-                                <div className="GraphImage">
-                                    <Bar
+                                &lt;div className="GraphImage">
+                                    &lt;Bar
                                         data={this.graphData}
                                     />
 
-                                </div>
+                                &lt;/div>
                                 :
-                                <Chart
+                                &lt;Chart
                                     width={'300px'}
                                     height={'2000px'}
                                     chartType="BarChart"
-                                    loader={<div>Loading Chart</div>}
+                                    loader={&lt;div>Loading Chart&lt;/div>}
                                     data={!this.state.graphRender ? getBarData(labels, CPMs) : getBarData(sortedLabels, sortedCPMs)}
                                     options={{
                                         title: 'Cost Per Mile of Other Famous Cars',
@@ -1255,95 +1283,95 @@ class Calculator extends React.Component {
 
 
 
-                            <h2>Comparison Table</h2>
-                            <p>Choose 3 cars to compare data with below.</p>
-                            <Form.Group>
-                                <Form.Label>
+                            &lt;h2>Comparison Table&lt;/h2>
+                            &lt;p>Choose 3 cars to compare data with below.&lt;/p>
+                            &lt;Form.Group>
+                                &lt;Form.Label>
                                     Enter first car
-                                </Form.Label>
-                                <Form.Control as="select"
+                                &lt;/Form.Label>
+                                &lt;Form.Control as="select"
                                     onChange={this.handleChange}
                                     id="seeOtherCPM"
                                     type="text"
                                     name="seeOtherCPM"
                                     value={this.state.seeOtherCPM}
                                 >
-                                    <option></option>
+                                    &lt;option>&lt;/option>
                                     {renderCarOptions}
-                                </Form.Control>
-                            </Form.Group>
+                                &lt;/Form.Control>
+                            &lt;/Form.Group>
 
 
-                            {this.state.width > 800 &&
-                                <Form.Group>
-                                    <Form.Label>
+                            {this.state.width > 800 &amp;&amp;
+                                &lt;Form.Group>
+                                    &lt;Form.Label>
                                         Enter second car
-                                    </Form.Label>
-                                    <Form.Control as="select"
+                                    &lt;/Form.Label>
+                                    &lt;Form.Control as="select"
                                         onChange={this.handleChange}
                                         id="seeOtherCPM"
                                         type="text"
                                         name="seeOtherCPM2"
                                         value={this.state.seeOtherCPM2}
                                     >
-                                        <option></option>
+                                        &lt;option>&lt;/option>
                                         {renderCarOptions}
-                                    </Form.Control>
+                                    &lt;/Form.Control>
 
 
-                                </Form.Group>
+                                &lt;/Form.Group>
                             }
-                            {this.state.width > 800 &&
-                                <Form.Group>
-                                    <Form.Label>
+                            {this.state.width > 800 &amp;&amp;
+                                &lt;Form.Group>
+                                    &lt;Form.Label>
                                         Enter third car
-                                    </Form.Label>
-                                    <Form.Control as="select"
+                                    &lt;/Form.Label>
+                                    &lt;Form.Control as="select"
                                         onChange={this.handleChange}
                                         id="seeOtherCPM3"
                                         type="text"
                                         name="seeOtherCPM3"
                                         value={this.state.seeOtherCPM3}
                                     >
-                                        <option></option>
+                                        &lt;option>&lt;/option>
                                         {renderCarOptions}
-                                    </Form.Control>
-                                    <br />
+                                    &lt;/Form.Control>
+                                    &lt;br />
 
-                                </Form.Group>
+                                &lt;/Form.Group>
                             }
 
                             {OtherCPM(this.state)}
 
-                        </Jumbotron>
+                        &lt;/Jumbotron>
 
 
-                    </Container>
+                    &lt;/Container>
                 );
         }
 
         /**
          * Renders submission alert based on if costpermile is NaN or a real number
          */
-        if (Number.isNaN(this.state.costpermile) && this.state.submitted) {
+        if (Number.isNaN(this.state.costpermile) &amp;&amp; this.state.submitted) {
             renderAlert = (
-                <Alert variant="danger">
-                    <Alert.Heading>Warning!</Alert.Heading>
-                    <p>You have some unaswered questions. To see your results, you must fill out all questions.</p>
-                </Alert>
+                &lt;Alert variant="danger">
+                    &lt;Alert.Heading>Warning!&lt;/Alert.Heading>
+                    &lt;p>You have some unaswered questions. To see your results, you must fill out all questions.&lt;/p>
+                &lt;/Alert>
             );
-        } else if (!(Number.isNaN(this.state.costpermile)) && this.state.submitted) {
+        } else if (!(Number.isNaN(this.state.costpermile)) &amp;&amp; this.state.submitted) {
             renderAlert =
                 (
-                    <Alert variant="success">
-                        <Alert.Heading>Success!</Alert.Heading>
-                        <p>scroll down to see results</p>
-                    </Alert>
+                    &lt;Alert variant="success">
+                        &lt;Alert.Heading>Success!&lt;/Alert.Heading>
+                        &lt;p>scroll down to see results&lt;/p>
+                    &lt;/Alert>
                 )
         }
 
         else {
-            renderAlert = (<div></div>)
+            renderAlert = (&lt;div>&lt;/div>)
         }
         /**
          * Renders Questions based on if user chose that they bought or rented the car
@@ -1351,14 +1379,14 @@ class Calculator extends React.Component {
         let renderBought;
         if (this.state.isRental === "bought") {
             renderBought = (
-                <div>
-                    <NewCost state={this.state} onChange={this.handleChange} />
-                    <NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
-                    <Form.Group>
-                        <Form.Label>
+                &lt;div>
+                    &lt;NewCost state={this.state} onChange={this.handleChange} />
+                    &lt;NowCost _state={this.state} _handleChange={this.handleChange} _handleClickCarFax={this.handleClickCarFax} />
+                    &lt;Form.Group>
+                        &lt;Form.Label>
                             c. What year did you buy this car?
-                        </Form.Label>
-                        <Form.Control
+                        &lt;/Form.Label>
+                        &lt;Form.Control
                             onChange={this.handleChange}
                             id="boughtCarYear"
                             name="boughtCarYear"
@@ -1366,23 +1394,23 @@ class Calculator extends React.Component {
                             required
                             as="select"
                         >
-                            <option></option>
+                            &lt;option>&lt;/option>
                             {carYears}
-                        </Form.Control>
-                    </Form.Group>
-                    <Loan _state={this.state} _handleChange={this.handleChange} />
+                        &lt;/Form.Control>
+                    &lt;/Form.Group>
+                    &lt;Loan _state={this.state} _handleChange={this.handleChange} />
 
-                </div>
+                &lt;/div>
             )
         } else if (this.state.isRental === "rental/lease") {
             renderBought = (
-                <div>
-                    <Rental _state={this.state} _handleChange={this.handleChange} />
+                &lt;div>
+                    &lt;Rental _state={this.state} _handleChange={this.handleChange} />
 
-                </div>
+                &lt;/div>
             )
         } else {
-            renderBought = (<div></div>)
+            renderBought = (&lt;div>&lt;/div>)
         }
 
         /**
@@ -1393,64 +1421,86 @@ class Calculator extends React.Component {
 
             //RENDERING ALL QUESTION COMPONENTS
 
-            <Container>
+            &lt;Container>
 
-                <Header />
-                <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
+                &lt;Header />
+                &lt;Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
 
-                    <Jumbotron>
-                        <h2>Vehicle Information (Section 1/3)</h2>
+                    &lt;Jumbotron>
+                        &lt;h2>Vehicle Information (Section 1/3)&lt;/h2>
 
-                        <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
+                        &lt;Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
 
-                        <Form.Label>
+                        &lt;Form.Label>
                             2. Enter you Car Year, Make, Model
-                        </Form.Label>
-                        <br />
-                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
+                        &lt;/Form.Label>
+                        &lt;br />
+                        &lt;Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
 
-                        <Question3 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question3 _state={this.state} _handleChange={this.handleChange} />
                         {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
-                    </Jumbotron>
+                    &lt;/Jumbotron>
 
-                    <Jumbotron>
-                        <h2>Ownership Costs (Section 2/3)</h2>
+                    &lt;Jumbotron>
+                        &lt;h2>Ownership Costs (Section 2/3)&lt;/h2>
 
-                        <Question4 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
 
-                        <Question6 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question6 _state={this.state} _handleChange={this.handleChange} />
 
 
-                    </Jumbotron>
+                    &lt;/Jumbotron>
 
-                    <Jumbotron>
-                        <h2>Operating Costs (Section 3/3)</h2>
+                    &lt;Jumbotron>
+                        &lt;h2>Operating Costs (Section 3/3)&lt;/h2>
 
-                        <Question7 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question7 _state={this.state} _handleChange={this.handleChange} />
 
-                        <Question8 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question8 _state={this.state} _handleChange={this.handleChange} />
 
-                        <Question9 _state={this.state} _handleChange={this.handleChange} />
+                        &lt;Question9 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
-                        <input type="submit"
+                        &lt;input type="submit"
                         />
-                        <br />
-                        {/* <Button onClick={this.handleClickSkip}>Skip form and see comparison</Button> */}
+                        &lt;br />
+                        {/* &lt;Button onClick={this.handleClickSkip}>Skip form and see comparison&lt;/Button> */}
 
-                    </Jumbotron>
+                    &lt;/Jumbotron>
 
-                </Form>
+                &lt;/Form>
 
-                <br />
+                &lt;br />
 
                 {/*CONDITIONAL RENDERING IF CPM IS NOT NaN */}
                 {renderRelationalData}
-            </Container>
+            &lt;/Container>
         );
     }
 }
 
-export default Calculator
+export default Calculator</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton8">Quesiton8</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question7">Question7</a></li><li><a href="global.html#Question9">Question9</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 03 2021 13:27:05 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

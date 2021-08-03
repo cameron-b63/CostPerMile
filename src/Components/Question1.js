@@ -3,7 +3,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-
+/**
+ * 
+ * @param {object} props properties of component
+ * @returns {object} Question1
+ */
 function Question1(props){
     return(
     <Form.Group>

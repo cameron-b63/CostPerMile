@@ -4,7 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+/**
+ * 
+ * @param {object} props properties of component
+ * @returns {object} Question2 (year,make, model)
+ */
 function Question2(props) {
     return (
         <Row>
@@ -57,7 +61,7 @@ function Question2(props) {
                     Model
                 </Form.Label>
                 <Form.Control
-                    placeholder = "disabled"
+                    placeholder = "disabled until make is entered"
                     disabled
                 />
                     
