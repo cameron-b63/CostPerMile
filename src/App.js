@@ -872,7 +872,7 @@ class Calculator extends React.Component {
                                     height={20}
                                 />
                             </div>
-                            <Chart
+                            {/* <Chart
                                 width={'100%'}
                                 height={'100%'}
                                 chartType="Table"
@@ -908,7 +908,7 @@ class Calculator extends React.Component {
                                     height: "100%",
                                     
                                 }}
-                            />
+                            /> */}
                             <Table>
                                 <thead>
                                     <tr>
