@@ -64,6 +64,10 @@ function getBarData(labels, CPMs) {
     console.log(arr);
     return arr;
 }
+/**
+ * Represents a Calculator
+ * @extends React.Component
+ */
 
 class Calculator extends React.Component {
     constructor(props) {
@@ -868,6 +872,43 @@ class Calculator extends React.Component {
                                     height={20}
                                 />
                             </div>
+                            {/* <Chart
+                                width={'100%'}
+                                height={'100%'}
+                                chartType="Table"
+                                loader={<div>Loading Chart</div>}
+                                data={[
+                                    [
+                                        { type: 'string', label: 'Cost Per Mile Contributor' },
+                                        { type: 'number', label: 'Cost Per Mile' },
+                                        { type: 'number', label: 'Cost Through Year' },
+                                    ],
+                                    ['Total',  { v: this.state.costpermile.toFixed(2), f: '$' +this.state.costpermile.toFixed(2)  } , {v:(this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2),f: "$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}],
+                                    ['Depreciation', { v: (parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2), f: '$' + (parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2) }, {v:(this.state.depreciationValue / 1).toFixed(2),f:"$" + (this.state.depreciationValue / 1).toFixed(2)}],
+                                    ['Insurance', { v: (parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2), f: '$' + (parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2) },{v:(parseFloat(this.state.iPaid)).toFixed(2), f: "$" + (parseFloat(this.state.iPaid)).toFixed(2)} ],
+                                    [this.state.isElectric === "electric" ? "Charging": "Gas", 
+                                    this.state.isElectric === "electric" ? 
+                                    { v: ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2), f: '$' + ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2) }
+                                    : 
+                                    {v:((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2),f: "$" + ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)},
+
+                                    this.state.isElectric === "electric" ? 
+                                    {v:((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2),f:"$" + ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}
+                                    :
+                                    {v:((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2),f:"$" + ((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}
+                                    
+                                    ],
+                                    ['Maintenance', { v: (parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2), f: '$' + (parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2) }, {v:(parseFloat(this.state.mait)).toFixed(2),f:"$" + (parseFloat(this.state.mait)).toFixed(2)}],
+                                    ['Loans/Rental/Lease', { v: ((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2), f: '$' + ((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2) }, {v:((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2), f: "$" + ((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}],
+                                    ['Other Costs', { v: ((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2), f: '$' + ((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2) }, {v:((parseFloat(this.state.tolls) * 12)).toFixed(2),f: "$" + ((parseFloat(this.state.tolls) * 12)).toFixed(2)}],
+                                ]}
+                                options={{
+                                    showRowNumber: false,
+                                    width: "100%",
+                                    height: "100%",
+                                    
+                                }}
+                            /> */}
                             <Table>
                                 <thead>
                                     <tr>
@@ -879,8 +920,8 @@ class Calculator extends React.Component {
                                 <tbody>
                                     <tr>
                                         <th>Total</th>
-                                        <th>{"$" +this.state.costpermile.toFixed(2)} </th>
-                                        <th>{"$"+(this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
+                                        <th>{"$" + this.state.costpermile.toFixed(2)} </th>
+                                        <th>{"$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
                                     </tr>
                                     <tr>
                                         <th>Depreciation</th>
