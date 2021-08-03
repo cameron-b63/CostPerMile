@@ -2,10 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
+/**
+ * 
+ * @param {object} props properties of component
+ * @returns {object} returnsobject with iFrame
+ */
 function NowCost(props) {
     let displayCarFax;
     let displayButton;
+    
     if(props._state.CarFax){
         displayCarFax = (
             <iframe src="https://www.carfax.com/value/" height = "300px" width = "100%"></iframe>

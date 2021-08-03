@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: OtherCPM.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: OtherCPM.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './carmakes.json'
@@ -23,21 +51,21 @@ import Col from 'react-bootstrap/Col'
 function renderListElement(stringDisplay, CPM, state, displayImage) {
     if (typeof displayImage !== "undefined") {
         return (
-            <tr>
-                <td>{stringDisplay}</td>
-                <td>{CPM}</td>
-                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
-                <td><Image src={displayImage} fluid /></td>
-            </tr>
+            &lt;tr>
+                &lt;td>{stringDisplay}&lt;/td>
+                &lt;td>{CPM}&lt;/td>
+                &lt;td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}&lt;/td>
+                &lt;td>&lt;Image src={displayImage} fluid />&lt;/td>
+            &lt;/tr>
         );
     }
     else {
         return (
-            <tr>
-                <td>{stringDisplay}</td>
-                <td>{CPM}</td>
-                <td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}</td>
-            </tr>
+            &lt;tr>
+                &lt;td>{stringDisplay}&lt;/td>
+                &lt;td>{CPM}&lt;/td>
+                &lt;td>{(CPM - state.costpermile.toFixed(2)) > 0 ? "+" + ((CPM - state.costpermile.toFixed(2)).toFixed(2)) : (CPM - state.costpermile.toFixed(2)).toFixed(2)}&lt;/td>
+            &lt;/tr>
         )
     }
 }
@@ -75,8 +103,8 @@ function printArrayPhone(state){
         ],
         [
             "Image",
-            <Image src = { typeof imageDefault[0] !== "undefined" && (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : <div></div>),
+            &lt;Image src = { typeof imageDefault[0] !== "undefined" &amp;&amp; (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImagePhone"/>,
+            (state.seeOtherCPM.length > 0 ? &lt;Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImagePhone" /> : &lt;div>&lt;/div>),
 
 
         ],
@@ -117,18 +145,18 @@ function printArrayPhone(state){
     ]
     console.log(arr);
     //let arr0 = arr[0][1];
-    let Information0 = arr[0].map((element) => <th>{element}</th>)
-    let Information1 = arr[1].map((element) => <th>{element}</th>)
+    let Information0 = arr[0].map((element) => &lt;th>{element}&lt;/th>)
+    let Information1 = arr[1].map((element) => &lt;th>{element}&lt;/th>)
 
-    let Information2 = arr[2].map((element) => <th>{element}</th>)
-    let Information3 = arr[3].map((element) => <th>{element}</th>)
-    let Information4 = arr[4].map((element) => <th>{element}</th>)
-    let Information5 = arr[5].map((element) => <th>{element}</th>)
-    let Information6 = arr[6].map((element) => <th>{element}</th>)
-    let Information7 = arr[7].map((element) => <th>{element}</th>)
-    let Information8 = arr[8].map((element) => <th>{element}</th>)
-    let Information9 = arr[9].map((element) => <th>{element}</th>)
-    let Information10 = arr[10].map((element) => <th>{element}</th>)
+    let Information2 = arr[2].map((element) => &lt;th>{element}&lt;/th>)
+    let Information3 = arr[3].map((element) => &lt;th>{element}&lt;/th>)
+    let Information4 = arr[4].map((element) => &lt;th>{element}&lt;/th>)
+    let Information5 = arr[5].map((element) => &lt;th>{element}&lt;/th>)
+    let Information6 = arr[6].map((element) => &lt;th>{element}&lt;/th>)
+    let Information7 = arr[7].map((element) => &lt;th>{element}&lt;/th>)
+    let Information8 = arr[8].map((element) => &lt;th>{element}&lt;/th>)
+    let Information9 = arr[9].map((element) => &lt;th>{element}&lt;/th>)
+    let Information10 = arr[10].map((element) => &lt;th>{element}&lt;/th>)
 
 
 
@@ -137,21 +165,21 @@ function printArrayPhone(state){
 
 
     return (
-        <tbody>
-            <tr>{Information0}</tr>
-            <tr>{Information1}</tr>
-            <tr>{Information2}</tr>
-            <tr>{Information3}</tr>
-            <tr>{Information4}</tr>
-            <tr>{Information5}</tr>
-            <tr>{Information6}</tr>
-            <tr>{Information7}</tr>
-            <tr>{Information8}</tr>
-            <tr>{Information9}</tr>
-            <tr>{Information10}</tr>
+        &lt;tbody>
+            &lt;tr>{Information0}&lt;/tr>
+            &lt;tr>{Information1}&lt;/tr>
+            &lt;tr>{Information2}&lt;/tr>
+            &lt;tr>{Information3}&lt;/tr>
+            &lt;tr>{Information4}&lt;/tr>
+            &lt;tr>{Information5}&lt;/tr>
+            &lt;tr>{Information6}&lt;/tr>
+            &lt;tr>{Information7}&lt;/tr>
+            &lt;tr>{Information8}&lt;/tr>
+            &lt;tr>{Information9}&lt;/tr>
+            &lt;tr>{Information10}&lt;/tr>
 
 
-        </tbody>
+        &lt;/tbody>
     )
 }
 /**
@@ -195,10 +223,10 @@ function printArrayOfInformation(state) {
         ],
         [
             "Image",
-            <Image src = { typeof imageDefault[0] !== "undefined" && (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
-            (state.seeOtherCPM.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : <div></div>),
-            (state.seeOtherCPM2.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : <div></div>),
-            (state.seeOtherCPM3.length > 0 ? <Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : <div></div>),
+            &lt;Image src = { typeof imageDefault[0] !== "undefined" &amp;&amp; (parseFloat(state.carYear) > 2016) ?imageDefault[0].Image :defaultImage} className = "CarImage"/>,
+            (state.seeOtherCPM.length > 0 ? &lt;Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM)[0].Image} className="CarImage" /> : &lt;div>&lt;/div>),
+            (state.seeOtherCPM2.length > 0 ? &lt;Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM2)[0].Image} className="CarImage" /> : &lt;div>&lt;/div>),
+            (state.seeOtherCPM3.length > 0 ? &lt;Image src={state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image === "None"? ((state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Name ==="Indigo Alpha"? Alpha:Bravo)):state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].Image} className="CarImage" /> : &lt;div>&lt;/div>),
 
 
         ],
@@ -251,18 +279,18 @@ function printArrayOfInformation(state) {
     ]
     console.log(arr);
     //let arr0 = arr[0][1];
-    let Information0 = arr[0].map((element) => <th>{element}</th>)
-    let Information1 = arr[1].map((element) => <th>{element}</th>)
+    let Information0 = arr[0].map((element) => &lt;th>{element}&lt;/th>)
+    let Information1 = arr[1].map((element) => &lt;th>{element}&lt;/th>)
 
-    let Information2 = arr[2].map((element) => <th>{element}</th>)
-    let Information3 = arr[3].map((element) => <th>{element}</th>)
-    let Information4 = arr[4].map((element) => <th>{element}</th>)
-    let Information5 = arr[5].map((element) => <th>{element}</th>)
-    let Information6 = arr[6].map((element) => <th>{element}</th>)
-    let Information7 = arr[7].map((element) => <th>{element}</th>)
-    let Information8 = arr[8].map((element) => <th>{element}</th>)
-    let Information9 = arr[9].map((element) => <th>{element}</th>)
-    let Information10 = arr[10].map((element) => <th>{element}</th>)
+    let Information2 = arr[2].map((element) => &lt;th>{element}&lt;/th>)
+    let Information3 = arr[3].map((element) => &lt;th>{element}&lt;/th>)
+    let Information4 = arr[4].map((element) => &lt;th>{element}&lt;/th>)
+    let Information5 = arr[5].map((element) => &lt;th>{element}&lt;/th>)
+    let Information6 = arr[6].map((element) => &lt;th>{element}&lt;/th>)
+    let Information7 = arr[7].map((element) => &lt;th>{element}&lt;/th>)
+    let Information8 = arr[8].map((element) => &lt;th>{element}&lt;/th>)
+    let Information9 = arr[9].map((element) => &lt;th>{element}&lt;/th>)
+    let Information10 = arr[10].map((element) => &lt;th>{element}&lt;/th>)
 
 
 
@@ -271,21 +299,21 @@ function printArrayOfInformation(state) {
 
 
     return (
-        <tbody>
-            <tr>{Information0}</tr>
-            <tr>{Information1}</tr>
-            <tr>{Information2}</tr>
-            <tr>{Information3}</tr>
-            <tr>{Information4}</tr>
-            <tr>{Information5}</tr>
-            <tr>{Information6}</tr>
-            <tr>{Information7}</tr>
-            <tr>{Information8}</tr>
-            <tr>{Information9}</tr>
-            <tr>{Information10}</tr>
+        &lt;tbody>
+            &lt;tr>{Information0}&lt;/tr>
+            &lt;tr>{Information1}&lt;/tr>
+            &lt;tr>{Information2}&lt;/tr>
+            &lt;tr>{Information3}&lt;/tr>
+            &lt;tr>{Information4}&lt;/tr>
+            &lt;tr>{Information5}&lt;/tr>
+            &lt;tr>{Information6}&lt;/tr>
+            &lt;tr>{Information7}&lt;/tr>
+            &lt;tr>{Information8}&lt;/tr>
+            &lt;tr>{Information9}&lt;/tr>
+            &lt;tr>{Information10}&lt;/tr>
 
 
-        </tbody>
+        &lt;/tbody>
     )
 }
 /**
@@ -298,44 +326,66 @@ function OtherCPM(state) {
     var otherCPM;
     if (state.width > 800) {
         otherCPM = (
-            <Table striped bordered hover className="CarTable">
-                <thead>
-                    <tr>
+            &lt;Table striped bordered hover className="CarTable">
+                &lt;thead>
+                    &lt;tr>
 
-                        <th>Quantity of Information</th>
-                        <th>Your Car</th>
-                        <th>Car 1</th>
-                        <th>Car 2</th>
-                        <th>Car 3</th>
-                    </tr>
-                </thead>
+                        &lt;th>Quantity of Information&lt;/th>
+                        &lt;th>Your Car&lt;/th>
+                        &lt;th>Car 1&lt;/th>
+                        &lt;th>Car 2&lt;/th>
+                        &lt;th>Car 3&lt;/th>
+                    &lt;/tr>
+                &lt;/thead>
 
 
                 {printArrayOfInformation(state)}
-            </Table>)
+            &lt;/Table>)
     }
     else {
         otherCPM = (
-            <div className = "Slim">
-                <Table striped bordered hover className="CarTable" >
-                    <thead>
-                        <tr>
+            &lt;div className = "Slim">
+                &lt;Table striped bordered hover className="CarTable" >
+                    &lt;thead>
+                        &lt;tr>
 
-                            <th>Quantity of Information</th>
-                            <th>Your Car</th>
-                            <th>Car 1</th>
+                            &lt;th>Quantity of Information&lt;/th>
+                            &lt;th>Your Car&lt;/th>
+                            &lt;th>Car 1&lt;/th>
                             
                             
-                        </tr>
-                    </thead>
+                        &lt;/tr>
+                    &lt;/thead>
 
 
                     {printArrayPhone(state)}
-                </Table>
-            </div>
+                &lt;/Table>
+            &lt;/div>
         );
     }
     return otherCPM;
 }
 
-export default OtherCPM;
+export default OtherCPM;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton8">Quesiton8</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question7">Question7</a></li><li><a href="global.html#Question9">Question9</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 03 2021 13:27:05 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

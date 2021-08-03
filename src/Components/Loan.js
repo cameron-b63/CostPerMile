@@ -6,6 +6,11 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Form from 'react-bootstrap/Form'
+/**
+ * 
+ * @param {object} props properties passed to the component
+ * @returns {object} LoanQuestion
+ */
 function Loan(props) {
     return (
         <Form.Group>

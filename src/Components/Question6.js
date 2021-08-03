@@ -1,6 +1,11 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
+/**
+ * 
+ * @param {object} props properties of component
+ * @returns {object} Question5
+ */
 function Question6(props) {
     return (
         <Form.Group>
