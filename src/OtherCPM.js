@@ -249,7 +249,6 @@ function printArrayOfInformation(state) {
             state.seeOtherCPM3.length > 0 ? state.otherFamousCars.filter((x) => x.Name === state.seeOtherCPM3)[0].other : console.log()
         ]
     ]
-    console.log(arr);
     //let arr0 = arr[0][1];
     let Information0 = arr[0].map((element) => <th>{element}</th>)
     let Information1 = arr[1].map((element) => <th>{element}</th>)

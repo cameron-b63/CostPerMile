@@ -5,38 +5,27 @@ import Alert from 'react-bootstrap/Alert';
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} Question6
+ * @returns {object} Question7
  */
-function Question7(props) {
+function Quesiton7(props) {
     return (
-
         <Form.Group>
-
             <Form.Label>
-                6. How many miles do you usually drive per week?
+                7. What is your annual repair and maintenance cost for this car?
             </Form.Label>
-            <Form.Control type="text"
-                placeholder="Enter how many miles driven"
+            <Form.Control
+                placeholder="Enter how much you pay for maintenance a year"
                 onChange={props._handleChange}
-                id="miles"
+                id="maitenance"
                 type="text"
-                name="miles"
-                value={props._state.miles}
+                name="mait"
+                value={props._state.mait}
                 required
             />
-            <Form.Text className="text-muted">Average in the US is 187 miles</Form.Text>
+            <Form.Text className="text-muted">Average in the US is $792</Form.Text>
 
-            {props._state.miles && !Number.isNaN(props._state.miles) ?
-                (<Alert variant="secondary">
-                    <Alert.Heading>Miles Per Year</Alert.Heading>
-                    <p>That's {parseFloat(props._state.miles) * 52} miles a year</p>
-                </Alert>)
-                :
-                (<div></div>)
-            }
         </Form.Group>
+    )
 
-
-    );
 }
-export default Question7;
+export default Quesiton7;

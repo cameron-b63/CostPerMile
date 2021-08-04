@@ -18,10 +18,10 @@ import Question1 from './Components/Question1.js'
 import Question2 from './Components/Question2.js'
 import Question3 from './Components/Question3.js'
 import Question4 from './Components/Question4.js'
+import Question5 from './Components/Question5.js'
 import Question6 from './Components/Question6.js'
 import Question7 from './Components/Question7.js'
 import Question8 from './Components/Question8.js'
-import Question9 from './Components/Question9.js'
 import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
@@ -31,7 +31,10 @@ import { Bar } from 'react-chartjs-2';
 import Chart from "react-google-charts";
 import useWindowDimensions from './windowDimensions.js'
 
-
+/**
+ * Makes sure that make renders only after a certain period of time after user chose model
+ * @var {number} count 
+ */
 var count = 0;
  /**
   * compares the numbers 
@@ -79,7 +82,6 @@ function getBarData(labels, CPMs) {
     for (var i = 0; i < labels.length; i++) {
         arr.push([labels[i], CPMs[i], '#176BEF'])
     }
-    console.log(arr);
     return arr;
 }
 /**
@@ -286,6 +288,7 @@ class Calculator extends React.Component {
 
         
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeMake = this.handleChangeMake.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickVIN = this.handleClickVIN.bind(this);
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
@@ -304,10 +307,8 @@ class Calculator extends React.Component {
 
         if (this.state.isRental === "bought") {
             depreciation = -100 * (Math.pow((parseFloat(this.state.finalPrice) / parseFloat(this.state.originalPrice)), (1 / (2021 - parseFloat(this.state.boughtCarYear)))) - 1)
-            console.log(depreciation);
             depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation / 100)));
 
-            console.log(depreciation);
         }
         else {
             depreciation = 0;
@@ -379,6 +380,28 @@ class Calculator extends React.Component {
             })
         }
         console.log(this.state);
+    }
+    handleChangeMake(e){
+        count = 0;
+        var carModels = [];
+        var theCarMake = "";
+        const { name, value } = e.target
+        this.setState({
+            [name]:value
+        })
+        theCarMake = value;
+        fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + theCarMake + '?format=json')
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ models: data["Results"] });
+            carModels = data["Results"];
+            count = 6;
+            
+        })
+        
+       
+
+
     }
     /**
      * handles click if user clicks on the VIN button
@@ -468,8 +491,7 @@ class Calculator extends React.Component {
         this.setState(function (past) {
             return { graphRender: !past.graphRender }
         })
-        console.log(this.state.graphRender);
-        console.log(this.graphData);
+        
     }
     /**
      * handles the final submit of the form
@@ -819,12 +841,11 @@ class Calculator extends React.Component {
         }
         else if (this.state.carMake.length > 0 && count < 10) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({ models: data["Results"] });
-                })
-            count++;
-            console.log(count);
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ models: data["Results"] });
+            })
+        count++;
 
         }
         /**
@@ -977,7 +998,7 @@ class Calculator extends React.Component {
         }
 
         /**
-         * renders relational data 
+         * renders relational data based on certain parameters
          * @see {file} "./otherCPM.js"
          * 
          */
@@ -1400,28 +1421,39 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Vehicle Information (Section 1/3)</h2>
-
+                        {/**
+                         * @see {file} ./ComponentsQuestion1.js
+                         */}
                         <Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
 
                         <Form.Label>
                             2. Enter you Car Year, Make, Model
                         </Form.Label>
                         <br />
-                        <Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
-
+                        {/**
+                         * @see {file} ./ComponentsQuestion2.js
+                         */}
+                        <Question2 _state={this.state} _handleChange={this.handleChange} _handleChangeMake = {this.handleChangeMake} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
+                        
+                        {/**
+                         * @see {file} ./ComponentsQuestion3.js
+                         */}
                         <Question3 _state={this.state} _handleChange={this.handleChange} />
-                        {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
                     </Jumbotron>
 
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
-
+                        
+                        {/**
+                         * @see {file} ./ComponentsQuestion4.js
+                         */}
                         <Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
 
-                        <Question6 _state={this.state} _handleChange={this.handleChange} />
+                         
+                        <Question5 _state={this.state} _handleChange={this.handleChange} />
 
 
                     </Jumbotron>
@@ -1429,11 +1461,11 @@ class Calculator extends React.Component {
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>
 
+                        <Question6 _state={this.state} _handleChange={this.handleChange} />
+
                         <Question7 _state={this.state} _handleChange={this.handleChange} />
 
                         <Question8 _state={this.state} _handleChange={this.handleChange} />
-
-                        <Question9 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
                         <input type="submit"
                         />
