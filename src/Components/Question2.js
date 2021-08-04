@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} Question2 (year,make, model)
+ * @returns {object} Question2 (year,make, model) component
  */
 function Question2(props) {
     return (

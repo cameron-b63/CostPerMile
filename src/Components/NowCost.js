@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} returnsobject with iFrame
+ * @returns {object} returns object with iFrame 
  */
 function NowCost(props) {
     let displayCarFax;

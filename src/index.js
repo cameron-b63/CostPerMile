@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Calculator from './App.js'
 /**
- * @author Alexander Hoang
+ * @author Alexander Hoang, zander.n.hoang@gmail.com
  * @see https://github.com/zandergr888/CostPerMile.git
  * 
  */

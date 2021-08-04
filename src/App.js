@@ -789,7 +789,7 @@ class Calculator extends React.Component {
     }
     /**
      * react render function
-     * @returns {object}The entire page in JSX
+     * @returns {object}The entire page in JSX and also conditional rendering of components
      */
     render() {
         /**

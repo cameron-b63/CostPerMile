@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form'
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} Question1
+ * @returns {object} Question1 component
  */
 function Question1(props){
     return(
