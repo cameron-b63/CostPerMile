@@ -8,7 +8,6 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 
 
 import Alert from 'react-bootstrap/Alert';
@@ -25,6 +24,7 @@ import Question8 from './Components/Question8.js'
 import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
+import RelationalTable from './Components/RelationalTable.js'
 import Rental from './Components/Rental.js'
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
@@ -1221,67 +1221,19 @@ class Calculator extends React.Component {
                                     
                                 }}
                             /> */}
-                            <Table>
-                                <thead>
-                                    <tr>
-                                        <th>Cost Per Mile contributors</th>
-                                        <th>Cost Per Mile</th>
-                                        <th>Cost Through Year</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>Total</th>
-                                        <th>{"$" + this.state.costpermile.toFixed(2)} </th>
-                                        <th>{"$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Depreciation</th>
-                                        <th>${(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>${(this.state.depreciationValue / 1).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Insurance</th>
-                                        <th>${(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}</th>
-                                        <th>${(parseFloat(this.state.iPaid)).toFixed(2)}</th>
-                                    </tr>
-                                    {this.state.isElectric === "electric" ?
-                                        <tr>
-                                            <th>Charging (Electric)</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}</th>
-                                        </tr>
-                                        :
-                                        <tr>
-                                            <th>Gas</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                            <th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}</th>
-                                        </tr>
-                                    }
-                                    <tr>
-                                        <th>Maintenance</th>
-                                        <th>${(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${(parseFloat(this.state.mait)).toFixed(2)}</th>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Loans/Rental/Lease</th>
-                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Other Costs</th>
-                                        <th>${((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}</th>
-                                        <th>${((parseFloat(this.state.tolls) * 12)).toFixed(2)}</th>
-                                    </tr>
-                                </tbody>
-                            </Table>
+                            {/**
+                             * @see ./Components/RelationalTable
+                             */}
+                            <RelationalTable _state = {this.state}/>
                             <br />
                             <h2>Other Famous Cars</h2>
                             <p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.</p>
                             <Button
                                 onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
                             </Button>
+                            {/**
+                             * shows a barchart of data based on screensize
+                             */}
                             {this.state.width >= 900 ?
                                 <div className="GraphImage">
                                     <Bar
@@ -1314,7 +1266,9 @@ class Calculator extends React.Component {
                             }
 
 
-
+                            {/**
+                             * Area where the user can choose 3 cars to compare data with
+                             */}
                             <h2>Comparison Table</h2>
                             <p>Choose 3 cars to compare data with below.</p>
                             <Form.Group>
@@ -1372,7 +1326,11 @@ class Calculator extends React.Component {
 
                                 </Form.Group>
                             }
-
+                            {
+                                /**
+                                 * @see ./otherCPM.js
+                                 */
+                            }
                             {OtherCPM(this.state)}
 
                         </Jumbotron>
