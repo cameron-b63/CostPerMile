@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Components/RelationalTable.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Components/RelationalTable.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from 'react-bootstrap/Table';
+/**
+ * @param {object} props
+ * @returns {object} JSX Element of relational table
+ */
+function RelationalTable(props) {
+    return (
+
+            &lt;Table>
+                &lt;thead>
+                    &lt;tr>
+                        &lt;th>Cost Per Mile contributors&lt;/th>
+                        &lt;th>Cost Per Mile&lt;/th>
+                        &lt;th>Cost Through Year&lt;/th>
+                    &lt;/tr>
+                &lt;/thead>
+                &lt;tbody>
+                    &lt;tr>
+                        &lt;th>Total&lt;/th>
+                        &lt;th>{"$" + props._state.costpermile.toFixed(2)} &lt;/th>
+                        &lt;th>{"$" + (props._state.costpermile * (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+                    &lt;tr>
+                        &lt;th>Depreciation&lt;/th>
+                        &lt;th>${(parseFloat(props._state.depreciationValue) / (parseFloat((props._state.miles) * 52))).toFixed(2)}&lt;/th>
+                        &lt;th>${(props._state.depreciationValue / 1).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+                    &lt;tr>
+                        &lt;th>Insurance&lt;/th>
+                        &lt;th>${(parseFloat(props._state.iPaid) / ((parseFloat(props._state.miles) * 52))).toFixed(2)}&lt;/th>
+                        &lt;th>${(parseFloat(props._state.iPaid)).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+                    {props._state.isElectric === "electric" ?
+                        &lt;tr>
+                            &lt;th>Charging (Electric)&lt;/th>
+                            &lt;th>${((((parseFloat(props._state.miles) * 52) / parseFloat(props._state.fullcharge)) * parseFloat(props._state.fullchargeCost)) / (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                            &lt;th>${((((parseFloat(props._state.miles) * 52) / parseFloat(props._state.fullcharge)) * parseFloat(props._state.fullchargeCost))).toFixed(2)}&lt;/th>
+                        &lt;/tr>
+                        :
+                        &lt;tr>
+                            &lt;th>Gas&lt;/th>
+                            &lt;th>${((((parseFloat(props._state.miles) * 52) / parseFloat(props._state.mpg)) * parseFloat(props._state.gallon)) / (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                            &lt;th>${((((parseFloat(props._state.miles) * 52) / parseFloat(props._state.mpg)) * parseFloat(props._state.gallon))).toFixed(2)}&lt;/th>
+                        &lt;/tr>
+                    }
+                    &lt;tr>
+                        &lt;th>Maintenance&lt;/th>
+                        &lt;th>${(parseFloat(props._state.mait) / (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                        &lt;th>${(parseFloat(props._state.mait)).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+
+                    &lt;tr>
+                        &lt;th>Loans/Rental/Lease&lt;/th>
+                        &lt;th>${((parseFloat(props._state.monthlyCarPay) * 12) / (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                        &lt;th>${((parseFloat(props._state.monthlyCarPay) * 12)).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+                    &lt;tr>
+                        &lt;th>Other Costs&lt;/th>
+                        &lt;th>${((parseFloat(props._state.tolls) * 12) / (parseFloat(props._state.miles) * 52)).toFixed(2)}&lt;/th>
+                        &lt;th>${((parseFloat(props._state.tolls) * 12)).toFixed(2)}&lt;/th>
+                    &lt;/tr>
+                &lt;/tbody>
+            &lt;/Table>
+            
+
+    )
+}
+export default RelationalTable;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:handleChange">handleChange</a></li><li><a href="global.html#event:handleChangeMake">handleChangeMake</a></li><li><a href="global.html#event:handleClickCarFax">handleClickCarFax</a></li><li><a href="global.html#event:handleClickGasPrice">handleClickGasPrice</a></li><li><a href="global.html#event:handleClickVIN">handleClickVIN</a></li><li><a href="global.html#event:handleClickGraphshowssortedgraphorunsortedbasedonwhenuserclicks">handleClickGraph
+shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#count">count</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton7">Quesiton7</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question5">Question5</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question8">Question8</a></li><li><a href="global.html#RelationalTable">RelationalTable</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Aug 04 2021 13:48:42 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -36,7 +36,6 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 
 
 import Alert from 'react-bootstrap/Alert';
@@ -53,6 +52,7 @@ import Question8 from './Components/Question8.js'
 import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
+import RelationalTable from './Components/RelationalTable.js'
 import Rental from './Components/Rental.js'
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
@@ -128,7 +128,7 @@ class Calculator extends React.Component {
             /**
              * final cost per mile calculation
              */
-            costpermile: NaN,
+            costpermile: 1,
             /**
              * insurance cost over the year
              */
@@ -1249,67 +1249,19 @@ class Calculator extends React.Component {
                                     
                                 }}
                             /> */}
-                            &lt;Table>
-                                &lt;thead>
-                                    &lt;tr>
-                                        &lt;th>Cost Per Mile contributors&lt;/th>
-                                        &lt;th>Cost Per Mile&lt;/th>
-                                        &lt;th>Cost Through Year&lt;/th>
-                                    &lt;/tr>
-                                &lt;/thead>
-                                &lt;tbody>
-                                    &lt;tr>
-                                        &lt;th>Total&lt;/th>
-                                        &lt;th>{"$" + this.state.costpermile.toFixed(2)} &lt;/th>
-                                        &lt;th>{"$" + (this.state.costpermile * (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-                                    &lt;tr>
-                                        &lt;th>Depreciation&lt;/th>
-                                        &lt;th>${(parseFloat(this.state.depreciationValue) / (parseFloat((this.state.miles) * 52))).toFixed(2)}&lt;/th>
-                                        &lt;th>${(this.state.depreciationValue / 1).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-                                    &lt;tr>
-                                        &lt;th>Insurance&lt;/th>
-                                        &lt;th>${(parseFloat(this.state.iPaid) / ((parseFloat(this.state.miles) * 52))).toFixed(2)}&lt;/th>
-                                        &lt;th>${(parseFloat(this.state.iPaid)).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-                                    {this.state.isElectric === "electric" ?
-                                        &lt;tr>
-                                            &lt;th>Charging (Electric)&lt;/th>
-                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.fullcharge)) * parseFloat(this.state.fullchargeCost))).toFixed(2)}&lt;/th>
-                                        &lt;/tr>
-                                        :
-                                        &lt;tr>
-                                            &lt;th>Gas&lt;/th>
-                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon)) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                            &lt;th>${((((parseFloat(this.state.miles) * 52) / parseFloat(this.state.mpg)) * parseFloat(this.state.gallon))).toFixed(2)}&lt;/th>
-                                        &lt;/tr>
-                                    }
-                                    &lt;tr>
-                                        &lt;th>Maintenance&lt;/th>
-                                        &lt;th>${(parseFloat(this.state.mait) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                        &lt;th>${(parseFloat(this.state.mait)).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-
-                                    &lt;tr>
-                                        &lt;th>Loans/Rental/Lease&lt;/th>
-                                        &lt;th>${((parseFloat(this.state.monthlyCarPay) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                        &lt;th>${((parseFloat(this.state.monthlyCarPay) * 12)).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-                                    &lt;tr>
-                                        &lt;th>Other Costs&lt;/th>
-                                        &lt;th>${((parseFloat(this.state.tolls) * 12) / (parseFloat(this.state.miles) * 52)).toFixed(2)}&lt;/th>
-                                        &lt;th>${((parseFloat(this.state.tolls) * 12)).toFixed(2)}&lt;/th>
-                                    &lt;/tr>
-                                &lt;/tbody>
-                            &lt;/Table>
+                            {/**
+                             * @see ./Components/RelationalTable
+                             */}
+                            &lt;RelationalTable _state = {this.state}/>
                             &lt;br />
                             &lt;h2>Other Famous Cars&lt;/h2>
                             &lt;p>This Bar Graph shows the Cost Per Mile of other famous cars and also types of cars.&lt;/p>
                             &lt;Button
                                 onClick={this.handleClickGraph}>{!this.state.graphRender ? "Sort Bar Data" : "Unsort Bar Data"}
                             &lt;/Button>
+                            {/**
+                             * shows a barchart of data based on screensize
+                             */}
                             {this.state.width >= 900 ?
                                 &lt;div className="GraphImage">
                                     &lt;Bar
@@ -1342,7 +1294,9 @@ class Calculator extends React.Component {
                             }
 
 
-
+                            {/**
+                             * Area where the user can choose 3 cars to compare data with
+                             */}
                             &lt;h2>Comparison Table&lt;/h2>
                             &lt;p>Choose 3 cars to compare data with below.&lt;/p>
                             &lt;Form.Group>
@@ -1400,7 +1354,11 @@ class Calculator extends React.Component {
 
                                 &lt;/Form.Group>
                             }
-
+                            {
+                                /**
+                                 * @see ./otherCPM.js
+                                 */
+                            }
                             {OtherCPM(this.state)}
 
                         &lt;/Jumbotron>
@@ -1571,13 +1529,13 @@ export default Calculator</code></pre>
 
 <nav>
     <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:handleChange">handleChange</a></li><li><a href="global.html#event:handleChangeMake">handleChangeMake</a></li><li><a href="global.html#event:handleClickCarFax">handleClickCarFax</a></li><li><a href="global.html#event:handleClickGasPrice">handleClickGasPrice</a></li><li><a href="global.html#event:handleClickVIN">handleClickVIN</a></li><li><a href="global.html#event:handleClickGraphshowssortedgraphorunsortedbasedonwhenuserclicks">handleClickGraph
-shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#count">count</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton7">Quesiton7</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question5">Question5</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question8">Question8</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#count">count</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton7">Quesiton7</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question5">Question5</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question8">Question8</a></li><li><a href="global.html#RelationalTable">RelationalTable</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Aug 04 2021 13:22:34 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Aug 04 2021 13:48:42 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
