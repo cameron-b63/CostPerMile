@@ -36,12 +36,12 @@ import useWindowDimensions from './windowDimensions.js'
  * @var {number} count 
  */
 var count = 0;
- /**
-  * compares the numbers 
-  * @param {string} a first word
-  * @param {string} b second word
-  * @returns {number} comparison
-  */
+/**
+ * compares the numbers 
+ * @param {string} a first word
+ * @param {string} b second word
+ * @returns {number} comparison
+ */
 function compare(a, b) {
     const nameA = a.Make_Name;
     const nameB = b.Make_Name;
@@ -100,7 +100,7 @@ class Calculator extends React.Component {
             /**
              * final cost per mile calculation
              */
-            costpermile: 1,
+            costpermile: NaN,
             /**
              * insurance cost over the year
              */
@@ -286,7 +286,7 @@ class Calculator extends React.Component {
             }]
         }
 
-        
+
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeMake = this.handleChangeMake.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -303,8 +303,16 @@ class Calculator extends React.Component {
      * changes this.state.depreciationValue
      */
     depreciate() {
+        /**
+         * Stores data of depreciation
+         * @var
+         * @private
+         */
         let depreciation;
-
+        /**
+         * calculation for depreciation
+         * @see https://goodcalculators.com/car-depreciation-calculator/
+         */
         if (this.state.isRental === "bought") {
             depreciation = -100 * (Math.pow((parseFloat(this.state.finalPrice) / parseFloat(this.state.originalPrice)), (1 / (2021 - parseFloat(this.state.boughtCarYear)))) - 1)
             depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation / 100)));
@@ -313,6 +321,9 @@ class Calculator extends React.Component {
         else {
             depreciation = 0;
         }
+        /**
+         * setting state of depreciationValue with newly calculated depreciation
+         */
         this.setState({ depreciationValue: depreciation },
             function () {
                 let final;
@@ -346,6 +357,10 @@ class Calculator extends React.Component {
      * @returns {boolean} whether the user can submit alphabet characters or strictly numbers
      */
     alphabetCheck(s) {
+        /**
+         * allows to check whether or not the user is entering a valid number
+         * @var
+         */
         var numbers = /^[0-9|.]+$/;
         if ((s.length === 0 || s.match(numbers))) {
             return true;
@@ -359,7 +374,7 @@ class Calculator extends React.Component {
     /**
      * handles whenever the user changes a single question
      * @param {event} event event
-     * @event event
+     * @event handleChange
      */
     handleChange(event) {
         const { name, value } = event.target
@@ -381,32 +396,38 @@ class Calculator extends React.Component {
         }
         console.log(this.state);
     }
-    handleChangeMake(e){
+
+    /**
+     * fetches new API data when the user submits a different car make
+     * @param {event} e event
+     * @event handleChangeMake
+     */
+    handleChangeMake(e) {
         count = 0;
         var carModels = [];
         var theCarMake = "";
         const { name, value } = e.target
         this.setState({
-            [name]:value
+            [name]: value
         })
         theCarMake = value;
         fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + theCarMake + '?format=json')
-        .then(response => response.json())
-        .then(data => {
-            this.setState({ models: data["Results"] });
-            carModels = data["Results"];
-            count = 6;
-            
-        })
-        
-       
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ models: data["Results"] });
+                carModels = data["Results"];
+                count = 6;
+
+            })
+
+
 
 
     }
     /**
-     * handles click if user clicks on the VIN button
+     * handles click if user clicks on the VIN button and gets data based on vin
      * @param {*} e event
-     * @event e
+     * @event handleClickVIN
      */
     handleClickVIN(e) {
         this.setState({ carModel: "", carMake: "" }, function () {
@@ -418,13 +439,14 @@ class Calculator extends React.Component {
     /**
      * gets citystate based on zip code when user presses on button
      * @param {*} e event
-     * @event e
+     * @event handleClickGasPrice
      */
     handleClickGasPrice(e) {
         this.getCityState(this.state.zipcode);
     }
     /**
      * when user clicks on carfax iFrame button, this shows the iFrame and updates
+     * @event handleClickCarFax
      */
     handleClickCarFax() {
         this.setState(function (past) {
@@ -432,12 +454,16 @@ class Calculator extends React.Component {
         })
     }
     /**
-     * @event 
+     * @event handleClickGraph
      * shows sorted graph or unsorted based on when user clicks
      */
-    
+
     handleClickGraph() {
         if (this.state.graphRender) {
+            /**
+             * @this calculator
+             * unsorted version of the graph data
+             */
             this.graphData = {
                 labels: this.state.otherFamousCars.map((x) => x.Name),
                 datasets: [{
@@ -463,6 +489,10 @@ class Calculator extends React.Component {
                 }]
             }
         } else {
+            /**
+             * displays sorted version of otherFamousCars
+             * @see compare2()
+             */
             this.graphData = {
                 labels: this.state.otherFamousCars.slice().sort(compare2).map((x) => x.Name),
                 datasets: [{
@@ -488,10 +518,13 @@ class Calculator extends React.Component {
                 }]
             }
         }
+        /**
+         * changes boolean of graphRender
+         */
         this.setState(function (past) {
             return { graphRender: !past.graphRender }
         })
-        
+
     }
     /**
      * handles the final submit of the form
@@ -521,7 +554,7 @@ class Calculator extends React.Component {
         var fuelType;
         if (vin.length > 0) {
             /**
-             * API call from NHTSA
+             * API call from NHTSA and gets ton of data
              */
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/' + this.state.VIN + '?format=json&modelyear=')
                 .then(response => response.json())
@@ -609,6 +642,9 @@ class Calculator extends React.Component {
                     var Numcitymileage = parseFloat(citymileage.substring(0, citymileage.indexOf(" ")));
                     var Numhighwaymileage = parseFloat(highwaymileage.substring(0, highwaymileage.indexOf(" ")));
                     var mileage = (Numcitymileage + Numhighwaymileage) / 2;
+                    /**
+                     * using self here and other places because using this no longer refers to Calculator class
+                     */
                     self.setState({
                         mpg: mileage
                     });
@@ -642,7 +678,10 @@ class Calculator extends React.Component {
 
             const http = require("https");
 
-
+            /**
+             * Calling API to get city,state
+             * use of self because "this" does not refer to Calculator class
+             */
             var self = this;
             const req = http.request(options, function (res) {
                 const chunks = [];
@@ -841,11 +880,11 @@ class Calculator extends React.Component {
         }
         else if (this.state.carMake.length > 0 && count < 10) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ models: data["Results"] });
-            })
-        count++;
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({ models: data["Results"] });
+                })
+            count++;
 
         }
         /**
@@ -1433,8 +1472,8 @@ class Calculator extends React.Component {
                         {/**
                          * @see {file} ./ComponentsQuestion2.js
                          */}
-                        <Question2 _state={this.state} _handleChange={this.handleChange} _handleChangeMake = {this.handleChangeMake} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
-                        
+                        <Question2 _state={this.state} _handleChange={this.handleChange} _handleChangeMake={this.handleChangeMake} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
+
                         {/**
                          * @see {file} ./ComponentsQuestion3.js
                          */}
@@ -1445,14 +1484,16 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Ownership Costs (Section 2/3)</h2>
-                        
+
                         {/**
                          * @see {file} ./ComponentsQuestion4.js
                          */}
                         <Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
 
-                         
+                        {/**
+                         * @see {file} ./Components/Question5.js
+                         */}
                         <Question5 _state={this.state} _handleChange={this.handleChange} />
 
 
@@ -1460,11 +1501,17 @@ class Calculator extends React.Component {
 
                     <Jumbotron>
                         <h2>Operating Costs (Section 3/3)</h2>
-
+                        {/**
+                         * @see {file} ./Components/Question6.js
+                         */}
                         <Question6 _state={this.state} _handleChange={this.handleChange} />
-
+                        {/**
+                         * @see {file} ./Components/Question7.js
+                         */}
                         <Question7 _state={this.state} _handleChange={this.handleChange} />
-
+                        {/**
+                         * @see {file} ./Components/Question8.js
+                         */}
                         <Question8 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
                         <input type="submit"
