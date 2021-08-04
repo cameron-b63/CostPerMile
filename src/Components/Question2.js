@@ -40,7 +40,7 @@ function Question2(props) {
                 </Form.Label>
                 <Form.Control as="select"
                     placeholder="Enter your car make"
-                    onChange={props._handleChange}
+                    onChange={props._handleChangeMake}
                     id="carMake"
                     type="text"
                     name="carMake"
@@ -83,7 +83,6 @@ function Question2(props) {
 
                 >
                     <option></option>
-                    
                     {props._allOptions2}
                 </Form.Control>
             </Form.Group>

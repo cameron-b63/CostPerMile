@@ -1,31 +1,28 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
-import Alert from 'react-bootstrap/Alert';
 /**
- * 
+ * @author zandergr88
  * @param {object} props properties of component
- * @returns {object} Question7
+ * @returns {object} Question8
  */
-function Quesiton8(props) {
+function Question8(props) {
     return (
         <Form.Group>
             <Form.Label>
-                7. What is your annual repair and maintenance cost for this car?
+                8.  Any other monthly car related costs? (e.g. parking, tolls, washing etc.)
             </Form.Label>
             <Form.Control
-                placeholder="Enter how much you pay for maintenance a year"
+                placeholder="Enter how much you pay for tolls monthly"
                 onChange={props._handleChange}
-                id="maitenance"
+                id="tolls"
                 type="text"
-                name="mait"
-                value={props._state.mait}
+                name="tolls"
+                value={props._state.tolls}
                 required
             />
-            <Form.Text className="text-muted">Average in the US is $792</Form.Text>
 
-        </Form.Group>
-    )
-
+        </Form.Group>)
+    
 }
-export default Quesiton8;
+export default Question8;
