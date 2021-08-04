@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Components/Header.js</title>
+    <title>JSDoc: Source: Components/Question5.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Components/Header.js</h1>
+    <h1 class="page-title">Source: Components/Question5.js</h1>
 
     
 
@@ -26,42 +26,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Jumbotron from 'react-bootstrap/Jumbotron';
-
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Form from 'react-bootstrap/Form'
 /**
  * 
- * @returns {object} Header of the webpage
+ * @param {object} props properties of component
+ * @returns {object} Question5 component
  */
-function Header() {
-    return(
-    &lt;Jumbotron>
-        &lt;h1>
-            8 Question Cost Per Mile Comparison
-        &lt;/h1>
-        &lt;br/>
-        
-        &lt;h4>What is cost per mile?&lt;/h4>
-        &lt;p>
-            Your cost per mile is a calculation that tells you how much it costs to drive one mile.
-            Many people only account for the fuel cost per mile, but there are many more expenses that you may not think about.
-        &lt;/p>
-        &lt;h4>Why is your cost per mile so important?&lt;/h4>
-        &lt;p>
-            Most people don't know their cost per mile and therefore don't know what may be costing
-            so much to operate their car. Understanding your cost per mile allows you to begin lowering costs (e.g., finding a lower insurance provider).
-        &lt;/p>
-        &lt;h4>
-            What this form does
-        &lt;/h4>
-        &lt;p>
-            The following questions are the basis for calculating your cost per mile. The information you provide is not stored in any way. The results are for general information purposes only.
-        &lt;/p>
+function Question5(props) {
+    return (
+        &lt;Form.Group>
+            &lt;Form.Label>
+                5. What is your annual insurance cost for this car?
+            &lt;/Form.Label>
+            &lt;Form.Control
+                required
+                placeholder="Enter the amount of insurance paid a year"
+                onChange={props._handleChange}
+                id="insurance"
+                type="text"
+                name="iPaid"
+                value={props._state.iPaid}
+            />
+                    &lt;Form.Text className="text-muted">Average in the US is $1674&lt;/Form.Text>
 
-       
-    &lt;/Jumbotron>
+
+        &lt;/Form.Group>
     )
+    
 }
-export default Header;</code></pre>
+export default Question5;</code></pre>
         </article>
     </section>
 

@@ -5,7 +5,7 @@ import Alert from 'react-bootstrap/Alert';
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} Question6
+ * @returns {object} Question6 component
  */
 function Question6(props) {
     return (

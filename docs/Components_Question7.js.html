@@ -33,41 +33,30 @@ import Alert from 'react-bootstrap/Alert';
 /**
  * 
  * @param {object} props properties of component
- * @returns {object} Question6
+ * @returns {object} Question7 component
  */
-function Question7(props) {
+function Quesiton7(props) {
     return (
-
         &lt;Form.Group>
-
             &lt;Form.Label>
-                6. How many miles do you usually drive per week?
+                7. What is your annual repair and maintenance cost for this car?
             &lt;/Form.Label>
-            &lt;Form.Control type="text"
-                placeholder="Enter how many miles driven"
+            &lt;Form.Control
+                placeholder="Enter how much you pay for maintenance a year"
                 onChange={props._handleChange}
-                id="miles"
+                id="maitenance"
                 type="text"
-                name="miles"
-                value={props._state.miles}
+                name="mait"
+                value={props._state.mait}
                 required
             />
-            &lt;Form.Text className="text-muted">Average in the US is 187 miles&lt;/Form.Text>
+            &lt;Form.Text className="text-muted">Average in the US is $792&lt;/Form.Text>
 
-            {props._state.miles &amp;&amp; !Number.isNaN(props._state.miles) ?
-                (&lt;Alert variant="secondary">
-                    &lt;Alert.Heading>Miles Per Year&lt;/Alert.Heading>
-                    &lt;p>That's {parseFloat(props._state.miles) * 52} miles a year&lt;/p>
-                &lt;/Alert>)
-                :
-                (&lt;div>&lt;/div>)
-            }
         &lt;/Form.Group>
+    )
 
-
-    );
 }
-export default Question7;</code></pre>
+export default Quesiton7;</code></pre>
         </article>
     </section>
 
@@ -77,13 +66,13 @@ export default Question7;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton8">Quesiton8</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question7">Question7</a></li><li><a href="global.html#Question9">Question9</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#count">count</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton7">Quesiton7</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question5">Question5</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question8">Question8</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 03 2021 13:27:05 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Aug 04 2021 12:31:35 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

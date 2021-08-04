@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form'
 /**
  * 
  * @param {object} stateProps properties passed as a component
- * @returns {object}  a. How much was this car when you first bought it? question
+ * @returns {object}  a. How much was this car when you first bought it? component
  */
 function NewCost(stateProps) {
     return (

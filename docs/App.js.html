@@ -46,10 +46,10 @@ import Question1 from './Components/Question1.js'
 import Question2 from './Components/Question2.js'
 import Question3 from './Components/Question3.js'
 import Question4 from './Components/Question4.js'
+import Question5 from './Components/Question5.js'
 import Question6 from './Components/Question6.js'
 import Question7 from './Components/Question7.js'
 import Question8 from './Components/Question8.js'
-import Question9 from './Components/Question9.js'
 import NewCost from './Components/NewCost.js'
 import NowCost from './Components/NowCost.js'
 import Loan from './Components/Loan.js'
@@ -59,7 +59,10 @@ import { Bar } from 'react-chartjs-2';
 import Chart from "react-google-charts";
 import useWindowDimensions from './windowDimensions.js'
 
-
+/**
+ * Makes sure that make renders only after a certain period of time after user chose model
+ * @var {number} count 
+ */
 var count = 0;
  /**
   * compares the numbers 
@@ -107,7 +110,6 @@ function getBarData(labels, CPMs) {
     for (var i = 0; i &lt; labels.length; i++) {
         arr.push([labels[i], CPMs[i], '#176BEF'])
     }
-    console.log(arr);
     return arr;
 }
 /**
@@ -314,6 +316,7 @@ class Calculator extends React.Component {
 
         
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeMake = this.handleChangeMake.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickVIN = this.handleClickVIN.bind(this);
         this.handleClickGasPrice = this.handleClickGasPrice.bind(this);
@@ -332,10 +335,8 @@ class Calculator extends React.Component {
 
         if (this.state.isRental === "bought") {
             depreciation = -100 * (Math.pow((parseFloat(this.state.finalPrice) / parseFloat(this.state.originalPrice)), (1 / (2021 - parseFloat(this.state.boughtCarYear)))) - 1)
-            console.log(depreciation);
             depreciation = this.state.finalPrice - (this.state.finalPrice * (1 - (depreciation / 100)));
 
-            console.log(depreciation);
         }
         else {
             depreciation = 0;
@@ -407,6 +408,28 @@ class Calculator extends React.Component {
             })
         }
         console.log(this.state);
+    }
+    handleChangeMake(e){
+        count = 0;
+        var carModels = [];
+        var theCarMake = "";
+        const { name, value } = e.target
+        this.setState({
+            [name]:value
+        })
+        theCarMake = value;
+        fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + theCarMake + '?format=json')
+        .then(response => response.json())
+        .then(data => {
+            this.setState({ models: data["Results"] });
+            carModels = data["Results"];
+            count = 6;
+            
+        })
+        
+       
+
+
     }
     /**
      * handles click if user clicks on the VIN button
@@ -496,8 +519,7 @@ class Calculator extends React.Component {
         this.setState(function (past) {
             return { graphRender: !past.graphRender }
         })
-        console.log(this.state.graphRender);
-        console.log(this.graphData);
+        
     }
     /**
      * handles the final submit of the form
@@ -795,7 +817,7 @@ class Calculator extends React.Component {
     }
     /**
      * react render function
-     * @returns {object}The entire page in JSX
+     * @returns {object}The entire page in JSX and also conditional rendering of components
      */
     render() {
         /**
@@ -847,12 +869,11 @@ class Calculator extends React.Component {
         }
         else if (this.state.carMake.length > 0 &amp;&amp; count &lt; 10) {
             fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/' + this.state.carMake + '?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({ models: data["Results"] });
-                })
-            count++;
-            console.log(count);
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ models: data["Results"] });
+            })
+        count++;
 
         }
         /**
@@ -1005,7 +1026,7 @@ class Calculator extends React.Component {
         }
 
         /**
-         * renders relational data 
+         * renders relational data based on certain parameters
          * @see {file} "./otherCPM.js"
          * 
          */
@@ -1428,28 +1449,39 @@ class Calculator extends React.Component {
 
                     &lt;Jumbotron>
                         &lt;h2>Vehicle Information (Section 1/3)&lt;/h2>
-
+                        {/**
+                         * @see {file} ./ComponentsQuestion1.js
+                         */}
                         &lt;Question1 state={this.state} onChange={this.handleChange} carMakeAlert={renderCarMakeAlert} onClick={this.handleClickVIN} />
 
                         &lt;Form.Label>
                             2. Enter you Car Year, Make, Model
                         &lt;/Form.Label>
                         &lt;br />
-                        &lt;Question2 _state={this.state} _handleChange={this.handleChange} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
-
+                        {/**
+                         * @see {file} ./ComponentsQuestion2.js
+                         */}
+                        &lt;Question2 _state={this.state} _handleChange={this.handleChange} _handleChangeMake = {this.handleChangeMake} _carYears={carYears} _allOptions={allOptions} _allOptions2={allOptions2} _count={count} />
+                        
+                        {/**
+                         * @see {file} ./ComponentsQuestion3.js
+                         */}
                         &lt;Question3 _state={this.state} _handleChange={this.handleChange} />
-                        {/* TODO: Make model not accessible while waiting */}
                         {renderFuelQuestions}
 
                     &lt;/Jumbotron>
 
                     &lt;Jumbotron>
                         &lt;h2>Ownership Costs (Section 2/3)&lt;/h2>
-
+                        
+                        {/**
+                         * @see {file} ./ComponentsQuestion4.js
+                         */}
                         &lt;Question4 _state={this.state} _handleChange={this.handleChange} />
                         {renderBought}
 
-                        &lt;Question6 _state={this.state} _handleChange={this.handleChange} />
+                         
+                        &lt;Question5 _state={this.state} _handleChange={this.handleChange} />
 
 
                     &lt;/Jumbotron>
@@ -1457,11 +1489,11 @@ class Calculator extends React.Component {
                     &lt;Jumbotron>
                         &lt;h2>Operating Costs (Section 3/3)&lt;/h2>
 
+                        &lt;Question6 _state={this.state} _handleChange={this.handleChange} />
+
                         &lt;Question7 _state={this.state} _handleChange={this.handleChange} />
 
                         &lt;Question8 _state={this.state} _handleChange={this.handleChange} />
-
-                        &lt;Question9 _state={this.state} _handleChange={this.handleChange} />
                         {renderAlert}
                         &lt;input type="submit"
                         />
@@ -1491,13 +1523,13 @@ export default Calculator</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton8">Quesiton8</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question7">Question7</a></li><li><a href="global.html#Question9">Question9</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calculator.html">Calculator</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:e">e</a></li><li><a href="global.html#event:event">event</a></li><li><a href="global.html#event:showssortedgraphorunsortedbasedonwhenuserclicks">shows sorted graph or unsorted based on when user clicks</a></li></ul><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#compare2">compare2</a></li><li><a href="global.html#count">count</a></li><li><a href="global.html#getBarData">getBarData</a></li><li><a href="global.html#getWindowDimensions">getWindowDimensions</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loan">Loan</a></li><li><a href="global.html#NewCost">NewCost</a></li><li><a href="global.html#NowCost">NowCost</a></li><li><a href="global.html#OtherCPM">OtherCPM</a></li><li><a href="global.html#printArrayOfInformation">printArrayOfInformation</a></li><li><a href="global.html#printArrayPhone">printArrayPhone</a></li><li><a href="global.html#Quesiton7">Quesiton7</a></li><li><a href="global.html#Question1">Question1</a></li><li><a href="global.html#Question2">Question2</a></li><li><a href="global.html#Question3">Question3</a></li><li><a href="global.html#Question4">Question4</a></li><li><a href="global.html#Question5">Question5</a></li><li><a href="global.html#Question6">Question6</a></li><li><a href="global.html#Question8">Question8</a></li><li><a href="global.html#renderListElement">renderListElement</a></li><li><a href="global.html#Rental">Rental</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Tue Aug 03 2021 13:27:05 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Aug 04 2021 12:31:35 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
