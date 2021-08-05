@@ -101,7 +101,7 @@ class Calculator extends React.Component {
             /**
              * final cost per mile calculation
              */
-            costpermile: NaN,
+            costpermile: 1,
             /**
              * insurance cost over the year
              */
@@ -1186,7 +1186,7 @@ class Calculator extends React.Component {
                                     height={20}
                                 />
                             </div>
-                            {/* <Chart
+                             <Chart
                                 width={'100%'}
                                 height={'100%'}
                                 chartType="Table"
@@ -1222,7 +1222,7 @@ class Calculator extends React.Component {
                                     height: "100%",
                                     
                                 }}
-                            /> */}
+                            />
                             {/**
                              * @see ./Components/RelationalTable
                              */}
