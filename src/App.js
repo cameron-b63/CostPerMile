@@ -33,6 +33,7 @@ import useWindowDimensions from './windowDimensions.js'
 
 /**
  * Makes sure that make renders only after a certain period of time after user chose model
+ * It counts the times that the screen renders
  * @var {number} count 
  */
 var count = 0;
@@ -831,6 +832,7 @@ class Calculator extends React.Component {
      * @returns {object}The entire page in JSX and also conditional rendering of components
      */
     render() {
+        console.log(count);
         /**
          * allOptions to display for Make Question
          */
@@ -1402,6 +1404,10 @@ class Calculator extends React.Component {
         } else {
             renderBought = (<div></div>)
         }
+
+
+
+
 
         /**
          * returning of the entire page 

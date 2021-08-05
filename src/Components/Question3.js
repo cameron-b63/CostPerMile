@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form'
 
 /**
- * 
+ * function that returns an object representing question3
  * @param {object} props properties of component
  * @returns {object} Question3 component
  */
