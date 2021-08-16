@@ -101,7 +101,7 @@ class Calculator extends React.Component {
             /**
              * final cost per mile calculation
              */
-            costpermile: NaN,
+            costpermile: 1,
             /**
              * insurance cost over the year
              */
